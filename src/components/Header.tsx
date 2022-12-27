@@ -85,7 +85,7 @@ const NavItemIcon = styled(FontAwesomeIcon)`
   font-size: 10px;
   vertical-align: inherit;
 `;
-const NavDropDown = styled.ul``;
+const NavDropDown = styled.ul`²`;
 const NavDropDownItem = styled.li``;
 const MediaContainer = styled.div`
   display: flex;
