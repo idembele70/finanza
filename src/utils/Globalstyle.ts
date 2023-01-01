@@ -13,6 +13,12 @@ h1 {
   font-weight:700;
   line-height:1.2;
 }
+a {
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: "Open Sans", "sans-serif";
+  font-weight: 500;
+}
 `;
 
 export default GlobalStyle;

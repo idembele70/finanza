@@ -69,8 +69,7 @@ const Nav = styled.nav`
 const NavItem = styled(NavLink)`
   text-decoration: none;
   color: ${({ theme }) => theme.palette.common.black};
-  font-size: 1rem;
-  font-family: "Open Sans", "sans-serif";
+
   font-weight: 500;
   padding: 25px 15px;
   &:hover {
@@ -85,8 +84,37 @@ const NavItemIcon = styled(FontAwesomeIcon)`
   font-size: 10px;
   vertical-align: inherit;
 `;
-const NavDropDown = styled.ul`²`;
-const NavDropDownItem = styled.li``;
+const DropDownContainer = styled(NavItem)`
+  position: relative;
+  &:hover {
+    & > div {
+      opacity: 1;
+      transform: rotateX(0);
+    }
+  }
+`;
+const NavDropDown = styled.div`
+  opacity: 0;
+  position: absolute;
+  top: 72px;
+  left: 0;
+  min-width: 160px;
+  background-color: ${({ theme }) => theme.palette.common.white};
+  padding: 8px 0;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  border: 1px solid ${({ theme }) => theme.borderColor};
+  transition: all 500ms ease;
+  transform-origin: 0% 0%;
+  transform: rotateX(-75deg);
+`;
+const NavDropDownItem = styled(Link)`
+  width: 100%;
+  display: block;
+  color: #212529;
+  padding: 4px 16px;
+  font-weight: 400;
+  line-height: 1.5;
+`;
 const MediaContainer = styled.div`
   display: flex;
   align-items: center;
@@ -138,10 +166,17 @@ const Header = () => {
             <NavItem to="/">Home</NavItem>
             <NavItem to="/about">About</NavItem>
             <NavItem to="/service">Services</NavItem>
-            <NavItem to="/">
+            <DropDownContainer to="/">
               Pages
               <NavItemIcon icon={["fas", "chevron-down"]} />
-            </NavItem>
+              <NavDropDown>
+                <NavDropDownItem to="/">Projects</NavDropDownItem>
+                <NavDropDownItem to="/">Features</NavDropDownItem>
+                <NavDropDownItem to="/">Team Member</NavDropDownItem>
+                <NavDropDownItem to="/">Testimonial</NavDropDownItem>
+                <NavDropDownItem to="/">404 Page</NavDropDownItem>
+              </NavDropDown>
+            </DropDownContainer>
             <NavItem to="/contact">Contact</NavItem>
           </Nav>
           <MediaContainer>
