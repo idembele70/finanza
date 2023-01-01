@@ -15,7 +15,8 @@ import {
   faPhone,
   faS,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 library.add(faLocationDot, faS, faClock, faEnvelope, faPhone, faChevronDown);
 
 const Container = styled.div``;
@@ -69,14 +70,13 @@ const Nav = styled.nav`
 const NavItem = styled(NavLink)`
   text-decoration: none;
   color: ${({ theme }) => theme.palette.common.black};
-
+  &.active {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
   font-weight: 500;
   padding: 25px 15px;
   &:hover {
     color: ${({ theme }) => theme.palette.primary.main};
-    & > svg {
-      color: ${({ theme }) => theme.palette.primary.main};
-    }
   }
 `;
 const NavItemIcon = styled(FontAwesomeIcon)`
@@ -84,9 +84,23 @@ const NavItemIcon = styled(FontAwesomeIcon)`
   font-size: 10px;
   vertical-align: inherit;
 `;
-const DropDownContainer = styled(NavItem)`
+interface DropDownContainerProps {
+  isactive: boolean;
+}
+const DropDownContainer = styled.span<DropDownContainerProps>`
+  color: ${({ theme, isactive }) =>
+    isactive ? theme.palette.primary.main : theme.palette.common.black};
+  font-weight: 500;
+  padding: 25px 15px;
+  font-size: 1rem;
+  font-family: "Open Sans", "sans-serif";
   position: relative;
+  cursor: pointer;
   &:hover {
+    color: ${({ theme }) => theme.palette.primary.main};
+    & > svg {
+      color: ${({ theme }) => theme.palette.primary.main};
+    }
     & > div {
       opacity: 1;
       transform: rotateX(0);
@@ -107,13 +121,20 @@ const NavDropDown = styled.div`
   transform-origin: 0% 0%;
   transform: rotateX(-75deg);
 `;
-const NavDropDownItem = styled(Link)`
+const NavDropDownItem = styled(NavLink)`
   width: 100%;
   display: block;
   color: #212529;
   padding: 4px 16px;
   font-weight: 400;
   line-height: 1.5;
+  &:hover {
+    background-color: #e9ecef;
+  }
+  &.active {
+    background-color: ${({ theme }) => theme.palette.primary.main};
+    color: ${({ theme }) => theme.palette.common.white};
+  }
 `;
 const MediaContainer = styled.div`
   display: flex;
@@ -133,6 +154,17 @@ const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
 const Header = () => {
+  const { pathname } = useLocation();
+  const [isPagesActive, setIsPagesActive] = useState(false);
+  useEffect(() => {
+    if (
+      ["/project", "/feature", "/team", "/testimonial", "/notFound"].includes(
+        pathname
+      )
+    )
+      setIsPagesActive(true);
+    else setIsPagesActive(false);
+  }, [pathname]);
   return (
     <Container>
       <Top>
@@ -166,15 +198,15 @@ const Header = () => {
             <NavItem to="/">Home</NavItem>
             <NavItem to="/about">About</NavItem>
             <NavItem to="/service">Services</NavItem>
-            <DropDownContainer to="/">
+            <DropDownContainer isactive={isPagesActive}>
               Pages
               <NavItemIcon icon={["fas", "chevron-down"]} />
               <NavDropDown>
-                <NavDropDownItem to="/">Projects</NavDropDownItem>
-                <NavDropDownItem to="/">Features</NavDropDownItem>
-                <NavDropDownItem to="/">Team Member</NavDropDownItem>
-                <NavDropDownItem to="/">Testimonial</NavDropDownItem>
-                <NavDropDownItem to="/">404 Page</NavDropDownItem>
+                <NavDropDownItem to="/project">Projects</NavDropDownItem>
+                <NavDropDownItem to="/feature">Features</NavDropDownItem>
+                <NavDropDownItem to="/team">Team Member</NavDropDownItem>
+                <NavDropDownItem to="/testimonial">Testimonial</NavDropDownItem>
+                <NavDropDownItem to="/notFound">404 Page</NavDropDownItem>
               </NavDropDown>
             </DropDownContainer>
             <NavItem to="/contact">Contact</NavItem>
