@@ -13,22 +13,44 @@ import {
   faEnvelope,
   faLocationDot,
   faPhone,
+  faBars,
   faS,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-library.add(faLocationDot, faS, faClock, faEnvelope, faPhone, faChevronDown);
+import { lgDown, mdDown, mdUp } from "../utils/responsive";
+library.add(
+  faLocationDot,
+  faS,
+  faClock,
+  faEnvelope,
+  faPhone,
+  faChevronDown,
+  faBars
+);
 
-const Container = styled.div``;
+const Container = styled.div`
+  padding: 0 ${({ theme }) => theme.containerPaddingX}px;
+  ${({ theme }) =>
+    mdDown({
+      padding: `0 calc(${theme.containerPaddingX / 2}px)`,
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+    })}
+`;
 
 const Top = styled.div`
-  padding: 0 48px;
   width: 100%;
   height: 45px;
   border-bottom: 1px solid rgba(53, 94, 252, 0.07);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mdDown({
+    display: "none",
+  })}
 `;
 const Column = styled.div`
   & > small:last-child {
@@ -45,9 +67,9 @@ const StyledIcon = styled(FontAwesomeIcon)`
   margin-right: 8px;
 `;
 const Bottom = styled.header`
-  padding: 0 48px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 const LogoContainer = styled(Link)`
   text-decoration: none;
@@ -59,13 +81,39 @@ const Logo = styled.h1`
   color: ${({ theme }) => theme.palette.primary.main};
   font-size: 3rem;
   cursor: pointer;
+  ${lgDown({
+    fontSize: "calc(1.425rem + 2.1vw)",
+  })}
 `;
-const Right = styled.div`
+interface RightProps {
+  toggle: boolean;
+}
+const Right = styled.div<RightProps>`
   display: flex;
+  transition: max-height 350ms ease;
+  ${({ toggle, theme }) =>
+    mdDown({
+      display: "flex",
+      maxHeight: toggle ? 447 : 0,
+      position: "absolute",
+      top: "100%",
+      left: 0,
+      right: 0,
+      marginTop: 10,
+      overflow: "hidden",
+      backgroundColor: theme.palette.common.white,
+      borderTop: toggle ? "1px solid rgba(0,0,0,0.07)" : "none",
+    })}
 `;
 const Nav = styled.nav`
   display: flex;
   align-items: center;
+  ${({ theme }) =>
+    mdDown({
+      flexDirection: "column",
+      width: "100%",
+      padding: `calc(${theme.containerPaddingX}px /2)`,
+    })}
 `;
 const NavItem = styled(NavLink)`
   text-decoration: none;
@@ -78,6 +126,10 @@ const NavItem = styled(NavLink)`
   &:hover {
     color: ${({ theme }) => theme.palette.primary.main};
   }
+  ${mdDown({
+    width: "100%",
+    padding: "10px 0",
+  })}
 `;
 const NavItemIcon = styled(FontAwesomeIcon)`
   margin-left: 10px;
@@ -86,6 +138,7 @@ const NavItemIcon = styled(FontAwesomeIcon)`
 `;
 interface DropDownContainerProps {
   isactive: boolean;
+  toggle: boolean;
 }
 const DropDownContainer = styled.span<DropDownContainerProps>`
   color: ${({ theme, isactive }) =>
@@ -101,11 +154,23 @@ const DropDownContainer = styled.span<DropDownContainerProps>`
     & > svg {
       color: ${({ theme }) => theme.palette.primary.main};
     }
-    & > div {
-      opacity: 1;
-      transform: rotateX(0);
-    }
   }
+  ${mdUp({
+    ["&:hover"]: {
+      ["& > div"]: {
+        opacity: 1,
+        transform: "rotateX(0)",
+      },
+    },
+  })}
+  ${({ toggle }) =>
+    mdDown({
+      width: "100%",
+      padding: "10px 0",
+      ["& > div:last-of-type"]: {
+        display: toggle ? "block" : "none",
+      },
+    })}
 `;
 const NavDropDown = styled.div`
   opacity: 0;
@@ -120,6 +185,12 @@ const NavDropDown = styled.div`
   transition: all 500ms ease;
   transform-origin: 0% 0%;
   transform: rotateX(-75deg);
+  ${mdDown({
+    position: "initial",
+    transform: "rotateX(0deg)",
+    marginTop: 10,
+    opacity: 1,
+  })}
 `;
 const NavDropDownItem = styled(NavLink)`
   width: 100%;
@@ -139,6 +210,9 @@ const NavDropDownItem = styled(NavLink)`
 const MediaContainer = styled.div`
   display: flex;
   align-items: center;
+  ${mdDown({
+    display: "none",
+  })}
 `;
 const MediaIconContainer = styled(Link)`
   margin-left: 16px;
@@ -153,9 +227,33 @@ const MediaIconContainer = styled(Link)`
 const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
+const BarsContainer = styled.button`
+  display: none;
+  padding: 4px 12px;
+  background-color: transparent;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.55);
+  border-radius: ${({ theme }) => theme.borderRadius};
+  cursor: pointer;
+  transition: box-shadow 150ms ease-in-out;
+  outline: 0;
+  &:focus {
+    box-shadow: 0 0 0 0.25rem;
+  }
+  ${mdDown({
+    display: "initial",
+  })}
+`;
+const Bars = styled(FontAwesomeIcon)`
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.55);
+`;
 const Header = () => {
   const { pathname } = useLocation();
   const [isPagesActive, setIsPagesActive] = useState(false);
+  const [navToggle, setNavToggle] = useState(false);
+  const [dropDownToggle, setDropDownToggle] = useState(false);
   useEffect(() => {
     if (
       ["/project", "/feature", "/team", "/testimonial", "/notFound"].includes(
@@ -165,6 +263,13 @@ const Header = () => {
       setIsPagesActive(true);
     else setIsPagesActive(false);
   }, [pathname]);
+  const handleToggleNav = () => {
+    setNavToggle(!navToggle);
+    setDropDownToggle(false);
+  };
+  const handleToggleDropDown = () => {
+    setDropDownToggle(!dropDownToggle);
+  };
   return (
     <Container>
       <Top>
@@ -193,12 +298,16 @@ const Header = () => {
         <LogoContainer to="/">
           <Logo>Finanza</Logo>
         </LogoContainer>
-        <Right>
+        <Right toggle={navToggle}>
           <Nav>
             <NavItem to="/">Home</NavItem>
             <NavItem to="/about">About</NavItem>
             <NavItem to="/service">Services</NavItem>
-            <DropDownContainer isactive={isPagesActive}>
+            <DropDownContainer
+              onClick={handleToggleDropDown}
+              toggle={dropDownToggle}
+              isactive={isPagesActive}
+            >
               Pages
               <NavItemIcon icon={["fas", "chevron-down"]} />
               <NavDropDown>
@@ -223,6 +332,9 @@ const Header = () => {
             </MediaIconContainer>
           </MediaContainer>
         </Right>
+        <BarsContainer onClick={handleToggleNav}>
+          <Bars icon={["fas", "bars"]} />
+        </BarsContainer>
       </Bottom>
     </Container>
   );

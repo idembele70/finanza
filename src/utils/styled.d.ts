@@ -8,7 +8,8 @@ interface IPalette {
 declare module "styled-components" {
   export interface DefaultTheme {
     borderRadius: string;
-    borderColor: string,
+    borderColor: string;
+    containerPaddingX: number;
     palette: {
       common: {
         black: string;
