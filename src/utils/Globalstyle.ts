@@ -19,6 +19,12 @@ a {
   font-family: "Open Sans", "sans-serif";
   font-weight: 500;
 }
+p {
+  font-size:1rem;
+  font-family: "Open Sans", "sans-serif";
+  font-weight:500;
+  line-height:1.5;
+}
 `;
 
 export default GlobalStyle;

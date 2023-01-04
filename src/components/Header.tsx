@@ -31,14 +31,15 @@ library.add(
 
 const Container = styled.div`
   padding: 0 ${({ theme }) => theme.containerPaddingX}px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
   ${({ theme }) =>
     mdDown({
       padding: `0 calc(${theme.containerPaddingX / 2}px)`,
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-    })}
+    })};
 `;
 
 const Top = styled.div`
@@ -70,6 +71,7 @@ const Bottom = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 0;
 `;
 const LogoContainer = styled(Link)`
   text-decoration: none;
