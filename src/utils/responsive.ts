@@ -1,5 +1,22 @@
 import { css, CSSObject } from "styled-components";
+// XLarge device breakpoint
+export function xlUp(props: CSSObject) {
+  return css`
+  @media only screen and (min-width:1401px) {
+    ${props}
+  }
+`
+}
+// Large device breakpoint
+export function lgDown(props: CSSObject) {
+  return css`
+  @media only screen and (max-width:1200px) {
+    ${props}
+  }
+`
+}
 
+// Medium device breakpoint
 export function mdDown(props: CSSObject) {
   return css`
   @media only screen and (max-width:992px) {
@@ -14,9 +31,18 @@ export function mdUp(props: CSSObject) {
   }
 `
 }
-export function lgDown(props: CSSObject) {
+// Small device breakpoint
+export function smDown(props: CSSObject) {
   return css`
-  @media only screen and (max-width:1200px) {
+  @media only screen and (max-width:768px) {
+    ${props}
+  }
+`
+}
+// XSmall device breakpoint
+export function xsDown(props: CSSObject) {
+  return css`
+  @media only screen and (max-width:576px) {
     ${props}
   }
 `

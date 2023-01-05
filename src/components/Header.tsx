@@ -35,7 +35,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
   ${({ theme }) =>
     mdDown({
       padding: `0 calc(${theme.containerPaddingX / 2}px)`,
@@ -78,6 +78,7 @@ const LogoContainer = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 5px 0;
 `;
 const Logo = styled.h1`
   color: ${({ theme }) => theme.palette.primary.main};

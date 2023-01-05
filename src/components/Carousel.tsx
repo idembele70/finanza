@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Slider, { InnerSlider, Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { mdDown } from "../utils/responsive";
+import { lgDown, mdDown, smDown, xsDown } from "../utils/responsive";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -14,27 +14,38 @@ import {
 library.add(faChevronLeft, faChevronRight);
 const Container = styled.div`
   position: relative;
+  margin-bottom: 48px;
 `;
-
-//padding: 133px ${({ theme }) => theme.containerPaddingX}px 0;
-//${({ theme }) =>
-//  mdDown({
-//    padding: `68px calc(${theme.containerPaddingX / 2}px)`,
-//  })}
 const SliderItem = styled.div`
   position: relative;
 `;
 const Image = styled.img`
   width: 100%;
+  min-height: 450px;
+  object-fit: cover;
 `;
-const SliderDesc = styled.div`
+export const Wrapper = styled.div`
+  width: 100%;
+  padding: 0 12px;
+  max-width: 1320px;
+  margin: 0 auto;
+  ${lgDown({
+    maxWidth: 960,
+  })}
+  ${mdDown({
+    maxWidth: 720,
+  })}
+  ${smDown({
+    maxWidth: 540,
+  })}
+  ${xsDown({})}
+`;
+const SliderDesc = styled(Wrapper)`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-  width: 100%;
-  max-width: 1320px;
 `;
 const Paragraph = styled.p`
   display: inline-block;
@@ -49,6 +60,9 @@ const Title = styled.h1`
   font-size: 5rem;
   margin-bottom: 24px;
   max-width: 736px;
+  ${lgDown({
+    fontSize: "calc(1.625rem + 4.5vw)",
+  })}
 `;
 const Button = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.light};
@@ -111,6 +125,7 @@ const SlideLeftButton = styled(SlideButton)`
 const SlideRightButton = styled(SlideButton)`
   border-radius: 50% 0 0 50%;
 `;
+export const imgbaseUrl = `${process.env.PUBLIC_URL}/assets/`;
 const Carousel = () => {
   const settings: Settings = {
     fade: true,
@@ -122,8 +137,7 @@ const Carousel = () => {
     slidesToScroll: 1,
     arrows: false,
   };
-
-  const baseUrl = `${process.env.PUBLIC_URL}/assets/carousel-`;
+  const baseUrl = `${imgbaseUrl}carousel-`;
   const endUrl = ".jpg";
   const slideEl = useRef<Slider | null>(null);
   const handleScroll = (direction: string) => {
