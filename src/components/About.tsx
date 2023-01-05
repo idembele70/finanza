@@ -1,42 +1,78 @@
-import React, { useState } from "react";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faCircleXmark,
+  faPhoneFlip,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { Wrapper, imgbaseUrl } from "./Carousel";
-const Container = styled(Wrapper)`
-  padding: 0;
-`;
+import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
+import { ParagraphWithBorder, Wrapper, imgbaseUrl } from "./Carousel";
+library.add(faCircleXmark, faUsers, faPhoneFlip);
+const Container = styled(Wrapper)``;
 const ColWrapper = styled.div`
   display: flex;
+  margin: 24px -12px;
+  ${mdDown({
+    flexDirection: "column",
+  })}
+  ${xsDown({
+    margin: "24px 0",
+  })}
 `;
 const Col = styled.div`
   padding: 0 12px;
   margin-top: 24px;
   height: 624px;
-`;
-const Image = styled.img`
-  height: 100%;
-`;
-const Right = styled(Col)`
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
+  ${xlDown({
+    height: 546,
+  })};
+  ${lgDown({
+    height: 586,
+  })};
+  ${mdDown({
+    width: "100%",
+  })};
 `;
-const Paragraph = styled.p`
-  color: ${({ theme }) => theme.palette.primary.main};
-  margin-bottom: 16px;
-  padding: 4px 16px;
-  border: 1px solid ${({ theme }) => theme.palette.primary.light};
+const Left = styled(Col)`
+  ${mdDown({
+    height: 696,
+  })};
+  ${smDown({
+    height: 516,
+  })};
+  ${xsDown({
+    height: "auto",
+  })};
+`;
+const Right = styled(Col)`
+  height: auto;
+`;
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
   border-radius: ${({ theme }) => theme.borderRadius};
-  display: inline-block;
+  ${mdDown({})}
 `;
+
 const Title = styled.h1`
   color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 3rem;
   margin-bottom: 24px;
+  ${lgDown({
+    fontSize: "calc(1.425rem + 2.1vw)",
+  })}
 `;
 const Desc = styled.p`
   color: ${({ theme }) => theme.palette.common.black};
   margin-bottom: 24px;
+  font-weight: 400;
 `;
 const TabContainer = styled.div`
   width: 100%;
@@ -107,6 +143,67 @@ const TabDesc = styled.p`
     margin-bottom: 16px;
   }
 `;
+const AboutFooter = styled.div`
+  border: 1px solid ${({ theme }) => theme.palette.primary.light};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  padding: 24px;
+  display: flex;
+  ${mdDown({
+    flexDirection: "column",
+  })}
+`;
+const AboutFooterItem = styled.div`
+  margin-top: 24px;
+  padding: 0 12px;
+  display: flex;
+  border: 1px solid transparent;
+  &:not(:last-of-type) {
+    border-right-color: ${({ theme }) => theme.palette.primary.light};
+    ${({ theme }) =>
+      mdDown({
+        borderRightColor: "transparent",
+        borderBottomColor: theme.palette.primary.light,
+      })}
+  }
+`;
+const IconContainer = styled.div`
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > svg {
+    color: #fff;
+    font-size: 1rem;
+  }
+`;
+const Icon = styled(FontAwesomeIcon)`
+  color: ${({ theme }) => theme.palette.primary.main};
+  font-size: 3rem;
+`;
+const AboutFooterDescContainer = styled.div`
+  padding-left: 10px;
+  ${smDown({
+    paddingLeft: 16,
+  })}
+`;
+const AboutFooterItemTitle = styled.h4`
+  color: ${({ theme }) => theme.palette.secondary.main};
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  ${lgDown({
+    fontSize: "calc(1.275rem + .3vw)",
+  })}
+`;
+const AboutFooterItemParagraph = styled.p`
+  color: ${({ theme }) => theme.palette.common.black};
+  ${mdDown({
+    marginBottom: 24,
+  })}
+`;
 const About = () => {
   const handleSelect = (idx: number) => {
     setTabIndex(idx);
@@ -115,11 +212,11 @@ const About = () => {
   return (
     <Container>
       <ColWrapper>
-        <Col>
+        <Left>
           <Image src={`${imgbaseUrl}about.jpg`} />
-        </Col>
+        </Left>
         <Right>
-          <Paragraph>About Us</Paragraph>
+          <ParagraphWithBorder>About Us</ParagraphWithBorder>
           <Title>We Help Our Clients To Grow Their Business</Title>
           <Desc>
             Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
@@ -180,6 +277,39 @@ const About = () => {
           </TabContainer>
         </Right>
       </ColWrapper>
+      <AboutFooter>
+        <AboutFooterItem>
+          <Icon icon={["fas", "circle-xmark"]} />
+          <AboutFooterDescContainer>
+            <AboutFooterItemTitle>No Hidden Cost</AboutFooterItemTitle>
+            <AboutFooterItemParagraph>
+              Clita erat ipsum lorem sit sed stet duo justo
+            </AboutFooterItemParagraph>
+          </AboutFooterDescContainer>
+        </AboutFooterItem>
+        <AboutFooterItem>
+          <IconContainer>
+            <Icon icon={["fas", "users"]} />
+          </IconContainer>
+          <AboutFooterDescContainer>
+            <AboutFooterItemTitle>Dedicated Team</AboutFooterItemTitle>
+            <AboutFooterItemParagraph>
+              Clita erat ipsum lorem sit sed stet duo justo
+            </AboutFooterItemParagraph>
+          </AboutFooterDescContainer>
+        </AboutFooterItem>
+        <AboutFooterItem>
+          <IconContainer>
+            <Icon icon={["fas", "phone-flip"]} />
+          </IconContainer>
+          <AboutFooterDescContainer>
+            <AboutFooterItemTitle>24/7 Available</AboutFooterItemTitle>
+            <AboutFooterItemParagraph>
+              Clita erat ipsum lorem sit sed stet duo justo
+            </AboutFooterItemParagraph>
+          </AboutFooterDescContainer>
+        </AboutFooterItem>
+      </AboutFooter>
     </Container>
   );
 };

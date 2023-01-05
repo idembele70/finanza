@@ -7,6 +7,13 @@ export function xlUp(props: CSSObject) {
   }
 `
 }
+export function xlDown(props: CSSObject) {
+  return css`
+  @media only screen and (max-width:1400px) {
+    ${props}
+  }
+`
+}
 // Large device breakpoint
 export function lgDown(props: CSSObject) {
   return css`
@@ -40,6 +47,13 @@ export function smDown(props: CSSObject) {
 `
 }
 // XSmall device breakpoint
+export function xsUp(props: CSSObject) {
+  return css`
+  @media only screen and (min-width:576px) {
+    ${props}
+  }
+`
+}
 export function xsDown(props: CSSObject) {
   return css`
   @media only screen and (max-width:576px) {

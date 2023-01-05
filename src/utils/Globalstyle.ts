@@ -13,6 +13,11 @@ h1 {
   font-weight:700;
   line-height:1.2;
 }
+h4 {
+  font-family:"Jost", "sans-serif";
+  font-weight:600;
+  line-height:1.2;
+}
 a {
   text-decoration: none;
   font-size: 1rem;
@@ -22,7 +27,7 @@ a {
 p {
   font-size:1rem;
   font-family: "Open Sans", "sans-serif";
-  font-weight:500;
+  font-weight:400;
   line-height:1.5;
 }
 `;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Slider, { InnerSlider, Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { lgDown, mdDown, smDown, xsDown } from "../utils/responsive";
+import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -29,16 +29,21 @@ export const Wrapper = styled.div`
   padding: 0 12px;
   max-width: 1320px;
   margin: 0 auto;
+  ${xlDown({
+    maxWidth: 1140,
+  })};
   ${lgDown({
     maxWidth: 960,
-  })}
+  })};
   ${mdDown({
     maxWidth: 720,
-  })}
+  })};
   ${smDown({
     maxWidth: 540,
+  })};
+  ${xsDown({
+    maxWidth: "100%",
   })}
-  ${xsDown({})}
 `;
 const SliderDesc = styled(Wrapper)`
   position: absolute;
@@ -47,13 +52,14 @@ const SliderDesc = styled(Wrapper)`
   transform: translate(-50%, -50%);
   z-index: 1;
 `;
-const Paragraph = styled.p`
+export const ParagraphWithBorder = styled.p`
   display: inline-block;
   color: ${({ theme }) => theme.palette.primary.main};
   margin-bottom: 16px;
   padding: 4px 16px;
   border-radius: ${({ theme }) => theme.borderRadius};
   border: 1px solid ${({ theme }) => theme.palette.common.white};
+  font-weight: 500;
 `;
 const Title = styled.h1`
   color: ${({ theme }) => theme.palette.secondary.main};
@@ -150,7 +156,7 @@ const Carousel = () => {
         <SliderItem>
           <Image src={`${baseUrl}1${endUrl}`} />
           <SliderDesc>
-            <Paragraph>Welcome to Finanza</Paragraph>
+            <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>Your Financial Status is Our Goal</Title>
             <Button to="/">Explore More</Button>
           </SliderDesc>
@@ -158,7 +164,7 @@ const Carousel = () => {
         <SliderItem>
           <Image src={`${baseUrl}2${endUrl}`} />
           <SliderDesc>
-            <Paragraph>Welcome to Finanza</Paragraph>
+            <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>True Financial Support For You</Title>
             <Button to="/">Explore More</Button>
           </SliderDesc>
