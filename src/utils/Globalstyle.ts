@@ -18,6 +18,11 @@ h4 {
   font-weight:600;
   line-height:1.2;
 }
+h5 {
+  font-family: "Open Sans", "sans-serif";
+  font-weight:400;
+  line-height:1.5;
+}
 a {
   text-decoration: none;
   font-size: 1rem;

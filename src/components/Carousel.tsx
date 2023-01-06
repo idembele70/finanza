@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
   width: 100%;
   padding: 0 12px;
   max-width: 1320px;
-  margin: 0 auto;
+  margin: 0 auto 48px;
   ${xlDown({
     maxWidth: 1140,
   })};
@@ -51,6 +51,7 @@ const SliderDesc = styled(Wrapper)`
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  margin-bottom: 0;
 `;
 export const ParagraphWithBorder = styled.p`
   display: inline-block;
