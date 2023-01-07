@@ -8,6 +8,7 @@ import {
   faCheck,
   faUsersGear,
 } from "@fortawesome/free-solid-svg-icons";
+import { mdDown, xsDown } from "../utils/responsive";
 library.add(faCheck, faUsersGear, faAward);
 const Container = styled.div`
   width: 100%;
@@ -19,11 +20,18 @@ const StyledWrapper = styled(Wrapper)``;
 const ItemsContainer = styled.div`
   margin: 0 -24px;
   display: flex;
+  flex-wrap: wrap;
 `;
 const Item = styled.div`
   padding: 0 24px;
   margin-top: 48px;
   width: 25%;
+  ${mdDown({
+    width: "50%",
+  })}
+  ${xsDown({
+    width: "100%",
+  })}
 `;
 const Icon = styled(FontAwesomeIcon)`
   font-size: 3rem;
