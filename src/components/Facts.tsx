@@ -14,12 +14,10 @@ const Container = styled.div`
   width: 100%;
   background: linear-gradient(rgba(53, 94, 252, 0.95), rgba(53, 94, 252, 0.95)),
     url(${process.env.PUBLIC_URL}assets//bg.png);
-  padding: 48px 12px;
+  padding: 48px 0;
   margin: 48px 0;
 `;
-const StyledWrapper = styled(WrapperContainer)``;
-const ItemsContainer = styled.div`
-  margin: 0 -24px;
+const StyledWrapper = styled(WrapperContainer)`
   display: flex;
   flex-wrap: wrap;
 `;
@@ -63,32 +61,30 @@ const Facts = () => {
   return (
     <Container>
       <StyledWrapper>
-        <ItemsContainer>
-          <Item>
-            <Icon icon={["fas", "users"]} />
-            <Title>1234</Title>
-            <SubTitle>Happy Clients</SubTitle>
-            <Hr />
-          </Item>
-          <Item>
-            <Icon icon={["fas", "check"]} />
-            <Title>1234</Title>
-            <SubTitle>Happy Clients</SubTitle>
-            <Hr />
-          </Item>
-          <Item>
-            <Icon icon={["fas", "users-gear"]} />
-            <Title>1234</Title>
-            <SubTitle>Happy Clients</SubTitle>
-            <Hr />
-          </Item>
-          <Item>
-            <Icon icon={["fas", "award"]} />
-            <Title>1234</Title>
-            <SubTitle>Happy Clients</SubTitle>
-            <Hr />
-          </Item>
-        </ItemsContainer>
+        <Item>
+          <Icon icon={["fas", "users"]} />
+          <Title>1234</Title>
+          <SubTitle>Happy Clients</SubTitle>
+          <Hr />
+        </Item>
+        <Item>
+          <Icon icon={["fas", "check"]} />
+          <Title>1234</Title>
+          <SubTitle>Happy Clients</SubTitle>
+          <Hr />
+        </Item>
+        <Item>
+          <Icon icon={["fas", "users-gear"]} />
+          <Title>1234</Title>
+          <SubTitle>Happy Clients</SubTitle>
+          <Hr />
+        </Item>
+        <Item>
+          <Icon icon={["fas", "award"]} />
+          <Title>1234</Title>
+          <SubTitle>Happy Clients</SubTitle>
+          <Hr />
+        </Item>
       </StyledWrapper>
     </Container>
   );

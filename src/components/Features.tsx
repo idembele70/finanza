@@ -6,30 +6,39 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { mdDown, smDown } from "../utils/responsive";
 library.add(faArrowRight);
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
-`;
-const Wrapper = styled.div`
-  padding: 0 12px;
-`;
-const ColWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin: -48px -24px 0;
+  ${mdDown({
+    flexDirection: "column",
+  })}
 `;
 const Col = styled.div`
   width: 50%;
   padding: 0 24px;
   margin-top: 48px;
-  // max-height: 565px;
+  ${mdDown({
+    width: "100%",
+  })}
 `;
-const Left = styled(Col)``;
+const Left = styled(Col)`
+  padding-left: 0;
+`;
 const StyledParagraphWithBorder = styled(ParagraphWithBorder)`
   border-color: ${({ theme }) => theme.palette.primary.light};
 `;
 const Right = styled(Col)`
   display: flex;
+  gap: 24px;
+  ${mdDown({
+    paddingLeft: 0,
+  })}
+  ${smDown({
+    flexDirection: "column",
+  })}
 `;
 const RightCol = styled.div`
   width: 50%;
@@ -37,11 +46,13 @@ const RightCol = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  ${smDown({
+    width: "100%",
+  })}
 `;
 
 const RightItemContainer = styled.div`
   margin-top: 24px;
-  padding: 0 12px;
   width: 100%;
 `;
 const RightItem = styled.div`
@@ -75,70 +86,64 @@ const RightItemBtnIcon = styled(FontAwesomeIcon)`
 const Features = () => {
   return (
     <Container>
-      <Wrapper>
-        <ColWrapper>
-          <Left>
-            <StyledParagraphWithBorder>
-              Why Choosing Us!
-            </StyledParagraphWithBorder>
-            <Title>Few Reasons Why People Choosing Us!</Title>
-            <Desc>
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo magna dolore erat amet
-            </Desc>
-            <Button to="/">Explore More</Button>
-          </Left>
-          <Right>
-            <RightCol>
-              <RightItemContainer>
-                <RightItem>
-                  <Icon icon={["fas", "check"]} />
-                  <RightItemTitle>Fast Executions</RightItemTitle>
-                  <Paragraph>
-                    Clita erat ipsum et lorem et sit, sed stet lorem sit clita
-                    duo justo erat amet
-                  </Paragraph>
-                  <RightItemButton to="/">
-                    Read More
-                    <RightItemBtnIcon icon={["fas", "arrow-right"]} />
-                  </RightItemButton>
-                </RightItem>
-              </RightItemContainer>
-              <RightItemContainer>
-                <RightItem>
-                  <Icon icon={["fas", "check"]} />
-                  <RightItemTitle>Fast Executions</RightItemTitle>
-                  <Paragraph>
-                    Clita erat ipsum et lorem et sit, sed stet lorem sit clita
-                    duo justo erat amet
-                  </Paragraph>
-                  <RightItemButton to="/">
-                    Read More
-                    <RightItemBtnIcon icon={["fas", "arrow-right"]} />
-                  </RightItemButton>
-                </RightItem>
-              </RightItemContainer>
-            </RightCol>
-            <RightCol>
-              <RightItemContainer>
-                <RightItem>
-                  <Icon icon={["fas", "check"]} />
-                  <RightItemTitle>Fast Executions</RightItemTitle>
-                  <Paragraph>
-                    Clita erat ipsum et lorem et sit, sed stet lorem sit clita
-                    duo justo erat amet
-                  </Paragraph>
-                  <RightItemButton to="/">
-                    Read More
-                    <RightItemBtnIcon icon={["fas", "arrow-right"]} />
-                  </RightItemButton>
-                </RightItem>
-              </RightItemContainer>
-            </RightCol>
-          </Right>
-        </ColWrapper>
-      </Wrapper>
+      <Left>
+        <StyledParagraphWithBorder>Why Choosing Us!</StyledParagraphWithBorder>
+        <Title>Few Reasons Why People Choosing Us!</Title>
+        <Desc>
+          Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
+          diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
+          lorem sit clita duo justo magna dolore erat amet
+        </Desc>
+        <Button to="/">Explore More</Button>
+      </Left>
+      <Right>
+        <RightCol>
+          <RightItemContainer>
+            <RightItem>
+              <Icon icon={["fas", "check"]} />
+              <RightItemTitle>Fast Executions</RightItemTitle>
+              <Paragraph>
+                Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
+                justo erat amet
+              </Paragraph>
+              <RightItemButton to="/">
+                Read More
+                <RightItemBtnIcon icon={["fas", "arrow-right"]} />
+              </RightItemButton>
+            </RightItem>
+          </RightItemContainer>
+          <RightItemContainer>
+            <RightItem>
+              <Icon icon={["fas", "check"]} />
+              <RightItemTitle>Fast Executions</RightItemTitle>
+              <Paragraph>
+                Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
+                justo erat amet
+              </Paragraph>
+              <RightItemButton to="/">
+                Read More
+                <RightItemBtnIcon icon={["fas", "arrow-right"]} />
+              </RightItemButton>
+            </RightItem>
+          </RightItemContainer>
+        </RightCol>
+        <RightCol>
+          <RightItemContainer>
+            <RightItem>
+              <Icon icon={["fas", "check"]} />
+              <RightItemTitle>Fast Executions</RightItemTitle>
+              <Paragraph>
+                Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
+                justo erat amet
+              </Paragraph>
+              <RightItemButton to="/">
+                Read More
+                <RightItemBtnIcon icon={["fas", "arrow-right"]} />
+              </RightItemButton>
+            </RightItem>
+          </RightItemContainer>
+        </RightCol>
+      </Right>
     </Container>
   );
 };
