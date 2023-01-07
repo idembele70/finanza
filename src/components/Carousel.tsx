@@ -24,11 +24,11 @@ const Image = styled.img`
   min-height: 450px;
   object-fit: cover;
 `;
-export const Wrapper = styled.div`
+export const WrapperContainer = styled.div`
   width: 100%;
   padding: 0 12px;
   max-width: 1320px;
-  margin: 0 auto 48px;
+  margin: 0 auto;
   ${xlDown({
     maxWidth: 1140,
   })};
@@ -45,13 +45,16 @@ export const Wrapper = styled.div`
     maxWidth: "100%",
   })}
 `;
-const SliderDesc = styled(Wrapper)`
+const SliderDesc = styled(WrapperContainer)`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
   margin-bottom: 0;
+`;
+const Wrapper = styled.div`
+  margin: 0 -12px;
 `;
 export const ParagraphWithBorder = styled.p`
   display: inline-block;
@@ -71,7 +74,7 @@ const Title = styled.h1`
     fontSize: "calc(1.625rem + 4.5vw)",
   })}
 `;
-const Button = styled(Link)`
+export const Button = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.light};
   background-color: ${({ theme }) => theme.palette.primary.main};
   padding: 16px 48px;

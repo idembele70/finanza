@@ -8,12 +8,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
-import { ParagraphWithBorder, Wrapper, imgbaseUrl } from "./Carousel";
+import { ParagraphWithBorder, WrapperContainer, imgbaseUrl } from "./Carousel";
 library.add(faCircleXmark, faUsers, faPhoneFlip);
-const Container = styled(Wrapper)``;
+const Container = styled(WrapperContainer)`
+  padding: 48px 12px;
+`;
 const ColWrapper = styled.div`
   display: flex;
-  margin: 24px -12px;
+  margin: 24px 0;
   ${mdDown({
     flexDirection: "column",
   })}
@@ -61,7 +63,7 @@ const Image = styled.img`
   ${mdDown({})}
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 3rem;
   margin-bottom: 24px;
@@ -69,7 +71,7 @@ const Title = styled.h1`
     fontSize: "calc(1.425rem + 2.1vw)",
   })}
 `;
-const Desc = styled.p`
+export const Desc = styled.p`
   color: ${({ theme }) => theme.palette.common.black};
   margin-bottom: 24px;
   font-weight: 400;
@@ -137,7 +139,7 @@ const TabDescContainer = styled.div<TabDescContainerProps>`
   display: ${({ isSelected }) => (isSelected ? "block" : "none")};
   animation: ${fadeout} 300ms linear;
 `;
-const TabDesc = styled.p`
+export const Paragraph = styled.p`
   color: ${({ theme }) => theme.palette.common.black};
   &:first-of-type {
     margin-bottom: 16px;
@@ -180,7 +182,7 @@ const IconContainer = styled.div`
     font-size: 1rem;
   }
 `;
-const Icon = styled(FontAwesomeIcon)`
+export const Icon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   font-size: 3rem;
 `;
@@ -245,34 +247,34 @@ const About = () => {
               </TabTitle>
             </TabHeader>
             <TabDescContainer isSelected={tabIndex === 0}>
-              <TabDesc>
+              <Paragraph>
                 Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
                 tempor sit. Aliqu diam amet diam et eos labore.
-              </TabDesc>
-              <TabDesc>
+              </Paragraph>
+              <Paragraph>
                 Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
                 labore. Clita erat ipsum et lorem et sit
-              </TabDesc>
+              </Paragraph>
             </TabDescContainer>
             <TabDescContainer isSelected={tabIndex === 1}>
-              <TabDesc>
+              <Paragraph>
                 Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
                 tempor sit. Aliqu diam amet diam et eos labore.
-              </TabDesc>
-              <TabDesc>
+              </Paragraph>
+              <Paragraph>
                 Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
                 labore. Clita erat ipsum et lorem et sit
-              </TabDesc>
+              </Paragraph>
             </TabDescContainer>
             <TabDescContainer isSelected={tabIndex === 2}>
-              <TabDesc>
+              <Paragraph>
                 Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
                 tempor sit. Aliqu diam amet diam et eos labore.
-              </TabDesc>
-              <TabDesc>
+              </Paragraph>
+              <Paragraph>
                 Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
                 labore. Clita erat ipsum et lorem et sit
-              </TabDesc>
+              </Paragraph>
             </TabDescContainer>
           </TabContainer>
         </Right>

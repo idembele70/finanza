@@ -1,8 +1,9 @@
 import { DefaultTheme } from "styled-components";
 
 export const defaultTheme: DefaultTheme = {
-  borderRadius: "8px",
   borderColor: "rgba(0,0,0,0.15)",
+  borderRadius: "8px",
+  boxShadow: "0 0.5rem 1rem rgba(0,0,0,0.15)",
   containerPaddingX: 48,
   palette: {
     common: {

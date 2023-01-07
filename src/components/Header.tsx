@@ -29,13 +29,20 @@ library.add(
   faBars
 );
 
-const Container = styled.div`
+interface ContainerProps {
+  isSticky: boolean;
+}
+const Container = styled.div<ContainerProps>`
   padding: 0 ${({ theme }) => theme.containerPaddingX}px;
   position: fixed;
-  top: 0;
+  top: ${({ isSticky }) => (isSticky ? -45 : 0)}px;
   left: 0;
   right: 0;
   z-index: 2;
+  transition: all 100ms ease;
+  background-color: ${({ isSticky, theme }) =>
+    isSticky ? theme.palette.common.white : "transparent"};
+  box-shadow: ${({ isSticky, theme }) => (isSticky ? theme.boxShadow : "none")};
   ${({ theme }) =>
     mdDown({
       padding: `0 calc(${theme.containerPaddingX / 2}px)`,
@@ -257,6 +264,16 @@ const Header = () => {
   const [isPagesActive, setIsPagesActive] = useState(false);
   const [navToggle, setNavToggle] = useState(false);
   const [dropDownToggle, setDropDownToggle] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setIsSticky(true);
+      } else setIsSticky(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   useEffect(() => {
     if (
       ["/project", "/feature", "/team", "/testimonial", "/notFound"].includes(
@@ -274,7 +291,7 @@ const Header = () => {
     setDropDownToggle(!dropDownToggle);
   };
   return (
-    <Container>
+    <Container isSticky={isSticky}>
       <Top>
         <Column>
           <Small>

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
-import { Wrapper } from "./Carousel";
+import { WrapperContainer } from "./Carousel";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faAward,
@@ -15,8 +15,9 @@ const Container = styled.div`
   background: linear-gradient(rgba(53, 94, 252, 0.95), rgba(53, 94, 252, 0.95)),
     url(${process.env.PUBLIC_URL}assets//bg.png);
   padding: 48px 12px;
+  margin: 48px 0;
 `;
-const StyledWrapper = styled(Wrapper)``;
+const StyledWrapper = styled(WrapperContainer)``;
 const ItemsContainer = styled.div`
   margin: 0 -24px;
   display: flex;
