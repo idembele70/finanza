@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 const ColWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 -24px;
+  margin: -48px -24px 0;
 `;
 const Col = styled.div`
   width: 50%;
@@ -33,6 +33,7 @@ const Right = styled(Col)`
 `;
 const RightCol = styled.div`
   width: 50%;
+  margin-top: -24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
