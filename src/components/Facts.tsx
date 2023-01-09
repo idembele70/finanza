@@ -44,7 +44,7 @@ const Title = styled.h1`
   margin-bottom: 8px;
   text-align: center;
 `;
-const SubTitle = styled.h5`
+const SubTitle = styled.p`
   color: ${({ theme }) => theme.palette.common.white};
   font-size: 1.25rem;
   text-align: center;

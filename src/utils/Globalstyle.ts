@@ -13,13 +13,18 @@ h1 {
   font-weight:700;
   line-height:1.2;
 }
+h3 {
+  font-family:"Jost", "sans-serif";
+  font-weight:600;
+  line-height:1.2;
+}
 h4 {
   font-family:"Jost", "sans-serif";
   font-weight:600;
   line-height:1.2;
 }
 h5 {
-  font-family: "Open Sans", "sans-serif";
+  font-family: "Jost", "sans-serif";
   font-weight:400;
   line-height:1.5;
 }
