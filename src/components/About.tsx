@@ -119,7 +119,7 @@ const TabTitle = styled.button<TabTitleProps>`
 interface TabDescContainerProps {
   isSelected: boolean;
 }
-const fadeout = keyframes`
+export const fadeout = keyframes`
   0% {
     display:none;
     opacity:0;
