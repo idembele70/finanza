@@ -1,13 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import { Paragraph, Title, fadeout } from "./About";
-import {
-  Button,
-  ParagraphWithBorder,
-  WrapperContainer,
-  imgbaseUrl,
-} from "./Carousel";
+import { Paragraph, ParagraphWithLightBorder, Title, fadeout } from "./About";
+import { Button, WrapperContainer, imgbaseUrl } from "./Carousel";
 import { lgDown, mdDown, smDown } from "../utils/responsive";
 
 const Container = styled(WrapperContainer)`
@@ -16,10 +11,7 @@ const Container = styled(WrapperContainer)`
   flex-direction: column;
   align-items: center;
 `;
-const StyledParagraphWithBorder = styled(ParagraphWithBorder)`
-  border-color: ${({ theme }) => theme.palette.primary.light};
-`;
-const StyledTitle = styled(Title)`
+export const TitleWithBigMargin = styled(Title)`
   margin-bottom: 48px;
   max-width: 600px;
   text-align: center;
@@ -151,8 +143,10 @@ const Services = () => {
   };
   return (
     <Container>
-      <StyledParagraphWithBorder>Our Services</StyledParagraphWithBorder>
-      <StyledTitle>Awesome Financial Services For Business</StyledTitle>
+      <ParagraphWithLightBorder>Our Services</ParagraphWithLightBorder>
+      <TitleWithBigMargin>
+        Awesome Financial Services For Business
+      </TitleWithBigMargin>
       <Bottom>
         <NavPillsContainer>
           <NavPill

@@ -56,6 +56,9 @@ const Right = styled(Col)`
     paddingLeft: 0,
   })}
 `;
+export const ParagraphWithLightBorder = styled(ParagraphWithBorder)`
+  border-color: ${({ theme }) => theme.palette.primary.light};
+`;
 const Image = styled.img`
   max-width: 100%;
   max-height: 100%;

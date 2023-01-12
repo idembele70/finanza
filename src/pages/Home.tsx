@@ -4,6 +4,7 @@ import About from "../components/About";
 import Facts from "../components/Facts";
 import Features from "../components/Features";
 import Services from "../components/Services";
+import CallBack from "../components/CallBack";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Facts />
       <Features />
       <Services />
+      <CallBack />
     </>
   );
 };

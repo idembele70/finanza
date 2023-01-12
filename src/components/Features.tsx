@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, ParagraphWithBorder, WrapperContainer } from "./Carousel";
-import { Desc, Icon, Paragraph, Title } from "./About";
+import { Button, WrapperContainer } from "./Carousel";
+import {
+  Desc,
+  Icon,
+  ParagraphWithLightBorder,
+  Paragraph,
+  Title,
+} from "./About";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -26,9 +32,6 @@ const Col = styled.div`
 `;
 const Left = styled(Col)`
   padding-left: 0;
-`;
-const StyledParagraphWithBorder = styled(ParagraphWithBorder)`
-  border-color: ${({ theme }) => theme.palette.primary.light};
 `;
 const Right = styled(Col)`
   display: flex;
@@ -87,7 +90,7 @@ const Features = () => {
   return (
     <Container>
       <Left>
-        <StyledParagraphWithBorder>Why Choosing Us!</StyledParagraphWithBorder>
+        <ParagraphWithLightBorder>Why Choosing Us!</ParagraphWithLightBorder>
         <Title>Few Reasons Why People Choosing Us!</Title>
         <Desc>
           Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
