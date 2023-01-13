@@ -75,7 +75,6 @@ const Right = styled.div<RightProps>`
   display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   animation: ${fadeout} 300ms linear;
-  max-height: 397px;
   ${mdDown({
     paddingLeft: 0,
     marginTop: 24,
