@@ -87,6 +87,11 @@ export const Button = styled(Link)`
     background-color: ${({ theme }) => theme.palette.primary.darker};
     border-color: ${({ theme }) => theme.palette.primary.darker};
   }
+  &:focus {
+    box-shadow: 0 0 0 4px rgba(83, 118, 252, 0.5);
+    background-color: ${({ theme }) => theme.palette.primary.darker};
+    border-color: ${({ theme }) => theme.palette.primary.darker};
+  }
 `;
 const SlideButtonContainer = styled.button`
   width: ${({ theme }) => theme.containerPaddingX}px;

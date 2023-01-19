@@ -26,6 +26,7 @@ const Container = styled.div`
 const StyledWrapperContainer = styled(WrapperContainer)`
   padding-top: 48px;
   display: flex;
+  justify-content: center;
 `;
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.palette.common.white};

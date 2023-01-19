@@ -195,7 +195,7 @@ const AboutFooterDescContainer = styled.div`
     paddingLeft: 16,
   })}
 `;
-const AboutFooterItemTitle = styled.h4`
+export const TitleH4 = styled.h4`
   color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 1.5rem;
   margin-bottom: 8px;
@@ -286,7 +286,7 @@ const About = () => {
         <AboutFooterItem>
           <Icon icon={["fas", "circle-xmark"]} />
           <AboutFooterDescContainer>
-            <AboutFooterItemTitle>No Hidden Cost</AboutFooterItemTitle>
+            <TitleH4>No Hidden Cost</TitleH4>
             <AboutFooterItemParagraph>
               Clita erat ipsum lorem sit sed stet duo justo
             </AboutFooterItemParagraph>
@@ -297,7 +297,7 @@ const About = () => {
             <Icon icon={["fas", "users"]} />
           </IconContainer>
           <AboutFooterDescContainer>
-            <AboutFooterItemTitle>Dedicated Team</AboutFooterItemTitle>
+            <TitleH4>Dedicated Team</TitleH4>
             <AboutFooterItemParagraph>
               Clita erat ipsum lorem sit sed stet duo justo
             </AboutFooterItemParagraph>
@@ -308,7 +308,7 @@ const About = () => {
             <Icon icon={["fas", "phone-flip"]} />
           </IconContainer>
           <AboutFooterDescContainer>
-            <AboutFooterItemTitle>24/7 Available</AboutFooterItemTitle>
+            <TitleH4>24/7 Available</TitleH4>
             <AboutFooterItemParagraph>
               Clita erat ipsum lorem sit sed stet duo justo
             </AboutFooterItemParagraph>
