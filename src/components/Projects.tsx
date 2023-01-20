@@ -28,8 +28,8 @@ const CardContainer = styled(Slider)`
     box-sizing: border-box;
     ${smDown({
       paddingRight: 25,
+      marginLeft: 1,
     })}
-    margin-left:1px;
   }
   .slick-list {
     height: 455px;
@@ -38,6 +38,9 @@ const CardContainer = styled(Slider)`
     })}
     ${lgDown({
       height: 330,
+    })}
+    ${mdDown({
+      height: 377,
     })}
     ${smDown({
       maxHeight: 574,
@@ -60,8 +63,8 @@ const Card = styled.div`
   ${mdDown({
     height: 377,
   })}
-  ${mdDown({
-    height: 574,
+  ${smDown({
+    height: 377,
   })}
   ${xsDown({
     height: 440,
@@ -116,6 +119,7 @@ const CardImage = styled.img`
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
+
 const CardBg = styled.div`
   position: absolute;
   bottom: 0;

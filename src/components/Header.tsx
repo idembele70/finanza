@@ -224,9 +224,10 @@ const MediaContainer = styled.div`
     display: "none",
   })}
 `;
-const MediaIconContainer = styled(Link)`
-  margin-left: 16px;
+
+export const MediaIconContainer = styled(Link)`
   background-color: ${({ theme }) => theme.palette.primary.light};
+  margin-left: 16px;
   border-radius: 50%;
   height: 32px;
   width: 32px;
@@ -234,7 +235,7 @@ const MediaIconContainer = styled(Link)`
   align-items: center;
   justify-content: center;
 `;
-const MediaIcon = styled(FontAwesomeIcon)`
+export const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
 const BarsContainer = styled.button`

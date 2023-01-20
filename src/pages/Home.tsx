@@ -6,6 +6,7 @@ import Features from "../components/Features";
 import Services from "../components/Services";
 import CallBack from "../components/CallBack";
 import Projects from "../components/Projects";
+import Team from "../components/Team";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <Services />
       <CallBack />
       <Projects />
+      <Team />
     </>
   );
 };
