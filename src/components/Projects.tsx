@@ -22,53 +22,15 @@ const Container = styled(WrapperContainer)`
 `;
 const CardContainer = styled(Slider)`
   width: 100%;
-
   .slick-slide {
-    padding-right: 25px;
     box-sizing: border-box;
-    ${smDown({
-      paddingRight: 25,
-      marginLeft: 1,
-    })}
-  }
-  .slick-list {
-    height: 455px;
-    ${xlDown({
-      height: 400,
-    })}
-    ${lgDown({
-      height: 330,
-    })}
-    ${mdDown({
-      height: 377,
-    })}
-    ${smDown({
-      maxHeight: 574,
-    })}
-    ${xsDown({
-      maxHeight: 440,
-    })}
+    padding-right: 25px;
   }
 `;
 const Card = styled.div`
   position: relative;
-  width: 100%;
-  height: 455px;
-  ${xlDown({
-    height: 400,
-  })}
-  ${lgDown({
-    height: 330,
-  })}
-  ${mdDown({
-    height: 377,
-  })}
-  ${smDown({
-    height: 377,
-  })}
-  ${xsDown({
-    height: 440,
-  })}
+  padding-right: 48px;
+  padding-bottom: 48px;
   &:hover {
     & a {
       background-color: rgba(255, 255, 255, 0.5);
@@ -84,7 +46,7 @@ const Card = styled.div`
     }
   }
 `;
-const CardImgContainer = styled.div`
+const CardLinkContainer = styled.div`
   position: absolute;
   left: 0;
   top: 0;
@@ -115,8 +77,9 @@ const CardLink = styled(Link)`
 `;
 const CardImage = styled.img`
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  margin-bottom: 16px;
+  height: auto;
+  object-fit: contain;
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
@@ -174,7 +137,7 @@ const Projects = () => {
         settings: {
           centerMode: true,
           slidesToShow: 1,
-          centerPadding: "150px",
+          centerPadding: "170px",
         },
       },
       {
@@ -182,6 +145,7 @@ const Projects = () => {
         settings: {
           centerMode: false,
           slidesToShow: 1,
+          centerPadding: "0px",
         },
       },
     ],
@@ -198,11 +162,11 @@ const Projects = () => {
       <CardContainer ref={slideEl} {...settings}>
         {[1, 2, 3, 4].map((idx) => (
           <Card>
-            <CardImgContainer>
+            <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />
+            <CardLinkContainer>
               <CardLink to="/" />
-              <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />
               <CardIcon icon={["fas", "link"]} />
-            </CardImgContainer>
+            </CardLinkContainer>
             <CardBg>
               <TitleH4>Cash Investment</TitleH4>
             </CardBg>

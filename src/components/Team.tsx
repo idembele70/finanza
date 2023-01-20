@@ -33,15 +33,17 @@ const CardWrapper = styled.div`
     flexBasis: "100%",
   })}
   padding: 0 12px;
-  //&:not(:last-of-type) {
-  //  margin-right: 24px;
-  //}
+  padding-top: 24px;
+  &:first-of-type {
+    ${smDown({
+      paddingTop: 0,
+    })}
+  }
 `;
 const Card = styled.div`
   padding: 64px 0;
   width: 100%;
   position: relative;
-  margin-top: 24px;
   &:hover {
     & > div {
       background-color: ${({ theme }) => theme.palette.primary.main};
