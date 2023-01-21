@@ -77,6 +77,9 @@ const RightItemTitle = styled.h4`
   margin: 16px 0;
   transition: all 500ms;
 `;
+const StyledParagraph = styled(Paragraph)`
+  margin-bottom: 16px;
+`;
 const RightItemButton = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.main};
   transition: all 500ms;
@@ -86,6 +89,7 @@ const RightItemBtnIcon = styled(FontAwesomeIcon)`
   margin-left: 4px;
   transition: all 500ms;
 `;
+
 const Features = () => {
   return (
     <Container>
@@ -105,10 +109,10 @@ const Features = () => {
             <RightItem>
               <Icon icon={["fas", "check"]} />
               <RightItemTitle>Fast Executions</RightItemTitle>
-              <Paragraph>
+              <StyledParagraph>
                 Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
                 justo erat amet
-              </Paragraph>
+              </StyledParagraph>
               <RightItemButton to="/">
                 Read More
                 <RightItemBtnIcon icon={["fas", "arrow-right"]} />
@@ -119,10 +123,10 @@ const Features = () => {
             <RightItem>
               <Icon icon={["fas", "check"]} />
               <RightItemTitle>Fast Executions</RightItemTitle>
-              <Paragraph>
+              <StyledParagraph>
                 Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
                 justo erat amet
-              </Paragraph>
+              </StyledParagraph>
               <RightItemButton to="/">
                 Read More
                 <RightItemBtnIcon icon={["fas", "arrow-right"]} />
@@ -135,10 +139,10 @@ const Features = () => {
             <RightItem>
               <Icon icon={["fas", "check"]} />
               <RightItemTitle>Fast Executions</RightItemTitle>
-              <Paragraph>
+              <StyledParagraph>
                 Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
                 justo erat amet
-              </Paragraph>
+              </StyledParagraph>
               <RightItemButton to="/">
                 Read More
                 <RightItemBtnIcon icon={["fas", "arrow-right"]} />

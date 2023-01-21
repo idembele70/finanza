@@ -7,6 +7,7 @@ import Services from "../components/Services";
 import CallBack from "../components/CallBack";
 import Projects from "../components/Projects";
 import Team from "../components/Team";
+import Testimonial from "../components/Testimonial";
 
 const Home = () => {
   return (
@@ -19,6 +20,7 @@ const Home = () => {
       <CallBack />
       <Projects />
       <Team />
+      <Testimonial />
     </>
   );
 };

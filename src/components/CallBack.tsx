@@ -40,6 +40,7 @@ const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.palette.primary.light};
   ${mdDown({
     width: "100%",
+    margin: 0,
   })}
 `;
 const Bottom = styled.form`

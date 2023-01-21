@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import Slider, { InnerSlider, Settings } from "react-slick";
+import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";

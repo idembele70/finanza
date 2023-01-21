@@ -144,6 +144,8 @@ const TabDescContainer = styled.div<TabDescContainerProps>`
 `;
 export const Paragraph = styled.p`
   color: ${({ theme }) => theme.palette.common.black};
+`;
+const StyledParagraph = styled(Paragraph)`
   &:first-of-type {
     margin-bottom: 16px;
   }
@@ -250,34 +252,34 @@ const About = () => {
               </TabTitle>
             </TabHeader>
             <TabDescContainer isSelected={tabIndex === 0}>
-              <Paragraph>
+              <StyledParagraph>
                 Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
                 tempor sit. Aliqu diam amet diam et eos labore.
-              </Paragraph>
-              <Paragraph>
+              </StyledParagraph>
+              <StyledParagraph>
                 Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
                 labore. Clita erat ipsum et lorem et sit
-              </Paragraph>
+              </StyledParagraph>
             </TabDescContainer>
             <TabDescContainer isSelected={tabIndex === 1}>
-              <Paragraph>
+              <StyledParagraph>
                 Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
                 tempor sit. Aliqu diam amet diam et eos labore.
-              </Paragraph>
-              <Paragraph>
+              </StyledParagraph>
+              <StyledParagraph>
                 Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
                 labore. Clita erat ipsum et lorem et sit
-              </Paragraph>
+              </StyledParagraph>
             </TabDescContainer>
             <TabDescContainer isSelected={tabIndex === 2}>
-              <Paragraph>
+              <StyledParagraph>
                 Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
                 tempor sit. Aliqu diam amet diam et eos labore.
-              </Paragraph>
-              <Paragraph>
+              </StyledParagraph>
+              <StyledParagraph>
                 Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
                 labore. Clita erat ipsum et lorem et sit
-              </Paragraph>
+              </StyledParagraph>
             </TabDescContainer>
           </TabContainer>
         </Right>
