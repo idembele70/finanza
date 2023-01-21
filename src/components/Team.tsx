@@ -67,15 +67,17 @@ const CardImgBg = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 15px 0;
-  z-index: -1;
+  z-index: 1;
 `;
 const MediaContainer = styled.div`
   display: flex;
+  position: relative;
 `;
 const StyledMediaIconContainer = styled(MediaIconContainer)`
   transition: background-color 300ms linear;
   width: 38px;
   height: 38px;
+  cursor: pointer;
   & svg {
     transition: color 300ms linear;
   }
@@ -91,6 +93,8 @@ const CardImg = styled.img`
   width: 100%;
   object-fit: contain;
   display: block;
+  z-index: 2;
+  position: relative;
 `;
 const Team = () => {
   interface CardItemType {
