@@ -127,9 +127,26 @@ const Testimonial = () => {
   const settings: Settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 3,
     slidesToScroll: 1,
+    slidesToShow: 3,
     arrows: false,
+    responsive: [
+      {
+        breakpoint: 993,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: "175px",
+        },
+      },
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 1,
+          centerMode: false,
+        },
+      },
+    ],
   };
   interface SlideItemType {
     description: string;

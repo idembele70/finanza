@@ -33,7 +33,7 @@ export function mdDown(props: CSSObject) {
 }
 export function mdUp(props: CSSObject) {
   return css`
-  @media only screen and (min-width:992px) {
+  @media only screen and (min-width:991px) {
     ${props}
   }
 `

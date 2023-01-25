@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -15,6 +15,7 @@ import {
   faPhone,
   faBars,
   faS,
+  faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -26,7 +27,8 @@ library.add(
   faEnvelope,
   faPhone,
   faChevronDown,
-  faBars
+  faBars,
+  faArrowUp
 );
 
 interface ContainerProps {
@@ -38,7 +40,7 @@ const Container = styled.div<ContainerProps>`
   top: ${({ isSticky }) => (isSticky ? -45 : 0)}px;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 3;
   transition: all 100ms ease;
   background-color: ${({ isSticky, theme }) =>
     isSticky ? theme.palette.common.white : "transparent"};
@@ -260,20 +262,97 @@ const Bars = styled(FontAwesomeIcon)`
   font-size: 2rem;
   color: rgba(0, 0, 0, 0.55);
 `;
+interface ScrollTopBtnProps {
+  display: boolean;
+}
+const ScrollTopBtnAnimation = keyframes`
+0% {
+opacity:0;
+display:none;
+},
+25% {
+  opacity:0.12
+},
+50% {
+  opacity:0.25
+},
+70% {
+  opacity:0.5
+}
+100%{
+opacity:1;
+display:block;
+}
+,
+`;
+/* const ScrollTopBtnAnimation = keyframes`
+0% {
+opacity:0;
+},
+25% {
+  opacity:0.12
+},
+50% {
+  opacity:0.25
+},
+70% {
+  opacity:0.5
+}
+100%{
+opacity:1;
+display:none;
+}
+,
+`; */
+const ScrollTopBtn = styled.button<ScrollTopBtnProps>`
+  width: 48px;
+  height: 48px;
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  border: 1px solid ${({ theme }) => theme.palette.primary.main};
+  opacity: ${({ display }) => (display ? 1 : 0)};
+  display: ${({ display }) => (display ? "block" : "none")};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 0;
+  cursor: pointer;
+  animation: ${ScrollTopBtnAnimation} 1500ms;
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.primary.darker};
+  }
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(83, 118, 252, 0.5);
+  }
+`;
+const Icon = styled(FontAwesomeIcon)`
+  color: ${({ theme }) => theme.palette.common.white};
+  font-size: 1.5rem;
+`;
 const Header = () => {
   const { pathname } = useLocation();
   const [isPagesActive, setIsPagesActive] = useState(false);
   const [navToggle, setNavToggle] = useState(false);
   const [dropDownToggle, setDropDownToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [displayScrollTop, setDisplayScrollTop] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setDisplayScrollTop(true);
+      } else {
+        setDisplayScrollTop(false);
+      }
       if (window.scrollY > 200) {
         setIsSticky(true);
       } else setIsSticky(false);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
   useEffect(() => {
     if (
@@ -290,6 +369,13 @@ const Header = () => {
   };
   const handleToggleDropDown = () => {
     setDropDownToggle(!dropDownToggle);
+  };
+  const handleScrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
   return (
     <Container isSticky={isSticky}>
@@ -357,6 +443,9 @@ const Header = () => {
           <Bars icon={["fas", "bars"]} />
         </BarsContainer>
       </Bottom>
+      <ScrollTopBtn display={displayScrollTop} onClick={handleScrollTop}>
+        <Icon icon={["fas", "arrow-up"]} />
+      </ScrollTopBtn>
     </Container>
   );
 };
