@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { ParagraphWithLightBorder, TitleH4 } from "./About";
 import { TitleWithBigMargin } from "./Services";
-import { MediaIcon, MediaIconContainer } from "./Header";
+import { DefaultMediaIconContainer, MediaIcon } from "./Header";
 import {
   faFacebookF,
   faInstagram,
@@ -73,10 +73,12 @@ const MediaContainer = styled.div`
   display: flex;
   position: relative;
 `;
-const StyledMediaIconContainer = styled(MediaIconContainer)`
+const StyledMediaIconContainer = styled(DefaultMediaIconContainer)`
+  background-color: ${({ theme }) => theme.palette.primary.light};
   transition: background-color 300ms linear;
   width: 38px;
   height: 38px;
+  margin: 0 4px;
   cursor: pointer;
   & svg {
     transition: color 300ms linear;

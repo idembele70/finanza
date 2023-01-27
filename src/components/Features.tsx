@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, WrapperContainer } from "./Carousel";
+import { ButtonLink, WrapperContainer } from "./Carousel";
 import {
   Desc,
   Icon,
@@ -101,7 +101,7 @@ const Features = () => {
           diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
           lorem sit clita duo justo magna dolore erat amet
         </Desc>
-        <Button to="/">Explore More</Button>
+        <ButtonLink to="/">Explore More</ButtonLink>
       </Left>
       <Right>
         <RightCol>

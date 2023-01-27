@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
 import { Paragraph, ParagraphWithLightBorder, Title, fadeout } from "./About";
-import { Button, WrapperContainer, imgbaseUrl } from "./Carousel";
+import { ButtonLink, WrapperContainer, imgbaseUrl } from "./Carousel";
 import { lgDown, mdDown, smDown } from "../utils/responsive";
 
 const Container = styled(WrapperContainer)`
@@ -132,7 +132,7 @@ const RightParagraphIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   margin-right: 16px;
 `;
-const RightButton = styled(Button)`
+const RightButton = styled(ButtonLink)`
   margin-top: 16px;
 `;
 const Services = () => {

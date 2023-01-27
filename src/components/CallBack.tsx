@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ParagraphWithLightBorder } from "./About";
-import { Button, WrapperContainer, imgbaseUrl } from "./Carousel";
+import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { TitleWithBigMargin } from "./Services";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 const Container = styled.div`
@@ -94,6 +94,25 @@ const TextArea = styled.textarea`
     box-shadow: 0 0 0 4px rgba(53, 94, 252, 0.25);
   }
 `;
+export const Button = styled.button`
+  cursor: pointer;
+  color: ${({ theme }) => theme.palette.primary.light};
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  padding: 16px 48px;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  border: 1px solid ${({ theme }) => theme.palette.primary.main};
+  display: inline-block;
+  transition: all 300ms ease-in-out;
+  &:hover {
+    background-color: ${({ theme }) => theme.palette.primary.darker};
+    border-color: ${({ theme }) => theme.palette.primary.darker};
+  }
+  &:focus {
+    box-shadow: 0 0 0 4px rgba(83, 118, 252, 0.5);
+    background-color: ${({ theme }) => theme.palette.primary.darker};
+    border-color: ${({ theme }) => theme.palette.primary.darker};
+  }
+`;
 const FormButton = styled(Button)`
   width: 100%;
   margin: 16px 8px 0;
@@ -120,7 +139,7 @@ const CallBack = () => {
               <Input placeholder="Subject" />
             </InputContainer>
             <TextArea placeholder="Message" />
-            <FormButton to="/">Submit Now</FormButton>
+            <FormButton type="submit">Submit Now</FormButton>
           </Bottom>
         </Wrapper>
       </StyledWrapperContainer>

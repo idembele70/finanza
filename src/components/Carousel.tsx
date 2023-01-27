@@ -74,7 +74,7 @@ const Title = styled.h1`
     fontSize: "calc(1.625rem + 4.5vw)",
   })}
 `;
-export const Button = styled(Link)`
+export const ButtonLink = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.light};
   background-color: ${({ theme }) => theme.palette.primary.main};
   padding: 16px 48px;
@@ -145,9 +145,9 @@ const Carousel = () => {
   const settings: Settings = {
     fade: true,
     infinite: true,
-    speed: 500,
-    //autoplay: true,
-    //autoplaySpeed: 500,
+    speed: 1000,
+    autoplay: true,
+    autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
@@ -167,7 +167,7 @@ const Carousel = () => {
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>Your Financial Status is Our Goal</Title>
-            <Button to="/">Explore More</Button>
+            <ButtonLink to="/">Explore More</ButtonLink>
           </SliderDesc>
         </SliderItem>
         <SliderItem>
@@ -175,7 +175,7 @@ const Carousel = () => {
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>True Financial Support For You</Title>
-            <Button to="/">Explore More</Button>
+            <ButtonLink to="/">Explore More</ButtonLink>
           </SliderDesc>
         </SliderItem>
       </Slider>

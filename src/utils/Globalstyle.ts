@@ -40,6 +40,16 @@ p {
   font-weight:400;
   line-height:1.5;
 }
+button {
+  font-size:1rem;
+  font-family: "Open Sans",sans-serif;
+  line-height:1.5;
+}
+input {
+    font-family: "Open Sans",sans-serif;
+    font-size: inherit;
+    line-height: inherit;
+}
 `;
 
 export default GlobalStyle;

@@ -226,16 +226,17 @@ const MediaContainer = styled.div`
     display: "none",
   })}
 `;
-
-export const MediaIconContainer = styled(Link)`
-  background-color: ${({ theme }) => theme.palette.primary.light};
-  margin-left: 16px;
+export const DefaultMediaIconContainer = styled(Link)`
   border-radius: 50%;
-  height: 32px;
-  width: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+const MediaIconContainer = styled(DefaultMediaIconContainer)`
+  background-color: ${({ theme }) => theme.palette.primary.light};
+  margin-left: 16px;
+  height: 32px;
+  width: 32px;
 `;
 export const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
