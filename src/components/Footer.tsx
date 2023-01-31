@@ -35,6 +35,9 @@ const ColWrapper = styled.div`
   margin: 0 -24px;
   display: flex;
   flex-wrap: wrap;
+  ${smDown({
+    margin: "0 -12px",
+  })}
 `;
 const Col = styled.div`
   width: 25%;
@@ -45,6 +48,7 @@ const Col = styled.div`
   })}
   ${smDown({
     width: "100%",
+    padding: "0 12px",
   })}
 `;
 const FooterTitle = styled.h4`

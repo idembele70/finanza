@@ -307,6 +307,7 @@ const ScrollTopBtn = styled.button<ScrollTopBtnProps>`
   animation: ${ScrollTopBtnAnimation} 1500ms;
   animation-direction: alternate;
   animation-fill-mode: forwards;
+  z-index: 4;
   &:hover {
     background-color: ${({ theme }) => theme.palette.primary.darker};
   }

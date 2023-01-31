@@ -5,8 +5,8 @@ import { TitleWithBigMargin } from "./Services";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 const Container = styled.div`
   width: 100%;
-  margin: 48px 0;
-  padding-top: 48px;
+  margin-top: 48px;
+  padding: 48px 0;
   position: relative;
   ::before {
     position: absolute;
