@@ -53,9 +53,6 @@ const SliderDesc = styled(WrapperContainer)`
   z-index: 1;
   margin-bottom: 0;
 `;
-const Wrapper = styled.div`
-  margin: 0 -12px;
-`;
 export const ParagraphWithBorder = styled.p`
   display: inline-block;
   color: ${({ theme }) => theme.palette.primary.main};

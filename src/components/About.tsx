@@ -11,11 +11,11 @@ import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { ParagraphWithBorder, WrapperContainer, imgbaseUrl } from "./Carousel";
 library.add(faCircleXmark, faUsers, faPhoneFlip);
 const Container = styled(WrapperContainer)`
-  padding-top: 48px;
+  padding: 48px 12px;
 `;
 const ColWrapper = styled.div`
   display: flex;
-  margin-bottom: 24px;
+  margin: 0 -12px 24px;
   ${mdDown({
     flexDirection: "column",
   })}
@@ -39,7 +39,6 @@ const Col = styled.div`
   })};
 `;
 const Left = styled(Col)`
-  padding-left: 0;
   ${mdDown({
     height: 696,
   })};
@@ -52,9 +51,6 @@ const Left = styled(Col)`
 `;
 const Right = styled(Col)`
   height: auto;
-  ${mdDown({
-    paddingLeft: 0,
-  })}
 `;
 export const ParagraphWithLightBorder = styled(ParagraphWithBorder)`
   border-color: ${({ theme }) => theme.palette.primary.light};
@@ -63,7 +59,6 @@ const Image = styled.img`
   max-width: 100%;
   max-height: 100%;
   border-radius: ${({ theme }) => theme.borderRadius};
-  ${mdDown({})}
 `;
 
 export const Title = styled.h1`

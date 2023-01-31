@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Copyright from "./components/Copyright";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
       <Copyright />

@@ -33,22 +33,25 @@ library.add(
 
 interface ContainerProps {
   isSticky: boolean;
+  isDesktop: boolean;
 }
 const Container = styled.div<ContainerProps>`
-  padding: 0 ${({ theme }) => theme.containerPaddingX}px;
+  padding: 0 48px;
   position: fixed;
-  top: ${({ isSticky }) => (isSticky ? -45 : 0)}px;
+  top: 0;
+  transform: translateY(
+    ${({ isSticky, isDesktop }) => (isSticky && isDesktop ? -45 : 0)}px
+  );
   left: 0;
   right: 0;
-  z-index: 3;
+  z-index: 4;
   transition: all 100ms ease;
   background-color: ${({ isSticky, theme }) =>
     isSticky ? theme.palette.common.white : "transparent"};
   box-shadow: ${({ isSticky, theme }) => (isSticky ? theme.boxShadow : "none")};
-  ${({ theme }) =>
-    mdDown({
-      padding: `0 calc(${theme.containerPaddingX / 2}px)`,
-    })};
+  ${mdDown({
+    padding: "0 12px",
+  })}
 `;
 
 const Top = styled.div`
@@ -76,10 +79,11 @@ const StyledIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   margin-right: 8px;
 `;
-const Bottom = styled.header`
+const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: 8px 0;
 `;
 const LogoContainer = styled(Link)`
@@ -286,25 +290,7 @@ display:block;
 }
 ,
 `;
-/* const ScrollTopBtnAnimation = keyframes`
-0% {
-opacity:0;
-},
-25% {
-  opacity:0.12
-},
-50% {
-  opacity:0.25
-},
-70% {
-  opacity:0.5
-}
-100%{
-opacity:1;
-display:none;
-}
-,
-`; */
+
 const ScrollTopBtn = styled.button<ScrollTopBtnProps>`
   width: 48px;
   height: 48px;
@@ -339,14 +325,17 @@ const Header = () => {
   const [dropDownToggle, setDropDownToggle] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [displayScrollTop, setDisplayScrollTop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
+      if (window.innerWidth > 992) setIsDesktop(true);
+      else setIsDesktop(false);
       if (window.scrollY > 300) {
         setDisplayScrollTop(true);
       } else {
         setDisplayScrollTop(false);
       }
-      if (window.scrollY > 200) {
+      if (window.scrollY > 45) {
         setIsSticky(true);
       } else setIsSticky(false);
     };
@@ -379,75 +368,79 @@ const Header = () => {
     });
   };
   return (
-    <Container isSticky={isSticky}>
-      <Top>
-        <Column>
-          <Small>
-            <StyledIcon icon={["fas", "location-dot"]} />
-            123 Street, New York, USA
-          </Small>
-          <Small>
-            <StyledIcon icon={"clock"} />
-            9.00 am - 9.00 pm
-          </Small>
-        </Column>
-        <Column>
-          <Small>
-            <StyledIcon icon={["fas", "envelope"]} />
-            info@example.com
-          </Small>
-          <Small>
-            <StyledIcon icon={"phone"} />
-            +012 345 6789
-          </Small>
-        </Column>
-      </Top>
-      <Bottom>
-        <LogoContainer to="/">
-          <Logo>Finanza</Logo>
-        </LogoContainer>
-        <Right toggle={navToggle}>
-          <Nav>
-            <NavItem to="/">Home</NavItem>
-            <NavItem to="/about">About</NavItem>
-            <NavItem to="/service">Services</NavItem>
-            <DropDownContainer
-              onClick={handleToggleDropDown}
-              toggle={dropDownToggle}
-              isactive={isPagesActive}
-            >
-              Pages
-              <NavItemIcon icon={["fas", "chevron-down"]} />
-              <NavDropDown>
-                <NavDropDownItem to="/project">Projects</NavDropDownItem>
-                <NavDropDownItem to="/feature">Features</NavDropDownItem>
-                <NavDropDownItem to="/team">Team Member</NavDropDownItem>
-                <NavDropDownItem to="/testimonial">Testimonial</NavDropDownItem>
-                <NavDropDownItem to="/notFound">404 Page</NavDropDownItem>
-              </NavDropDown>
-            </DropDownContainer>
-            <NavItem to="/contact">Contact</NavItem>
-          </Nav>
-          <MediaContainer>
-            <MediaIconContainer to="/">
-              <MediaIcon icon={faFacebookF} />
-            </MediaIconContainer>
-            <MediaIconContainer to="/">
-              <MediaIcon icon={faTwitter} />
-            </MediaIconContainer>
-            <MediaIconContainer to="/">
-              <MediaIcon icon={faLinkedinIn} />
-            </MediaIconContainer>
-          </MediaContainer>
-        </Right>
-        <BarsContainer onClick={handleToggleNav}>
-          <Bars icon={["fas", "bars"]} />
-        </BarsContainer>
-      </Bottom>
+    <>
+      <Container isSticky={isSticky} isDesktop={isDesktop}>
+        <Top>
+          <Column>
+            <Small>
+              <StyledIcon icon={["fas", "location-dot"]} />
+              123 Street, New York, USA
+            </Small>
+            <Small>
+              <StyledIcon icon={"clock"} />
+              9.00 am - 9.00 pm
+            </Small>
+          </Column>
+          <Column>
+            <Small>
+              <StyledIcon icon={["fas", "envelope"]} />
+              info@example.com
+            </Small>
+            <Small>
+              <StyledIcon icon={"phone"} />
+              +012 345 6789
+            </Small>
+          </Column>
+        </Top>
+        <Bottom>
+          <LogoContainer to="/">
+            <Logo>Finanza</Logo>
+          </LogoContainer>
+          <Right toggle={navToggle}>
+            <Nav>
+              <NavItem to="/">Home</NavItem>
+              <NavItem to="/about">About</NavItem>
+              <NavItem to="/service">Services</NavItem>
+              <DropDownContainer
+                onClick={handleToggleDropDown}
+                toggle={dropDownToggle}
+                isactive={isPagesActive}
+              >
+                Pages
+                <NavItemIcon icon={["fas", "chevron-down"]} />
+                <NavDropDown>
+                  <NavDropDownItem to="/project">Projects</NavDropDownItem>
+                  <NavDropDownItem to="/feature">Features</NavDropDownItem>
+                  <NavDropDownItem to="/team">Team Member</NavDropDownItem>
+                  <NavDropDownItem to="/testimonial">
+                    Testimonial
+                  </NavDropDownItem>
+                  <NavDropDownItem to="/notFound">404 Page</NavDropDownItem>
+                </NavDropDown>
+              </DropDownContainer>
+              <NavItem to="/contact">Contact</NavItem>
+            </Nav>
+            <MediaContainer>
+              <MediaIconContainer to="/">
+                <MediaIcon icon={faFacebookF} />
+              </MediaIconContainer>
+              <MediaIconContainer to="/">
+                <MediaIcon icon={faTwitter} />
+              </MediaIconContainer>
+              <MediaIconContainer to="/">
+                <MediaIcon icon={faLinkedinIn} />
+              </MediaIconContainer>
+            </MediaContainer>
+          </Right>
+          <BarsContainer onClick={handleToggleNav}>
+            <Bars icon={["fas", "bars"]} />
+          </BarsContainer>
+        </Bottom>
+      </Container>
       <ScrollTopBtn display={displayScrollTop} onClick={handleScrollTop}>
         <Icon icon={["fas", "arrow-up"]} />
       </ScrollTopBtn>
-    </Container>
+    </>
   );
 };
 
