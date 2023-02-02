@@ -48,7 +48,7 @@ const Bottom = styled.form`
   flex-wrap: wrap;
   width: 100%;
 `;
-const InputContainer = styled.div`
+export const InputContainer = styled.div`
   margin-top: 16px;
   padding: 0 8px;
   width: 50%;
@@ -56,9 +56,9 @@ const InputContainer = styled.div`
     width: "100%",
   })}
 `;
-const Input = styled.input`
+export const Input = styled.input`
   color: ${({ theme }) => theme.palette.common.black};
-  margin: 16px 8px 0;
+  margin-top: 16px;
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
   padding: 16px 12px;
@@ -75,7 +75,7 @@ const Input = styled.input`
   }
 `;
 
-const TextArea = styled.textarea`
+export const TextArea = styled.textarea`
   color: ${({ theme }) => theme.palette.common.black};
   font-size: 1rem;
   font-family: "Open Sans", sans-serif;
@@ -89,6 +89,7 @@ const TextArea = styled.textarea`
   height: 100px;
   outline: 0;
   transition: all 150ms ease-in-out;
+  resize: vertical;
   &:focus {
     border-color: #9aaffe;
     box-shadow: 0 0 0 4px rgba(53, 94, 252, 0.25);
