@@ -3,7 +3,7 @@ import PageHeader from "../components/PageHeader";
 import ServicesComponent from "../components/Services";
 import CallBack from "../components/CallBack";
 
-const Services = () => {
+const Service = () => {
   return (
     <>
       <PageHeader title="Services" />
@@ -13,4 +13,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Service;

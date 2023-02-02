@@ -6,7 +6,12 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Copyright from "./components/Copyright";
 import About from "./pages/About";
-import Services from "./pages/Services";
+import Service from "./pages/Service";
+import Project from "./pages/Project";
+import Feature from "./pages/Feature";
+import Team from "./pages/Team";
+import Testimonial from "./pages/Testimonial";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -15,7 +20,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/service" element={<Services />} />
+        <Route path="/service" element={<Service />} />
+        <Route path="/project" element={<Project />} />
+        <Route path="/feature" element={<Feature />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/testimonial" element={<Testimonial />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
       <Copyright />
