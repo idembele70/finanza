@@ -194,8 +194,8 @@ const Testimonial = () => {
       <ParagraphWithLightBorder>Testimonial</ParagraphWithLightBorder>
       <TitleWithBigMargin>What Our Clients Say!</TitleWithBigMargin>
       <StyledSlider {...settings}>
-        {slideItemArray.map(({ description, img, name, profession }) => (
-          <SlideItemContainer>
+        {slideItemArray.map(({ description, img, name, profession }, idx) => (
+          <SlideItemContainer key={idx}>
             <SlideItem>
               <Top>
                 <IconContainer>

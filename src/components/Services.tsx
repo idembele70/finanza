@@ -218,6 +218,7 @@ const Services = () => {
           {pills.map((pillName, idx) => {
             return (
               <NavPill
+                key={idx}
                 isSelected={pillIndex === idx}
                 onClick={() => handleChangePillIndex(idx)}
               >

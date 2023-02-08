@@ -165,7 +165,7 @@ const Projects = () => {
       <TitleWithBigMargin>We Have Completed Latest Projects</TitleWithBigMargin>
       <CardContainer ref={slideEl} {...settings}>
         {[1, 2, 3, 4].map((idx) => (
-          <Card>
+          <Card key={idx}>
             <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />
             <CardLinkContainer>
               <CardLink to="/" />

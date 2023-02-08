@@ -268,7 +268,7 @@ const Bars = styled(FontAwesomeIcon)`
   color: rgba(0, 0, 0, 0.55);
 `;
 interface ScrollTopBtnProps {
-  display: boolean;
+  display: string;
 }
 const ScrollTopBtnAnimation = keyframes`
 0% {
@@ -296,8 +296,8 @@ const ScrollTopBtn = styled.button<ScrollTopBtnProps>`
   height: 48px;
   background-color: ${({ theme }) => theme.palette.primary.main};
   border: 1px solid ${({ theme }) => theme.palette.primary.main};
-  opacity: ${({ display }) => (display ? 1 : 0)};
-  display: ${({ display }) => (display ? "block" : "none")};
+  opacity: ${({ display }) => (display === "true" ? 1 : 0)};
+  display: ${({ display }) => (display === "true" ? "block" : "none")};
   border-radius: 50%;
   position: fixed;
   bottom: 30px;
@@ -438,7 +438,10 @@ const Header = () => {
           </BarsContainer>
         </Bottom>
       </Container>
-      <ScrollTopBtn display={displayScrollTop} onClick={handleScrollTop}>
+      <ScrollTopBtn
+        display={displayScrollTop.toString()}
+        onClick={handleScrollTop}
+      >
         <Icon icon={["fas", "arrow-up"]} />
       </ScrollTopBtn>
     </>

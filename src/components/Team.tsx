@@ -125,8 +125,8 @@ const Team = () => {
       <ParagraphWithLightBorder>Our Team</ParagraphWithLightBorder>
       <TitleWithBigMargin>Exclusive Team</TitleWithBigMargin>
       <CardContainer>
-        {cardItem.map(({ name, img }) => (
-          <CardWrapper>
+        {cardItem.map(({ name, img }, idx) => (
+          <CardWrapper key={idx}>
             <Card>
               <CardImg src={`${imgbaseUrl}team-${img}.jpg`} />
               <CardImgBg>

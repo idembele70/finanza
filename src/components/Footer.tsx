@@ -137,6 +137,27 @@ const FooterBtn = styled(Button)`
   right: 8px;
 `;
 const Footer = () => {
+  interface IOfficeItem {
+    iconName: IconName;
+    title: string;
+  }
+  const officeItems: IOfficeItem[] = useMemo(
+    () => [
+      {
+        iconName: "location-dot",
+        title: "123 Street, New York, USA",
+      },
+      {
+        iconName: "phone",
+        title: "+012 345 67890",
+      },
+      {
+        iconName: "envelope",
+        title: "info@example.com",
+      },
+    ],
+    []
+  );
   const serviceItem: string[] = useMemo(
     () => [
       "Financial Planning",
@@ -163,18 +184,12 @@ const Footer = () => {
         <ColWrapper>
           <Col>
             <FooterTitle>Our Office</FooterTitle>
-            <OfficeRow>
-              <OfficeRowIcon icon={["fas", "location-dot"]} />
-              123 Street, New York, USA
-            </OfficeRow>
-            <OfficeRow>
-              <OfficeRowIcon icon={["fas", "phone"]} />
-              +012 345 67890
-            </OfficeRow>
-            <OfficeRow>
-              <OfficeRowIcon icon={["fas", "envelope"]} />
-              info@example.com
-            </OfficeRow>
+            {officeItems.map(({ title, iconName }, idx) => (
+              <OfficeRow key={idx}>
+                <OfficeRowIcon icon={["fas", iconName]} />
+                {title}
+              </OfficeRow>
+            ))}
             <MediaContainer>
               <MediaIconContainer to="/">
                 <MediaIcon icon={faTwitter} />
@@ -193,8 +208,8 @@ const Footer = () => {
           <Col>
             <FooterTitle>Services</FooterTitle>
             <LinkContainer>
-              {serviceItem.map((name) => (
-                <FooterLink to="/">
+              {serviceItem.map((name, idx) => (
+                <FooterLink key={idx} to="/">
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>
@@ -204,8 +219,8 @@ const Footer = () => {
           <Col>
             <FooterTitle>Quick Links</FooterTitle>
             <LinkContainer>
-              {quickLinkItem.map((name) => (
-                <FooterLink to="/">
+              {quickLinkItem.map((name, idx) => (
+                <FooterLink key={idx} to="/">
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>

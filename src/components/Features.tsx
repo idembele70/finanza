@@ -141,7 +141,7 @@ const Features = () => {
         </RightCol>
         <RightCol>
           {rightItemRightCol.map(({ title, desc }, idx) => (
-            <RightItemContainer>
+            <RightItemContainer key={idx}>
               <RightItem>
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
