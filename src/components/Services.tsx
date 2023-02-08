@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { memo, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Paragraph, ParagraphWithLightBorder, Title, fadeout } from "./About";
 import { ButtonLink, WrapperContainer, imgbaseUrl } from "./Carousel";
 import { lgDown, mdDown, smDown } from "../utils/responsive";
+import { arrayBuffer } from "stream/consumers";
 
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -68,7 +69,9 @@ const NavPillIcon = styled(FontAwesomeIcon)`
   margin-right: 16px;
   transition: all 500ms ease-in-out;
 `;
-
+interface RightProps {
+  isVisible?: boolean;
+}
 const Right = styled.div<RightProps>`
   flex: 2;
   padding-left: 12px;
@@ -83,6 +86,7 @@ const Right = styled.div<RightProps>`
     flexDirection: "column",
   })}
 `;
+
 const ImageContainer = styled(Col)`
   padding-right: 12px;
   overflow: hidden;
@@ -101,9 +105,7 @@ const Image = styled.img`
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
-interface RightProps {
-  isVisible: boolean;
-}
+
 const RightDescContainer = styled(Col)`
   padding-left: 12px;
   padding-right: 12px;
@@ -140,6 +142,71 @@ const Services = () => {
   const handleChangePillIndex = (idx: number) => {
     setPillIndex(idx);
   };
+  const pills: string[] = [
+    "Financial Planing",
+    "Cash Investment",
+    "Financial Consultancy",
+    "Business Loans",
+  ];
+
+  const advantages: string[] = [
+    "Secured Loans",
+    "Credit Facilities",
+    "Cash Advanced",
+  ];
+  const memoizedAdvantages = useMemo(
+    () =>
+      advantages.map((advantage, idx) => (
+        <RightParagraph key={idx}>
+          <RightParagraphIcon icon={["fas", "check"]} />
+          {advantage}
+        </RightParagraph>
+      )),
+    []
+  );
+
+  interface IRight {
+    title: string;
+    desc: string;
+  }
+  const rightItems: IRight[] = [
+    {
+      title: "25 Years Of Experience In Financial Support",
+      desc: "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet.",
+    },
+    {
+      title: "25 Years Of Experience In Financial Support",
+      desc: "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet.",
+    },
+    {
+      title: "25 Years Of Experience In Financial Support",
+      desc: "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet.",
+    },
+    {
+      title: "25 Years Of Experience In Financial Support",
+      desc: "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet.",
+    },
+  ];
+  const memoizedRights = useMemo(
+    () =>
+      rightItems.map(({ title, desc }, idx) => {
+        return (
+          <Right key={idx} isVisible={pillIndex === idx}>
+            <ImageContainer>
+              <Image src={`${imgbaseUrl}service-${pillIndex + 1}.jpg`} />
+            </ImageContainer>
+            <RightDescContainer>
+              <RightTitle>{title}</RightTitle>
+              <RightDesc>{desc}</RightDesc>
+              {memoizedAdvantages}
+              <RightButton to="/">Read More</RightButton>
+            </RightDescContainer>
+          </Right>
+        );
+      }),
+    [pillIndex, memoizedAdvantages]
+  );
+
   return (
     <Container>
       <ParagraphWithLightBorder>Our Services</ParagraphWithLightBorder>
@@ -148,147 +215,21 @@ const Services = () => {
       </TitleWithBigMargin>
       <Bottom>
         <NavPillsContainer>
-          <NavPill
-            isSelected={pillIndex === 0}
-            onClick={() => handleChangePillIndex(0)}
-          >
-            <NavPillText>
-              <NavPillIcon icon={["fas", "bars"]} />
-              Financial Planing
-            </NavPillText>
-          </NavPill>
-          <NavPill
-            isSelected={pillIndex === 1}
-            onClick={() => handleChangePillIndex(1)}
-          >
-            <NavPillText>
-              <NavPillIcon icon={["fas", "bars"]} />
-              Cash Investment
-            </NavPillText>
-          </NavPill>
-          <NavPill
-            isSelected={pillIndex === 2}
-            onClick={() => handleChangePillIndex(2)}
-          >
-            <NavPillText>
-              <NavPillIcon icon={["fas", "bars"]} />
-              Financial Consultancy
-            </NavPillText>
-          </NavPill>
-          <NavPill
-            isSelected={pillIndex === 3}
-            onClick={() => handleChangePillIndex(3)}
-          >
-            <NavPillText>
-              <NavPillIcon icon={["fas", "bars"]} />
-              Business Loans
-            </NavPillText>
-          </NavPill>
+          {pills.map((pillName, idx) => {
+            return (
+              <NavPill
+                isSelected={pillIndex === idx}
+                onClick={() => handleChangePillIndex(idx)}
+              >
+                <NavPillText>
+                  <NavPillIcon icon={["fas", "bars"]} />
+                  {pillName}
+                </NavPillText>
+              </NavPill>
+            );
+          })}
         </NavPillsContainer>
-        <Right isVisible={pillIndex === 0}>
-          <ImageContainer>
-            <Image src={`${imgbaseUrl}service-${pillIndex + 1}.jpg`} />
-          </ImageContainer>
-          <RightDescContainer>
-            <RightTitle>25 Years Of Experience In Financial Support</RightTitle>
-            <RightDesc>
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo erat amet.
-            </RightDesc>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Secured Loans
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Credit Facilities
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Cash Advanced
-            </RightParagraph>
-            <RightButton to="/">Read More</RightButton>
-          </RightDescContainer>
-        </Right>
-        <Right isVisible={pillIndex === 1}>
-          <ImageContainer>
-            <Image src={`${imgbaseUrl}service-${pillIndex + 1}.jpg`} />
-          </ImageContainer>
-          <RightDescContainer>
-            <RightTitle>25 Years Of Experience In Financial Support</RightTitle>
-            <RightDesc>
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo erat amet.
-            </RightDesc>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Secured Loans
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Credit Facilities
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Cash Advanced
-            </RightParagraph>
-            <RightButton to="/">Read More</RightButton>
-          </RightDescContainer>
-        </Right>
-        <Right isVisible={pillIndex === 2}>
-          <ImageContainer>
-            <Image src={`${imgbaseUrl}service-${pillIndex + 1}.jpg`} />
-          </ImageContainer>
-          <RightDescContainer>
-            <RightTitle>25 Years Of Experience In Financial Support</RightTitle>
-            <RightDesc>
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo erat amet.
-            </RightDesc>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Secured Loans
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Credit Facilities
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Cash Advanced
-            </RightParagraph>
-            <RightButton to="/">Read More</RightButton>
-          </RightDescContainer>
-        </Right>
-        <Right isVisible={pillIndex === 3}>
-          <ImageContainer>
-            <Image src={`${imgbaseUrl}service-${pillIndex + 1}.jpg`} />
-          </ImageContainer>
-          <RightDescContainer>
-            <RightTitle>25 Years Of Experience In Financial Support</RightTitle>
-            <RightDesc>
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo erat amet.
-            </RightDesc>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Secured Loans
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Credit Facilities
-            </RightParagraph>
-            <RightParagraph>
-              <RightParagraphIcon icon={["fas", "check"]} />
-              Cash Advanced
-            </RightParagraph>
-            <RightButton to="/">Read More</RightButton>
-          </RightDescContainer>
-        </Right>
+        {memoizedRights}
       </Bottom>
     </Container>
   );

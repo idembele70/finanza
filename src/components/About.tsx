@@ -1,4 +1,4 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { IconName, library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCircleXmark,
   faPhoneFlip,
@@ -211,6 +211,53 @@ const About = () => {
     setTabIndex(idx);
   };
   const [tabIndex, setTabIndex] = useState(0);
+  const tabTitles: string[] = ["Story", "Mission", " Vision"];
+  interface ITabDesc {
+    firstDesc: string;
+    secondDesc: string;
+  }
+  const tabDescs: ITabDesc[] = [
+    {
+      firstDesc:
+        "Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore.",
+      secondDesc:
+        "Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit",
+    },
+    {
+      firstDesc:
+        "Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore.",
+      secondDesc:
+        "Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit",
+    },
+    {
+      firstDesc:
+        "Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore.",
+      secondDesc:
+        "Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit",
+    },
+  ];
+  interface IFooterItem {
+    iconName: IconName;
+    title: string;
+    desc: string;
+  }
+  const footerItems: IFooterItem[] = [
+    {
+      iconName: "circle-xmark",
+      title: "No Hidden Cost",
+      desc: " Clita erat ipsum lorem sit sed stet duo justo",
+    },
+    {
+      iconName: "users",
+      title: "Dedicated Team",
+      desc: " Clita erat ipsum lorem sit sed stet duo justo",
+    },
+    {
+      iconName: "phone-flip",
+      title: "24/7 Available",
+      desc: " Clita erat ipsum lorem sit sed stet duo justo",
+    },
+  ];
   return (
     <Container>
       <ColWrapper>
@@ -227,90 +274,35 @@ const About = () => {
           </Desc>
           <TabContainer>
             <TabHeader>
-              <TabTitle
-                onClick={() => handleSelect(0)}
-                isSelected={tabIndex === 0}
-              >
-                Story
-              </TabTitle>
-              <TabTitle
-                onClick={() => handleSelect(1)}
-                isSelected={tabIndex === 1}
-              >
-                Mission
-              </TabTitle>
-              <TabTitle
-                onClick={() => handleSelect(2)}
-                isSelected={tabIndex === 2}
-              >
-                Vision
-              </TabTitle>
+              {tabTitles.map((title, idx) => (
+                <TabTitle
+                  key={idx}
+                  onClick={() => handleSelect(idx)}
+                  isSelected={tabIndex === idx}
+                >
+                  {title}
+                </TabTitle>
+              ))}
             </TabHeader>
-            <TabDescContainer isSelected={tabIndex === 0}>
-              <StyledParagraph>
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
-                tempor sit. Aliqu diam amet diam et eos labore.
-              </StyledParagraph>
-              <StyledParagraph>
-                Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
-                labore. Clita erat ipsum et lorem et sit
-              </StyledParagraph>
-            </TabDescContainer>
-            <TabDescContainer isSelected={tabIndex === 1}>
-              <StyledParagraph>
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
-                tempor sit. Aliqu diam amet diam et eos labore.
-              </StyledParagraph>
-              <StyledParagraph>
-                Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
-                labore. Clita erat ipsum et lorem et sit
-              </StyledParagraph>
-            </TabDescContainer>
-            <TabDescContainer isSelected={tabIndex === 2}>
-              <StyledParagraph>
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
-                tempor sit. Aliqu diam amet diam et eos labore.
-              </StyledParagraph>
-              <StyledParagraph>
-                Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
-                labore. Clita erat ipsum et lorem et sit
-              </StyledParagraph>
-            </TabDescContainer>
+            {tabDescs.map(({ firstDesc, secondDesc }, idx) => (
+              <TabDescContainer key={idx} isSelected={tabIndex === idx}>
+                <StyledParagraph>{firstDesc}</StyledParagraph>
+                <StyledParagraph>{secondDesc}</StyledParagraph>
+              </TabDescContainer>
+            ))}
           </TabContainer>
         </Right>
       </ColWrapper>
       <AboutFooter>
-        <AboutFooterItem>
-          <Icon icon={["fas", "circle-xmark"]} />
-          <AboutFooterDescContainer>
-            <TitleH4>No Hidden Cost</TitleH4>
-            <AboutFooterItemParagraph>
-              Clita erat ipsum lorem sit sed stet duo justo
-            </AboutFooterItemParagraph>
-          </AboutFooterDescContainer>
-        </AboutFooterItem>
-        <AboutFooterItem>
-          <IconContainer>
-            <Icon icon={["fas", "users"]} />
-          </IconContainer>
-          <AboutFooterDescContainer>
-            <TitleH4>Dedicated Team</TitleH4>
-            <AboutFooterItemParagraph>
-              Clita erat ipsum lorem sit sed stet duo justo
-            </AboutFooterItemParagraph>
-          </AboutFooterDescContainer>
-        </AboutFooterItem>
-        <AboutFooterItem>
-          <IconContainer>
-            <Icon icon={["fas", "phone-flip"]} />
-          </IconContainer>
-          <AboutFooterDescContainer>
-            <TitleH4>24/7 Available</TitleH4>
-            <AboutFooterItemParagraph>
-              Clita erat ipsum lorem sit sed stet duo justo
-            </AboutFooterItemParagraph>
-          </AboutFooterDescContainer>
-        </AboutFooterItem>
+        {footerItems.map(({ iconName, title, desc }, idx) => (
+          <AboutFooterItem key={idx}>
+            <Icon icon={["fas", iconName]} />
+            <AboutFooterDescContainer>
+              <TitleH4>{title}</TitleH4>
+              <AboutFooterItemParagraph>{desc}</AboutFooterItemParagraph>
+            </AboutFooterDescContainer>
+          </AboutFooterItem>
+        ))}
       </AboutFooter>
     </Container>
   );
