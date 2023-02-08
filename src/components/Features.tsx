@@ -91,6 +91,26 @@ const RightItemBtnIcon = styled(FontAwesomeIcon)`
 `;
 
 const Features = () => {
+  interface IRightItem {
+    title: string;
+    desc: string;
+  }
+  const rightItemLeftCol: IRightItem[] = [
+    {
+      title: "Fast Executions",
+      desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
+    },
+    {
+      title: "Fast Executions",
+      desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
+    },
+  ];
+  const rightItemRightCol: IRightItem[] = [
+    {
+      title: "Fast Executions",
+      desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
+    },
+  ];
   return (
     <Container>
       <Left>
@@ -105,50 +125,34 @@ const Features = () => {
       </Left>
       <Right>
         <RightCol>
-          <RightItemContainer>
-            <RightItem>
-              <Icon icon={["fas", "check"]} />
-              <RightItemTitle>Fast Executions</RightItemTitle>
-              <StyledParagraph>
-                Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
-                justo erat amet
-              </StyledParagraph>
-              <RightItemButton to="/">
-                Read More
-                <RightItemBtnIcon icon={["fas", "arrow-right"]} />
-              </RightItemButton>
-            </RightItem>
-          </RightItemContainer>
-          <RightItemContainer>
-            <RightItem>
-              <Icon icon={["fas", "check"]} />
-              <RightItemTitle>Fast Executions</RightItemTitle>
-              <StyledParagraph>
-                Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
-                justo erat amet
-              </StyledParagraph>
-              <RightItemButton to="/">
-                Read More
-                <RightItemBtnIcon icon={["fas", "arrow-right"]} />
-              </RightItemButton>
-            </RightItem>
-          </RightItemContainer>
+          {rightItemLeftCol.map(({ title, desc }, idx) => (
+            <RightItemContainer key={idx}>
+              <RightItem>
+                <Icon icon={["fas", "check"]} />
+                <RightItemTitle>{title}</RightItemTitle>
+                <StyledParagraph>{desc}</StyledParagraph>
+                <RightItemButton to="/">
+                  Read More
+                  <RightItemBtnIcon icon={["fas", "arrow-right"]} />
+                </RightItemButton>
+              </RightItem>
+            </RightItemContainer>
+          ))}
         </RightCol>
         <RightCol>
-          <RightItemContainer>
-            <RightItem>
-              <Icon icon={["fas", "check"]} />
-              <RightItemTitle>Fast Executions</RightItemTitle>
-              <StyledParagraph>
-                Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
-                justo erat amet
-              </StyledParagraph>
-              <RightItemButton to="/">
-                Read More
-                <RightItemBtnIcon icon={["fas", "arrow-right"]} />
-              </RightItemButton>
-            </RightItem>
-          </RightItemContainer>
+          {rightItemRightCol.map(({ title, desc }, idx) => (
+            <RightItemContainer>
+              <RightItem>
+                <Icon icon={["fas", "check"]} />
+                <RightItemTitle>{title}</RightItemTitle>
+                <StyledParagraph>{desc}</StyledParagraph>
+                <RightItemButton to="/">
+                  Read More
+                  <RightItemBtnIcon icon={["fas", "arrow-right"]} />
+                </RightItemButton>
+              </RightItem>
+            </RightItemContainer>
+          ))}
         </RightCol>
       </Right>
     </Container>
