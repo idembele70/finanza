@@ -44,11 +44,17 @@ const Copyright = () => {
       <ContainerWrapper>
         <Wrapper>
           <Col>
-            &copy; <CopyrightLink to="/">Your Site Name</CopyrightLink>, All
-            Right Reserved
+            &copy;{" "}
+            <CopyrightLink reloadDocument to="/">
+              Your Site Name
+            </CopyrightLink>
+            , All Right Reserved
           </Col>
           <Col>
-            Designed By <CopyrightLink to="/">HTML Codex</CopyrightLink>
+            Designed By{" "}
+            <CopyrightLink reloadDocument to="/">
+              HTML Codex
+            </CopyrightLink>
           </Col>
         </Wrapper>
       </ContainerWrapper>

@@ -191,16 +191,16 @@ const Footer = () => {
               </OfficeRow>
             ))}
             <MediaContainer>
-              <MediaIconContainer to="/">
+              <MediaIconContainer reloadDocument to="/">
                 <MediaIcon icon={faTwitter} />
               </MediaIconContainer>
-              <MediaIconContainer to="/">
+              <MediaIconContainer reloadDocument to="/">
                 <MediaIcon icon={faFacebookF} />
               </MediaIconContainer>
-              <MediaIconContainer to="/">
+              <MediaIconContainer reloadDocument to="/">
                 <MediaIcon icon={faYoutube} />
               </MediaIconContainer>
-              <MediaIconContainer to="/">
+              <MediaIconContainer reloadDocument to="/">
                 <MediaIcon icon={faLinkedinIn} />
               </MediaIconContainer>
             </MediaContainer>
@@ -209,7 +209,7 @@ const Footer = () => {
             <FooterTitle>Services</FooterTitle>
             <LinkContainer>
               {serviceItem.map((name, idx) => (
-                <FooterLink key={idx} to="/">
+                <FooterLink key={idx} reloadDocument to="/">
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>
@@ -220,7 +220,7 @@ const Footer = () => {
             <FooterTitle>Quick Links</FooterTitle>
             <LinkContainer>
               {quickLinkItem.map((name, idx) => (
-                <FooterLink key={idx} to="/">
+                <FooterLink key={idx} reloadDocument to="/">
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>

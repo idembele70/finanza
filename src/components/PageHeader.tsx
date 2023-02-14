@@ -59,10 +59,14 @@ const PageHeader = ({ title }: PageHeaderProps) => {
         <Title>{title}</Title>
         <ListContainer>
           <List>
-            <ListLink to="/about">Home</ListLink>
+            <ListLink reloadDocument to="/about">
+              Home
+            </ListLink>
           </List>
           <List>
-            <ListLink to="/about">Pages</ListLink>
+            <ListLink reloadDocument to="/about">
+              Pages
+            </ListLink>
           </List>
           <List>{title}</List>
         </ListContainer>

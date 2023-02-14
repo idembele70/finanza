@@ -132,13 +132,13 @@ const Team = () => {
               <CardImgBg>
                 <TitleH4 style={{ margin: 0 }}>{name}</TitleH4>
                 <MediaContainer>
-                  <StyledMediaIconContainer to="/">
+                  <StyledMediaIconContainer reloadDocument to="/">
                     <MediaIcon icon={faFacebookF} />
                   </StyledMediaIconContainer>
-                  <StyledMediaIconContainer to="/">
+                  <StyledMediaIconContainer reloadDocument to="/">
                     <MediaIcon icon={faTwitter} />
                   </StyledMediaIconContainer>
-                  <StyledMediaIconContainer to="/">
+                  <StyledMediaIconContainer reloadDocument to="/">
                     <MediaIcon icon={faInstagram} />
                   </StyledMediaIconContainer>
                 </MediaContainer>

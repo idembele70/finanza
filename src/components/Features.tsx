@@ -121,7 +121,9 @@ const Features = () => {
           diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
           lorem sit clita duo justo magna dolore erat amet
         </Desc>
-        <ButtonLink to="/">Explore More</ButtonLink>
+        <ButtonLink reloadDocument to="/">
+          Explore More
+        </ButtonLink>
       </Left>
       <Right>
         <RightCol>
@@ -131,7 +133,7 @@ const Features = () => {
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
                 <StyledParagraph>{desc}</StyledParagraph>
-                <RightItemButton to="/">
+                <RightItemButton reloadDocument to="/">
                   Read More
                   <RightItemBtnIcon icon={["fas", "arrow-right"]} />
                 </RightItemButton>
@@ -146,7 +148,7 @@ const Features = () => {
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
                 <StyledParagraph>{desc}</StyledParagraph>
-                <RightItemButton to="/">
+                <RightItemButton reloadDocument to="/">
                   Read More
                   <RightItemBtnIcon icon={["fas", "arrow-right"]} />
                 </RightItemButton>

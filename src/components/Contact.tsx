@@ -52,7 +52,10 @@ const Contact = () => {
             The contact form is currently inactive. Get a functional and working
             contact form with Ajax & PHP in a few minutes. Just copy and paste
             the files, add a little code and you're done.{" "}
-            <DLLink to="/contact">Download Now</DLLink>.
+            <DLLink reloadDocument to="/contact">
+              Download Now
+            </DLLink>
+            .
           </StyledParagraph>
           <Form>
             <InputContainer>

@@ -168,7 +168,7 @@ const Projects = () => {
           <Card key={idx}>
             <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />
             <CardLinkContainer>
-              <CardLink to="/" />
+              <CardLink reloadDocument to="/" />
               <CardIcon icon={["fas", "link"]} />
             </CardLinkContainer>
             <CardBg>

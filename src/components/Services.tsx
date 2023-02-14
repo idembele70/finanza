@@ -199,7 +199,9 @@ const Services = () => {
               <RightTitle>{title}</RightTitle>
               <RightDesc>{desc}</RightDesc>
               {memoizedAdvantages}
-              <RightButton to="/">Read More</RightButton>
+              <RightButton reloadDocument to="/">
+                Read More
+              </RightButton>
             </RightDescContainer>
           </Right>
         );

@@ -17,7 +17,7 @@ import {
   faS,
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { lgDown, mdDown, mdUp } from "../utils/responsive";
 library.add(
@@ -368,6 +368,7 @@ const Header = () => {
       behavior: "smooth",
     });
   };
+  const navigate = useNavigate();
   return (
     <>
       <Container isSticky={isSticky} isDesktop={isDesktop}>
@@ -394,14 +395,20 @@ const Header = () => {
           </Column>
         </Top>
         <Bottom>
-          <LogoContainer to="/">
+          <LogoContainer reloadDocument to="/">
             <Logo>Finanza</Logo>
           </LogoContainer>
           <Right toggle={navToggle}>
             <Nav>
-              <NavItem to="/">Home</NavItem>
-              <NavItem to="/about">About</NavItem>
-              <NavItem to="/service">Services</NavItem>
+              <NavItem reloadDocument to="/">
+                Home
+              </NavItem>
+              <NavItem reloadDocument to="/about">
+                About
+              </NavItem>
+              <NavItem reloadDocument to="/service">
+                Services
+              </NavItem>
               <DropDownContainer
                 onClick={handleToggleDropDown}
                 toggle={dropDownToggle}
@@ -410,25 +417,35 @@ const Header = () => {
                 Pages
                 <NavItemIcon icon={["fas", "chevron-down"]} />
                 <NavDropDown>
-                  <NavDropDownItem to="/project">Projects</NavDropDownItem>
-                  <NavDropDownItem to="/feature">Features</NavDropDownItem>
-                  <NavDropDownItem to="/team">Team Member</NavDropDownItem>
-                  <NavDropDownItem to="/testimonial">
+                  <NavDropDownItem reloadDocument to="/project">
+                    Projects
+                  </NavDropDownItem>
+                  <NavDropDownItem reloadDocument to="/feature">
+                    Features
+                  </NavDropDownItem>
+                  <NavDropDownItem reloadDocument to="/team">
+                    Team Member
+                  </NavDropDownItem>
+                  <NavDropDownItem reloadDocument to="/testimonial">
                     Testimonial
                   </NavDropDownItem>
-                  <NavDropDownItem to="/notFound">404 Page</NavDropDownItem>
+                  <NavDropDownItem reloadDocument to="/notFound">
+                    404 Page
+                  </NavDropDownItem>
                 </NavDropDown>
               </DropDownContainer>
-              <NavItem to="/contact">Contact</NavItem>
+              <NavItem reloadDocument to="/contact">
+                Contact
+              </NavItem>
             </Nav>
             <MediaContainer>
-              <MediaIconContainer to="/">
+              <MediaIconContainer reloadDocument to="/">
                 <MediaIcon icon={faFacebookF} />
               </MediaIconContainer>
-              <MediaIconContainer to="/">
+              <MediaIconContainer reloadDocument to="/">
                 <MediaIcon icon={faTwitter} />
               </MediaIconContainer>
-              <MediaIconContainer to="/">
+              <MediaIconContainer reloadDocument to="/">
                 <MediaIcon icon={faLinkedinIn} />
               </MediaIconContainer>
             </MediaContainer>

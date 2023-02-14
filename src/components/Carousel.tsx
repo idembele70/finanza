@@ -164,7 +164,9 @@ const Carousel = () => {
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>Your Financial Status is Our Goal</Title>
-            <ButtonLink to="/">Explore More</ButtonLink>
+            <ButtonLink reloadDocument to="/">
+              Explore More
+            </ButtonLink>
           </SliderDesc>
         </SliderItem>
         <SliderItem>
@@ -172,7 +174,9 @@ const Carousel = () => {
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>True Financial Support For You</Title>
-            <ButtonLink to="/">Explore More</ButtonLink>
+            <ButtonLink reloadDocument to="/">
+              Explore More
+            </ButtonLink>
           </SliderDesc>
         </SliderItem>
       </Slider>
