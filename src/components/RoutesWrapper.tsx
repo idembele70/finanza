@@ -13,7 +13,6 @@ import Footer from "./Footer";
 import Copyright from "./Copyright";
 import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
-
 const spin = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -36,6 +35,7 @@ const Loader = styled.div`
 `;
 const RoutesWrapper = () => {
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);

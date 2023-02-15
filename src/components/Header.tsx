@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled, { keyframes } from "styled-components";
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faFacebookF,
@@ -20,6 +19,8 @@ import {
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { lgDown, mdDown, mdUp } from "../utils/responsive";
+import ReactWOW from "react-wow";
+
 library.add(
   faLocationDot,
   faS,
