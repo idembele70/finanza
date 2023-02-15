@@ -9,7 +9,7 @@ import {
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { DefaultMediaIconContainer } from "./Header";
+import { DefaultMediaIconContainer, hrefBaseUrl } from "./Header";
 import {
   faFacebookF,
   faLinkedinIn,
@@ -86,7 +86,7 @@ const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.light};
 `;
 const LinkContainer = styled.div``;
-const FooterLink = styled(Link)`
+const FooterLink = styled.a`
   display: block;
   color: ${({ theme }) => theme.palette.primary.light};
   margin-bottom: 5px;
@@ -191,16 +191,16 @@ const Footer = () => {
               </OfficeRow>
             ))}
             <MediaContainer>
-              <MediaIconContainer reloadDocument to="/">
+              <MediaIconContainer href={hrefBaseUrl("")}>
                 <MediaIcon icon={faTwitter} />
               </MediaIconContainer>
-              <MediaIconContainer reloadDocument to="/">
+              <MediaIconContainer href={hrefBaseUrl("")}>
                 <MediaIcon icon={faFacebookF} />
               </MediaIconContainer>
-              <MediaIconContainer reloadDocument to="/">
+              <MediaIconContainer href={hrefBaseUrl("")}>
                 <MediaIcon icon={faYoutube} />
               </MediaIconContainer>
-              <MediaIconContainer reloadDocument to="/">
+              <MediaIconContainer href={hrefBaseUrl("")}>
                 <MediaIcon icon={faLinkedinIn} />
               </MediaIconContainer>
             </MediaContainer>
@@ -209,7 +209,7 @@ const Footer = () => {
             <FooterTitle>Services</FooterTitle>
             <LinkContainer>
               {serviceItem.map((name, idx) => (
-                <FooterLink key={idx} reloadDocument to="/">
+                <FooterLink key={idx} href={hrefBaseUrl("")}>
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>
@@ -220,7 +220,7 @@ const Footer = () => {
             <FooterTitle>Quick Links</FooterTitle>
             <LinkContainer>
               {quickLinkItem.map((name, idx) => (
-                <FooterLink key={idx} reloadDocument to="/">
+                <FooterLink key={idx} href={hrefBaseUrl("")}>
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>

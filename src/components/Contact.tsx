@@ -4,6 +4,7 @@ import { Paragraph, ParagraphWithLightBorder, Title } from "./About";
 import { Button, Input, InputContainer, TextArea } from "./CallBack";
 import { WrapperContainer } from "./Carousel";
 import { smDown } from "../utils/responsive";
+import { hrefBaseUrl } from "./Header";
 
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -21,7 +22,7 @@ const Col = styled.div`
   })}
 `;
 const StyledParagraph = styled(Paragraph)``;
-const DLLink = styled(Link)`
+const DLLink = styled.a`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
 const Form = styled.form`
@@ -52,10 +53,7 @@ const Contact = () => {
             The contact form is currently inactive. Get a functional and working
             contact form with Ajax & PHP in a few minutes. Just copy and paste
             the files, add a little code and you're done.{" "}
-            <DLLink reloadDocument to="/contact">
-              Download Now
-            </DLLink>
-            .
+            <DLLink href={hrefBaseUrl("contact")}>Download Now</DLLink>.
           </StyledParagraph>
           <Form>
             <InputContainer>

@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { mdDown, smDown } from "../utils/responsive";
+import { hrefBaseUrl } from "./Header";
 library.add(faArrowRight);
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -80,7 +81,7 @@ const RightItemTitle = styled.h4`
 const StyledParagraph = styled(Paragraph)`
   margin-bottom: 16px;
 `;
-const RightItemButton = styled(Link)`
+const RightItemButton = styled.a`
   color: ${({ theme }) => theme.palette.primary.main};
   transition: all 500ms;
 `;
@@ -121,9 +122,7 @@ const Features = () => {
           diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
           lorem sit clita duo justo magna dolore erat amet
         </Desc>
-        <ButtonLink reloadDocument to="/">
-          Explore More
-        </ButtonLink>
+        <ButtonLink href={hrefBaseUrl("")}>Explore More</ButtonLink>
       </Left>
       <Right>
         <RightCol>
@@ -133,7 +132,7 @@ const Features = () => {
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
                 <StyledParagraph>{desc}</StyledParagraph>
-                <RightItemButton reloadDocument to="/">
+                <RightItemButton href={hrefBaseUrl("")}>
                   Read More
                   <RightItemBtnIcon icon={["fas", "arrow-right"]} />
                 </RightItemButton>
@@ -148,7 +147,7 @@ const Features = () => {
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
                 <StyledParagraph>{desc}</StyledParagraph>
-                <RightItemButton reloadDocument to="/">
+                <RightItemButton href={hrefBaseUrl("")}>
                   Read More
                   <RightItemBtnIcon icon={["fas", "arrow-right"]} />
                 </RightItemButton>

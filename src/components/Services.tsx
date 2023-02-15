@@ -5,6 +5,7 @@ import { Paragraph, ParagraphWithLightBorder, Title, fadeout } from "./About";
 import { ButtonLink, WrapperContainer, imgbaseUrl } from "./Carousel";
 import { lgDown, mdDown, smDown } from "../utils/responsive";
 import { arrayBuffer } from "stream/consumers";
+import { hrefBaseUrl } from "./Header";
 
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -199,9 +200,7 @@ const Services = () => {
               <RightTitle>{title}</RightTitle>
               <RightDesc>{desc}</RightDesc>
               {memoizedAdvantages}
-              <RightButton reloadDocument to="/">
-                Read More
-              </RightButton>
+              <RightButton href={hrefBaseUrl("")}>Read More</RightButton>
             </RightDescContainer>
           </Right>
         );

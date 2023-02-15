@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { ParagraphWithLightBorder, TitleH4 } from "./About";
 import { TitleWithBigMargin } from "./Services";
-import { DefaultMediaIconContainer, MediaIcon } from "./Header";
+import { DefaultMediaIconContainer, MediaIcon, hrefBaseUrl } from "./Header";
 import {
   faFacebookF,
   faInstagram,
@@ -132,13 +132,13 @@ const Team = () => {
               <CardImgBg>
                 <TitleH4 style={{ margin: 0 }}>{name}</TitleH4>
                 <MediaContainer>
-                  <StyledMediaIconContainer reloadDocument to="/">
+                  <StyledMediaIconContainer href={hrefBaseUrl("")}>
                     <MediaIcon icon={faFacebookF} />
                   </StyledMediaIconContainer>
-                  <StyledMediaIconContainer reloadDocument to="/">
+                  <StyledMediaIconContainer href={hrefBaseUrl("")}>
                     <MediaIcon icon={faTwitter} />
                   </StyledMediaIconContainer>
-                  <StyledMediaIconContainer reloadDocument to="/">
+                  <StyledMediaIconContainer href={hrefBaseUrl("")}>
                     <MediaIcon icon={faInstagram} />
                   </StyledMediaIconContainer>
                 </MediaContainer>

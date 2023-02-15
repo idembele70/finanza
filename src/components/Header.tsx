@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled, { keyframes } from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faFacebookF,
@@ -7,19 +5,20 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import {
+  faArrowUp,
+  faBars,
   faChevronDown,
   faClock,
   faEnvelope,
   faLocationDot,
   faPhone,
-  faBars,
   faS,
-  faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, mdUp } from "../utils/responsive";
-import ReactWOW from "react-wow";
 
 library.add(
   faLocationDot,
@@ -87,7 +86,7 @@ const Bottom = styled.div`
   flex-wrap: wrap;
   padding: 8px 0;
 `;
-const LogoContainer = styled(Link)`
+const LogoContainer = styled.a`
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -132,12 +131,13 @@ const Nav = styled.nav`
       padding: `calc(${theme.containerPaddingX}px /2)`,
     })}
 `;
-const NavItem = styled(NavLink)`
+interface INavItem {
+  isActive: boolean;
+}
+const NavItem = styled.a<INavItem>`
   text-decoration: none;
-  color: ${({ theme }) => theme.palette.common.black};
-  &.active {
-    color: ${({ theme }) => theme.palette.primary.main};
-  }
+  color: ${({ theme, isActive }) =>
+    isActive ? theme.palette.primary.main : theme.palette.common.black};
   font-weight: 500;
   padding: 25px 15px;
   &:hover {
@@ -154,12 +154,12 @@ const NavItemIcon = styled(FontAwesomeIcon)`
   vertical-align: inherit;
 `;
 interface DropDownContainerProps {
-  isactive: boolean;
+  isActive: boolean;
   toggle: boolean;
 }
 const DropDownContainer = styled.span<DropDownContainerProps>`
-  color: ${({ theme, isactive }) =>
-    isactive ? theme.palette.primary.main : theme.palette.common.black};
+  color: ${({ theme, isActive }) =>
+    isActive ? theme.palette.primary.main : theme.palette.common.black};
   font-weight: 500;
   padding: 25px 15px;
   font-size: 1rem;
@@ -209,19 +209,19 @@ const NavDropDown = styled.div`
     opacity: 1,
   })}
 `;
-const NavDropDownItem = styled(NavLink)`
+const NavDropDownItem = styled.a<INavItem>`
   width: 100%;
   display: block;
-  color: #212529;
+  color: ${({ isActive, theme }) =>
+    isActive ? theme.palette.common.white : "#212529"};
   padding: 4px 16px;
   font-weight: 400;
   line-height: 1.5;
+  background-color: ${({ isActive, theme }) =>
+    isActive ? theme.palette.primary.main : "transparent"};
   &:hover {
-    background-color: #e9ecef;
-  }
-  &.active {
-    background-color: ${({ theme }) => theme.palette.primary.main};
-    color: ${({ theme }) => theme.palette.common.white};
+    background-color: ${({ isActive, theme }) =>
+      isActive ? theme.palette.primary.main : "#e9ecef"};
   }
 `;
 const MediaContainer = styled.div`
@@ -231,7 +231,7 @@ const MediaContainer = styled.div`
     display: "none",
   })}
 `;
-export const DefaultMediaIconContainer = styled(Link)`
+export const DefaultMediaIconContainer = styled.a`
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -320,6 +320,8 @@ const Icon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.common.white};
   font-size: 1.5rem;
 `;
+export const hrefBaseUrl = (path: string) => `/finanza/${path}`;
+
 const Header = () => {
   const { pathname } = useLocation();
   const [isPagesActive, setIsPagesActive] = useState(false);
@@ -369,7 +371,6 @@ const Header = () => {
       behavior: "smooth",
     });
   };
-  const navigate = useNavigate();
   return (
     <>
       <Container isSticky={isSticky} isDesktop={isDesktop}>
@@ -396,57 +397,81 @@ const Header = () => {
           </Column>
         </Top>
         <Bottom>
-          <LogoContainer reloadDocument to="/">
+          <LogoContainer href={hrefBaseUrl("")}>
             <Logo>Finanza</Logo>
           </LogoContainer>
           <Right toggle={navToggle}>
             <Nav>
-              <NavItem reloadDocument to="/">
+              <NavItem isActive={pathname === "/"} href={hrefBaseUrl("")}>
                 Home
               </NavItem>
-              <NavItem reloadDocument to="/about">
+              <NavItem
+                isActive={pathname === "/about"}
+                href={hrefBaseUrl("about")}
+              >
                 About
               </NavItem>
-              <NavItem reloadDocument to="/service">
+              <NavItem
+                isActive={pathname === "/service"}
+                href={hrefBaseUrl("service")}
+              >
                 Services
               </NavItem>
               <DropDownContainer
                 onClick={handleToggleDropDown}
                 toggle={dropDownToggle}
-                isactive={isPagesActive}
+                isActive={isPagesActive}
               >
                 Pages
                 <NavItemIcon icon={["fas", "chevron-down"]} />
                 <NavDropDown>
-                  <NavDropDownItem reloadDocument to="/project">
+                  <NavDropDownItem
+                    isActive={pathname === "/project"}
+                    href={hrefBaseUrl("project")}
+                  >
                     Projects
                   </NavDropDownItem>
-                  <NavDropDownItem reloadDocument to="/feature">
+                  <NavDropDownItem
+                    isActive={pathname === "/feature"}
+                    href={hrefBaseUrl("feature")}
+                  >
                     Features
                   </NavDropDownItem>
-                  <NavDropDownItem reloadDocument to="/team">
+                  <NavDropDownItem
+                    isActive={pathname === "/team"}
+                    href={hrefBaseUrl("team")}
+                  >
                     Team Member
                   </NavDropDownItem>
-                  <NavDropDownItem reloadDocument to="/testimonial">
+                  <NavDropDownItem
+                    isActive={pathname === "/testimonial"}
+                    href={hrefBaseUrl("testimonial")}
+                  >
                     Testimonial
                   </NavDropDownItem>
-                  <NavDropDownItem reloadDocument to="/notFound">
+                  <NavDropDownItem
+                    isActive={pathname === "/notFound"}
+                    href={hrefBaseUrl("notFound")}
+                  >
                     404 Page
                   </NavDropDownItem>
                 </NavDropDown>
               </DropDownContainer>
-              <NavItem reloadDocument to="/contact">
+              <NavItem
+                isActive={pathname === "/contact"}
+                href={hrefBaseUrl("contact")}
+              >
                 Contact
               </NavItem>
             </Nav>
             <MediaContainer>
-              <MediaIconContainer reloadDocument to="/">
+              <MediaIconContainer href={hrefBaseUrl("")}>
                 <MediaIcon icon={faFacebookF} />
               </MediaIconContainer>
-              <MediaIconContainer reloadDocument to="/">
+              <MediaIconContainer href={hrefBaseUrl("")}>
                 <MediaIcon icon={faTwitter} />
               </MediaIconContainer>
-              <MediaIconContainer reloadDocument to="/">
+              <MediaIconContainer href={hrefBaseUrl("")}>
                 <MediaIcon icon={faLinkedinIn} />
               </MediaIconContainer>
             </MediaContainer>

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { lgDown } from "../utils/responsive";
 import { Paragraph } from "./About";
+import { hrefBaseUrl } from "./Header";
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
   display: flex;
@@ -46,9 +47,7 @@ const NotFound = () => {
         We’re sorry, the page you have looked for does not exist in our website!
         Maybe go to our home page or try to use a search?
       </StyledParagraph>
-      <ButtonLink reloadDocument to="/">
-        Go Back To Home
-      </ButtonLink>
+      <ButtonLink href={hrefBaseUrl("")}>Go Back To Home</ButtonLink>
     </Container>
   );
 };

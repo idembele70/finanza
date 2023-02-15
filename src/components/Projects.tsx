@@ -11,6 +11,7 @@ import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
+import { hrefBaseUrl } from "./Header";
 library.add(faLink);
 
 const Container = styled(WrapperContainer)`
@@ -67,7 +68,7 @@ const CardIcon = styled(FontAwesomeIcon)`
   opacity: 0;
   transition: opacity 300ms linear;
 `;
-const CardLink = styled(Link)`
+const CardLink = styled.a`
   position: absolute;
   top: 0;
   left: 0;
@@ -168,7 +169,7 @@ const Projects = () => {
           <Card key={idx}>
             <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />
             <CardLinkContainer>
-              <CardLink reloadDocument to="/" />
+              <CardLink href={hrefBaseUrl("")} />
               <CardIcon icon={["fas", "link"]} />
             </CardLinkContainer>
             <CardBg>

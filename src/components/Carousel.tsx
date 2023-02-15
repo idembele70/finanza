@@ -11,6 +11,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { hrefBaseUrl } from "./Header";
 library.add(faChevronLeft, faChevronRight);
 const Container = styled.div`
   position: relative;
@@ -71,7 +72,7 @@ const Title = styled.h1`
     fontSize: "calc(1.625rem + 4.5vw)",
   })}
 `;
-export const ButtonLink = styled(Link)`
+export const ButtonLink = styled.a`
   color: ${({ theme }) => theme.palette.primary.light};
   background-color: ${({ theme }) => theme.palette.primary.main};
   padding: 16px 48px;
@@ -164,9 +165,7 @@ const Carousel = () => {
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>Your Financial Status is Our Goal</Title>
-            <ButtonLink reloadDocument to="/">
-              Explore More
-            </ButtonLink>
+            <ButtonLink href={hrefBaseUrl("")}>Explore More</ButtonLink>
           </SliderDesc>
         </SliderItem>
         <SliderItem>
@@ -174,9 +173,7 @@ const Carousel = () => {
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>True Financial Support For You</Title>
-            <ButtonLink reloadDocument to="/">
-              Explore More
-            </ButtonLink>
+            <ButtonLink href={hrefBaseUrl("")}>Explore More</ButtonLink>
           </SliderDesc>
         </SliderItem>
       </Slider>
