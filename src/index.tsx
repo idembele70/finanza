@@ -5,7 +5,6 @@ import { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./utils/theme";
 import GlobalStyle from "./utils/Globalstyle";
 import { BrowserRouter } from "react-router-dom";
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

@@ -81,7 +81,7 @@ const RightItemTitle = styled.h4`
 const StyledParagraph = styled(Paragraph)`
   margin-bottom: 16px;
 `;
-const RightItemButton = styled.a`
+const RightItemButton = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.main};
   transition: all 500ms;
 `;
@@ -122,7 +122,7 @@ const Features = () => {
           diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
           lorem sit clita duo justo magna dolore erat amet
         </Desc>
-        <ButtonLink href={hrefBaseUrl("")}>Explore More</ButtonLink>
+        <ButtonLink to="">Explore More</ButtonLink>
       </Left>
       <Right>
         <RightCol>
@@ -132,7 +132,7 @@ const Features = () => {
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
                 <StyledParagraph>{desc}</StyledParagraph>
-                <RightItemButton href={hrefBaseUrl("")}>
+                <RightItemButton to="">
                   Read More
                   <RightItemBtnIcon icon={["fas", "arrow-right"]} />
                 </RightItemButton>
@@ -147,7 +147,7 @@ const Features = () => {
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
                 <StyledParagraph>{desc}</StyledParagraph>
-                <RightItemButton href={hrefBaseUrl("")}>
+                <RightItemButton to="">
                   Read More
                   <RightItemBtnIcon icon={["fas", "arrow-right"]} />
                 </RightItemButton>

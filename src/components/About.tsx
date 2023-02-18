@@ -5,10 +5,11 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { ParagraphWithBorder, WrapperContainer, imgbaseUrl } from "./Carousel";
+import { gsap } from "gsap";
 library.add(faCircleXmark, faUsers, faPhoneFlip);
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -210,6 +211,7 @@ const About = () => {
   const handleSelect = (idx: number) => {
     setTabIndex(idx);
   };
+
   const [tabIndex, setTabIndex] = useState(0);
   const tabTitles: string[] = ["Story", "Mission", " Vision"];
   interface ITabDesc {
@@ -258,10 +260,25 @@ const About = () => {
       desc: " Clita erat ipsum lorem sit sed stet duo justo",
     },
   ];
+  // Left on scroll animation
+  const leftEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(leftEl.current, {
+        y: "100%",
+        delay: 0.1,
+        duration: 0.1,
+        scrollTrigger: {
+          trigger: leftEl.current,
+        },
+      });
+    }, leftEl);
+    return () => ctx.revert();
+  }, []);
   return (
     <Container>
       <ColWrapper>
-        <Left>
+        <Left ref={leftEl}>
           <Image src={`${imgbaseUrl}about.jpg`} />
         </Left>
         <Right>

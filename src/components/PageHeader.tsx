@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { lgDown } from "../utils/responsive";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   padding: 192px 12px 96px;
@@ -40,7 +41,7 @@ const List = styled.li`
     }
   }
 `;
-const ListLink = styled.a`
+const ListLink = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.main};
   transition: all 100ms ease;
   &:hover {
@@ -57,10 +58,10 @@ const PageHeader = ({ title }: PageHeaderProps) => {
         <Title>{title}</Title>
         <ListContainer>
           <List>
-            <ListLink href="#">Home</ListLink>
+            <ListLink to="">Home</ListLink>
           </List>
           <List>
-            <ListLink href="#">Pages</ListLink>
+            <ListLink to="">Pages</ListLink>
           </List>
           <List>{title}</List>
         </ListContainer>

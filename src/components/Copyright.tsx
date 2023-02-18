@@ -1,8 +1,7 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { WrapperContainer } from "./Carousel";
 import { smDown } from "../utils/responsive";
-import { hrefBaseUrl } from "./Header";
+import { WrapperContainer } from "./Carousel";
 const Container = styled.div`
   background-color: #000b1c;
 `;
@@ -29,7 +28,7 @@ const Col = styled.div`
   padding: 0 12px;
   color: ${({ theme }) => theme.palette.primary.light};
 `;
-const CopyrightLink = styled.a`
+const CopyrightLink = styled(Link)`
   font-weight: 400;
   color: ${({ theme }) => theme.palette.primary.light};
   line-height: 1.5;
@@ -44,13 +43,11 @@ const Copyright = () => {
       <ContainerWrapper>
         <Wrapper>
           <Col>
-            &copy;{" "}
-            <CopyrightLink href={hrefBaseUrl("")}>Your Site Name</CopyrightLink>
-            , All Right Reserved
+            &copy; <CopyrightLink to="">Your Site Name</CopyrightLink>, All
+            Right Reserved
           </Col>
           <Col>
-            Designed By{" "}
-            <CopyrightLink href={hrefBaseUrl("")}>HTML Codex</CopyrightLink>
+            Designed By <CopyrightLink to="">HTML Codex</CopyrightLink>
           </Col>
         </Wrapper>
       </ContainerWrapper>

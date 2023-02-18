@@ -1,16 +1,27 @@
 import React from "react";
-import { CircleLoader } from "react-spinners";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+const CircleLoader = styled.div`
+  border: 4px solid ${({ theme }) => theme.palette.primary.main};
+  border-top-color: ${({ theme }) => theme.palette.common.white};
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: ${spin} 2s linear infinite;
+`;
 const Spinner = () => {
   return (
     <Container>
-      <CircleLoader size={50} color="#000" />
+      <CircleLoader />
     </Container>
   );
 };

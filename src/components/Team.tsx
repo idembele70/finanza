@@ -132,13 +132,13 @@ const Team = () => {
               <CardImgBg>
                 <TitleH4 style={{ margin: 0 }}>{name}</TitleH4>
                 <MediaContainer>
-                  <StyledMediaIconContainer href={hrefBaseUrl("")}>
+                  <StyledMediaIconContainer to="">
                     <MediaIcon icon={faFacebookF} />
                   </StyledMediaIconContainer>
-                  <StyledMediaIconContainer href={hrefBaseUrl("")}>
+                  <StyledMediaIconContainer to="">
                     <MediaIcon icon={faTwitter} />
                   </StyledMediaIconContainer>
-                  <StyledMediaIconContainer href={hrefBaseUrl("")}>
+                  <StyledMediaIconContainer to="">
                     <MediaIcon icon={faInstagram} />
                   </StyledMediaIconContainer>
                 </MediaContainer>

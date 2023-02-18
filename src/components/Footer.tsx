@@ -86,7 +86,7 @@ const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.light};
 `;
 const LinkContainer = styled.div``;
-const FooterLink = styled.a`
+const FooterLink = styled(Link)`
   display: block;
   color: ${({ theme }) => theme.palette.primary.light};
   margin-bottom: 5px;
@@ -191,16 +191,16 @@ const Footer = () => {
               </OfficeRow>
             ))}
             <MediaContainer>
-              <MediaIconContainer href={hrefBaseUrl("")}>
+              <MediaIconContainer to={""}>
                 <MediaIcon icon={faTwitter} />
               </MediaIconContainer>
-              <MediaIconContainer href={hrefBaseUrl("")}>
+              <MediaIconContainer to={""}>
                 <MediaIcon icon={faFacebookF} />
               </MediaIconContainer>
-              <MediaIconContainer href={hrefBaseUrl("")}>
+              <MediaIconContainer to={""}>
                 <MediaIcon icon={faYoutube} />
               </MediaIconContainer>
-              <MediaIconContainer href={hrefBaseUrl("")}>
+              <MediaIconContainer to={""}>
                 <MediaIcon icon={faLinkedinIn} />
               </MediaIconContainer>
             </MediaContainer>
@@ -209,7 +209,7 @@ const Footer = () => {
             <FooterTitle>Services</FooterTitle>
             <LinkContainer>
               {serviceItem.map((name, idx) => (
-                <FooterLink key={idx} href={hrefBaseUrl("")}>
+                <FooterLink key={idx} to="">
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>
@@ -220,7 +220,7 @@ const Footer = () => {
             <FooterTitle>Quick Links</FooterTitle>
             <LinkContainer>
               {quickLinkItem.map((name, idx) => (
-                <FooterLink key={idx} href={hrefBaseUrl("")}>
+                <FooterLink key={idx} to="">
                   <FooterLinkIcon icon={["fas", "chevron-right"]} />
                   {name}
                 </FooterLink>

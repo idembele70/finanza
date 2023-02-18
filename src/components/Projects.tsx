@@ -68,7 +68,7 @@ const CardIcon = styled(FontAwesomeIcon)`
   opacity: 0;
   transition: opacity 300ms linear;
 `;
-const CardLink = styled.a`
+const CardLink = styled(Link)`
   position: absolute;
   top: 0;
   left: 0;
@@ -169,7 +169,7 @@ const Projects = () => {
           <Card key={idx}>
             <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />
             <CardLinkContainer>
-              <CardLink href={hrefBaseUrl("")} />
+              <CardLink to="" />
               <CardIcon icon={["fas", "link"]} />
             </CardLinkContainer>
             <CardBg>

@@ -22,7 +22,7 @@ const Col = styled.div`
   })}
 `;
 const StyledParagraph = styled(Paragraph)``;
-const DLLink = styled.a`
+const DLLink = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
 const Form = styled.form`
@@ -53,7 +53,7 @@ const Contact = () => {
             The contact form is currently inactive. Get a functional and working
             contact form with Ajax & PHP in a few minutes. Just copy and paste
             the files, add a little code and you're done.{" "}
-            <DLLink href={hrefBaseUrl("contact")}>Download Now</DLLink>.
+            <DLLink to="/contact">Download Now</DLLink>.
           </StyledParagraph>
           <Form>
             <InputContainer>

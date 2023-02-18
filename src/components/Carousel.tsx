@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -12,6 +12,8 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { hrefBaseUrl } from "./Header";
+import { gsap } from "gsap";
+import { createTextChangeRange } from "typescript";
 library.add(faChevronLeft, faChevronRight);
 const Container = styled.div`
   position: relative;
@@ -72,7 +74,7 @@ const Title = styled.h1`
     fontSize: "calc(1.625rem + 4.5vw)",
   })}
 `;
-export const ButtonLink = styled.a`
+export const ButtonLink = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.light};
   background-color: ${({ theme }) => theme.palette.primary.main};
   padding: 16px 48px;
@@ -157,15 +159,27 @@ const Carousel = () => {
     if (direction === "left") slideEl.current?.slickPrev();
     else slideEl.current?.slickNext();
   };
+  // Caroussel fadein animation
+  const carouselEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(carouselEl.current, {
+        opacity: 0,
+        delay: 0.4,
+        duration: 0.4,
+      });
+    }, carouselEl);
+    return () => ctx.revert();
+  }, []);
   return (
-    <Container>
+    <Container ref={carouselEl}>
       <Slider ref={slideEl} {...settings}>
         <SliderItem>
           <Image src={`${baseUrl}1${endUrl}`} />
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>Your Financial Status is Our Goal</Title>
-            <ButtonLink href={hrefBaseUrl("")}>Explore More</ButtonLink>
+            <ButtonLink to="">Explore More</ButtonLink>
           </SliderDesc>
         </SliderItem>
         <SliderItem>
@@ -173,7 +187,7 @@ const Carousel = () => {
           <SliderDesc>
             <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
             <Title>True Financial Support For You</Title>
-            <ButtonLink href={hrefBaseUrl("")}>Explore More</ButtonLink>
+            <ButtonLink to="">Explore More</ButtonLink>
           </SliderDesc>
         </SliderItem>
       </Slider>

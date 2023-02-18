@@ -15,11 +15,11 @@ import {
   faS,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, mdUp } from "../utils/responsive";
-
+import { gsap } from "gsap";
 library.add(
   faLocationDot,
   faS,
@@ -86,7 +86,7 @@ const Bottom = styled.div`
   flex-wrap: wrap;
   padding: 8px 0;
 `;
-const LogoContainer = styled.a`
+const LogoContainer = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -134,7 +134,7 @@ const Nav = styled.nav`
 interface INavItem {
   isActive: boolean;
 }
-const NavItem = styled.a<INavItem>`
+const NavItem = styled(NavLink)<INavItem>`
   text-decoration: none;
   color: ${({ theme, isActive }) =>
     isActive ? theme.palette.primary.main : theme.palette.common.black};
@@ -209,7 +209,7 @@ const NavDropDown = styled.div`
     opacity: 1,
   })}
 `;
-const NavDropDownItem = styled.a<INavItem>`
+const NavDropDownItem = styled(Link)<INavItem>`
   width: 100%;
   display: block;
   color: ${({ isActive, theme }) =>
@@ -231,7 +231,7 @@ const MediaContainer = styled.div`
     display: "none",
   })}
 `;
-export const DefaultMediaIconContainer = styled.a`
+export const DefaultMediaIconContainer = styled(Link)`
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -330,6 +330,7 @@ const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [displayScrollTop, setDisplayScrollTop] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  // Scroll Listener
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerWidth > 992) setIsDesktop(true);
@@ -348,6 +349,7 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  // Header Dropdown isActive setter
   useEffect(() => {
     if (
       ["/project", "/feature", "/team", "/testimonial", "/notFound"].includes(
@@ -371,9 +373,46 @@ const Header = () => {
       behavior: "smooth",
     });
   };
+  // gsap fade-in on header
+  const headerEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() =>
+      gsap.fromTo(
+        headerEl.current,
+        {
+          opacity: 0,
+          duration: 0.4,
+          delay: 0.4,
+        },
+        {
+          opacity: 1,
+        }
+      )
+    );
+
+    return () => ctx.revert();
+  }, []);
+  // gsap fade-in on header bottom part
+  const bottomEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(bottomEl.current, {
+        opacity: 0,
+        delay: 0.1,
+        duration: 0.1,
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
   return (
     <>
-      <Container isSticky={isSticky} isDesktop={isDesktop}>
+      <Container
+        className="header"
+        ref={headerEl}
+        isSticky={isSticky}
+        isDesktop={isDesktop}
+      >
         <Top>
           <Column>
             <Small>
@@ -396,25 +435,19 @@ const Header = () => {
             </Small>
           </Column>
         </Top>
-        <Bottom>
-          <LogoContainer href={hrefBaseUrl("")}>
+        <Bottom ref={bottomEl}>
+          <LogoContainer to="">
             <Logo>Finanza</Logo>
           </LogoContainer>
           <Right toggle={navToggle}>
             <Nav>
-              <NavItem isActive={pathname === "/"} href={hrefBaseUrl("")}>
+              <NavItem isActive={pathname === "/"} to="">
                 Home
               </NavItem>
-              <NavItem
-                isActive={pathname === "/about"}
-                href={hrefBaseUrl("about")}
-              >
+              <NavItem isActive={pathname === "/about"} to="about">
                 About
               </NavItem>
-              <NavItem
-                isActive={pathname === "/service"}
-                href={hrefBaseUrl("service")}
-              >
+              <NavItem isActive={pathname === "/service"} to="service">
                 Services
               </NavItem>
               <DropDownContainer
@@ -427,51 +460,45 @@ const Header = () => {
                 <NavDropDown>
                   <NavDropDownItem
                     isActive={pathname === "/project"}
-                    href={hrefBaseUrl("project")}
+                    to="project"
                   >
                     Projects
                   </NavDropDownItem>
                   <NavDropDownItem
                     isActive={pathname === "/feature"}
-                    href={hrefBaseUrl("feature")}
+                    to="feature"
                   >
                     Features
                   </NavDropDownItem>
-                  <NavDropDownItem
-                    isActive={pathname === "/team"}
-                    href={hrefBaseUrl("team")}
-                  >
+                  <NavDropDownItem isActive={pathname === "/team"} to="team">
                     Team Member
                   </NavDropDownItem>
                   <NavDropDownItem
                     isActive={pathname === "/testimonial"}
-                    href={hrefBaseUrl("testimonial")}
+                    to="testimonial"
                   >
                     Testimonial
                   </NavDropDownItem>
                   <NavDropDownItem
                     isActive={pathname === "/notFound"}
-                    href={hrefBaseUrl("notFound")}
+                    to="notFound"
                   >
                     404 Page
                   </NavDropDownItem>
                 </NavDropDown>
               </DropDownContainer>
-              <NavItem
-                isActive={pathname === "/contact"}
-                href={hrefBaseUrl("contact")}
-              >
+              <NavItem isActive={pathname === "/contact"} to="contact">
                 Contact
               </NavItem>
             </Nav>
             <MediaContainer>
-              <MediaIconContainer href={hrefBaseUrl("")}>
+              <MediaIconContainer to="">
                 <MediaIcon icon={faFacebookF} />
               </MediaIconContainer>
-              <MediaIconContainer href={hrefBaseUrl("")}>
+              <MediaIconContainer to="">
                 <MediaIcon icon={faTwitter} />
               </MediaIconContainer>
-              <MediaIconContainer href={hrefBaseUrl("")}>
+              <MediaIconContainer to="">
                 <MediaIcon icon={faLinkedinIn} />
               </MediaIconContainer>
             </MediaContainer>
