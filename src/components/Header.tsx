@@ -381,8 +381,8 @@ const Header = () => {
         headerEl.current,
         {
           opacity: 0,
-          duration: 0.4,
-          delay: 0.4,
+          duration: 1,
+          delay: 0.2,
         },
         {
           opacity: 1,
@@ -398,8 +398,8 @@ const Header = () => {
     const ctx = gsap.context(() => {
       gsap.from(bottomEl.current, {
         opacity: 0,
-        delay: 0.1,
-        duration: 0.1,
+        delay: 0.2,
+        duration: 1,
       });
     });
 

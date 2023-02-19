@@ -1,14 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import { WrapperContainer } from "./Carousel";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { IconName, IconProp, library } from "@fortawesome/fontawesome-svg-core";
 import {
   faAward,
   faCheck,
   faUsersGear,
 } from "@fortawesome/free-solid-svg-icons";
 import { mdDown, xsDown } from "../utils/responsive";
+import { gsap } from "gsap";
+import CountUp from "react-countup";
 library.add(faCheck, faUsersGear, faAward);
 const Container = styled.div`
   width: 100%;
@@ -38,10 +40,14 @@ const Icon = styled(FontAwesomeIcon)`
   margin: 0 auto 18px;
   display: block;
 `;
-const Title = styled.h1`
+const Title = styled(CountUp)`
+  font-family: "Jost", "sans-serif";
+  font-weight: 700;
+  line-height: 1.2;
   color: ${({ theme }) => theme.palette.common.white};
   font-size: 3.5rem;
   margin-bottom: 8px;
+  display: block;
   text-align: center;
 `;
 const SubTitle = styled.p`
@@ -58,33 +64,62 @@ const Hr = styled.hr`
   opacity: 0.25;
 `;
 const Facts = () => {
+  // FadeIn Animation on parent scroll
+  const revealRefs = useRef<HTMLDivElement[]>([]);
+  const addToRefs = (el: HTMLDivElement) => {
+    if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
+  };
+  const wrapperEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const t1 = gsap.timeline({
+      scrollTrigger: wrapperEl.current,
+    });
+    revealRefs.current.forEach((el, idx) => {
+      t1.from(el, {
+        opacity: 0,
+        delay: 0.05 + 0.05 * idx,
+      });
+    });
+    return () => t1.scrollTrigger?.kill();
+  }, []);
+  interface IItems {
+    icon: IconName;
+    title: number;
+    subTitle: string;
+  }
+  const items: IItems[] = [
+    {
+      icon: "users",
+      title: 1234,
+      subTitle: "Happy Clients",
+    },
+    {
+      icon: "check",
+      title: 1234,
+      subTitle: "Happy Clients",
+    },
+    {
+      icon: "users-gear",
+      title: 1234,
+      subTitle: "Happy Clients",
+    },
+    {
+      icon: "award",
+      title: 1234,
+      subTitle: "Happy Clients",
+    },
+  ];
   return (
     <Container>
-      <StyledWrapper>
-        <Item>
-          <Icon icon={["fas", "users"]} />
-          <Title>1234</Title>
-          <SubTitle>Happy Clients</SubTitle>
-          <Hr />
-        </Item>
-        <Item>
-          <Icon icon={["fas", "check"]} />
-          <Title>1234</Title>
-          <SubTitle>Happy Clients</SubTitle>
-          <Hr />
-        </Item>
-        <Item>
-          <Icon icon={["fas", "users-gear"]} />
-          <Title>1234</Title>
-          <SubTitle>Happy Clients</SubTitle>
-          <Hr />
-        </Item>
-        <Item>
-          <Icon icon={["fas", "award"]} />
-          <Title>1234</Title>
-          <SubTitle>Happy Clients</SubTitle>
-          <Hr />
-        </Item>
+      <StyledWrapper ref={wrapperEl}>
+        {items.map(({ icon, title, subTitle }, idx) => (
+          <Item key={idx} ref={addToRefs}>
+            <Icon icon={["fas", icon]} />
+            <Title end={title} duration={5} />
+            <SubTitle>{subTitle}</SubTitle>
+            <Hr />
+          </Item>
+        ))}
       </StyledWrapper>
     </Container>
   );

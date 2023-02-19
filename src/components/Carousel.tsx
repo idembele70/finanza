@@ -14,6 +14,7 @@ import {
 import { hrefBaseUrl } from "./Header";
 import { gsap } from "gsap";
 import { createTextChangeRange } from "typescript";
+import { Paragraph } from "./About";
 library.add(faChevronLeft, faChevronRight);
 const Container = styled.div`
   position: relative;
@@ -165,10 +166,25 @@ const Carousel = () => {
     const ctx = gsap.context(() => {
       gsap.from(carouselEl.current, {
         opacity: 0,
-        delay: 0.4,
-        duration: 0.4,
+        delay: 0.2,
+        duration: 1,
       });
     }, carouselEl);
+    return () => ctx.revert();
+  }, []);
+  // Caroussel slideInDown animation
+  const sliderParagraphEl = useRef<HTMLParagraphElement | null>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(sliderParagraphEl.current, {
+        y: "-100%",
+        delay: 1,
+        duration: 1,
+        scrollTrigger: {
+          trigger: sliderParagraphEl.current,
+        },
+      });
+    }, sliderParagraphEl);
     return () => ctx.revert();
   }, []);
   return (
@@ -177,7 +193,9 @@ const Carousel = () => {
         <SliderItem>
           <Image src={`${baseUrl}1${endUrl}`} />
           <SliderDesc>
-            <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
+            <ParagraphWithBorder ref={sliderParagraphEl}>
+              Welcome to Finanza
+            </ParagraphWithBorder>
             <Title>Your Financial Status is Our Goal</Title>
             <ButtonLink to="">Explore More</ButtonLink>
           </SliderDesc>
@@ -185,7 +203,9 @@ const Carousel = () => {
         <SliderItem>
           <Image src={`${baseUrl}2${endUrl}`} />
           <SliderDesc>
-            <ParagraphWithBorder>Welcome to Finanza</ParagraphWithBorder>
+            <ParagraphWithBorder ref={sliderParagraphEl}>
+              Welcome to Finanza
+            </ParagraphWithBorder>
             <Title>True Financial Support For You</Title>
             <ButtonLink to="">Explore More</ButtonLink>
           </SliderDesc>

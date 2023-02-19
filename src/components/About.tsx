@@ -5,11 +5,12 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { gsap } from "gsap";
 import { useLayoutEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { ParagraphWithBorder, WrapperContainer, imgbaseUrl } from "./Carousel";
-import { gsap } from "gsap";
+import { useLocation } from "react-router-dom";
 library.add(faCircleXmark, faUsers, faPhoneFlip);
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -265,23 +266,69 @@ const About = () => {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(leftEl.current, {
+        opacity: 0,
         y: "100%",
         delay: 0.1,
         duration: 0.1,
         scrollTrigger: {
           trigger: leftEl.current,
+          start: "-190% center",
         },
       });
     }, leftEl);
     return () => ctx.revert();
   }, []);
+  // Right on scroll animation
+  const rightEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(rightEl.current, {
+        opacity: 0,
+        y: "100%",
+        delay: 0.3,
+        duration: 0.3,
+        scrollTrigger: {
+          trigger: rightEl.current,
+          start: "-170% center",
+        },
+      });
+    }, rightEl);
+    return () => ctx.revert();
+  }, []);
+  // aboutFooter container and child animation on scroll
+  const aboutFooterEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const t1 = gsap.timeline({
+      scrollTrigger: aboutFooterEl.current,
+      start: "-450% center",
+    });
+    t1.from(aboutFooterEl.current, {
+      opacity: 0,
+      y: "100%",
+      delay: 0.1,
+      duration: 0.5,
+    });
+    revealRefs.current.forEach((el, idx) => {
+      t1.from(el, {
+        opacity: 0,
+        y: "100%",
+        delay: 0.1 + 0.1 * idx,
+      });
+    });
+    return () => t1.scrollTrigger?.kill();
+  }, []);
+  // AboutFooterItem animation on scroll
+  const revealRefs = useRef<HTMLDivElement[]>([]);
+  const addToRefs = (el: HTMLDivElement) => {
+    if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
+  };
   return (
     <Container>
       <ColWrapper>
         <Left ref={leftEl}>
           <Image src={`${imgbaseUrl}about.jpg`} />
         </Left>
-        <Right>
+        <Right ref={rightEl}>
           <ParagraphWithBorder>About Us</ParagraphWithBorder>
           <Title>We Help Our Clients To Grow Their Business</Title>
           <Desc>
@@ -310,9 +357,9 @@ const About = () => {
           </TabContainer>
         </Right>
       </ColWrapper>
-      <AboutFooter>
+      <AboutFooter ref={aboutFooterEl}>
         {footerItems.map(({ iconName, title, desc }, idx) => (
-          <AboutFooterItem key={idx}>
+          <AboutFooterItem ref={addToRefs} key={idx}>
             <Icon icon={["fas", iconName]} />
             <AboutFooterDescContainer>
               <TitleH4>{title}</TitleH4>
