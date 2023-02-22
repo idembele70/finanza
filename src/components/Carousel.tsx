@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -13,12 +13,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { hrefBaseUrl } from "./Header";
 import { gsap } from "gsap";
-import { createTextChangeRange } from "typescript";
 import { Paragraph } from "./About";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 library.add(faChevronLeft, faChevronRight);
 const Container = styled.div`
   position: relative;
   margin-bottom: 48px;
+  min-height: calc(100vw * 9 / 16);
 `;
 const SliderItem = styled.div`
   position: relative;
@@ -187,29 +188,48 @@ const Carousel = () => {
     }, sliderParagraphEl);
     return () => ctx.revert();
   }, []);
+  useEffect(() => {
+    const log = () => {
+      console.log("loaded");
+    };
+    window.addEventListener("load", log);
+    return () => window.removeEventListener("load", log);
+  }, []);
+  // slider item
+  interface ISliderItem {
+    title: string;
+  }
+  const sliderItems: ISliderItem[] = useMemo(
+    () => [
+      {
+        title: "Your Financial Status is Our Goal",
+      },
+      {
+        title: "Your Financial Status is Our Goal",
+      },
+    ],
+    []
+  );
   return (
     <Container ref={carouselEl}>
       <Slider ref={slideEl} {...settings}>
-        <SliderItem>
-          <Image src={`${baseUrl}1${endUrl}`} />
-          <SliderDesc>
-            <ParagraphWithBorder ref={sliderParagraphEl}>
-              Welcome to Finanza
-            </ParagraphWithBorder>
-            <Title>Your Financial Status is Our Goal</Title>
-            <ButtonLink to="">Explore More</ButtonLink>
-          </SliderDesc>
-        </SliderItem>
-        <SliderItem>
-          <Image src={`${baseUrl}2${endUrl}`} />
-          <SliderDesc>
-            <ParagraphWithBorder ref={sliderParagraphEl}>
-              Welcome to Finanza
-            </ParagraphWithBorder>
-            <Title>True Financial Support For You</Title>
-            <ButtonLink to="">Explore More</ButtonLink>
-          </SliderDesc>
-        </SliderItem>
+        {sliderItems.map(({ title }, idx) => (
+          <SliderItem>
+            <Image
+              onLoad={() => {
+                ScrollTrigger.refresh();
+              }}
+              src={`${baseUrl}${idx + 1}${endUrl}`}
+            />
+            <SliderDesc>
+              <ParagraphWithBorder ref={sliderParagraphEl}>
+                Welcome to Finanza
+              </ParagraphWithBorder>
+              <Title>{title}</Title>
+              <ButtonLink to="">Explore More</ButtonLink>
+            </SliderDesc>
+          </SliderItem>
+        ))}
       </Slider>
       <SlideLeftButtonContainer onClick={() => handleScroll("left")}>
         <SlideLeftButton>

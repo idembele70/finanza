@@ -1,10 +1,15 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 const Container = styled.div`
+  position: fixed;
   height: 100vh;
+  width: 100vw;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: ${({ theme }) => theme.palette.common.white};
+  z-index: 9999;
 `;
 const spin = keyframes`
   0% { transform: rotate(0deg); }

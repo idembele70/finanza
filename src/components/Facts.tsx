@@ -11,6 +11,7 @@ import {
 import { mdDown, xsDown } from "../utils/responsive";
 import { gsap } from "gsap";
 import CountUp from "react-countup";
+import VisibilitySensor from "react-visibility-sensor";
 library.add(faCheck, faUsersGear, faAward);
 const Container = styled.div`
   width: 100%;
@@ -69,16 +70,18 @@ const Facts = () => {
   const addToRefs = (el: HTMLDivElement) => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
-  const wrapperEl = useRef<HTMLDivElement | null>(null);
+  const wrapperEl = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const t1 = gsap.timeline({
-      scrollTrigger: wrapperEl.current,
+      scrollTrigger: {
+        trigger: wrapperEl.current,
+        start: "top-=310 center",
+      },
     });
-    revealRefs.current.forEach((el, idx) => {
-      t1.from(el, {
-        opacity: 0,
-        delay: 0.05 + 0.05 * idx,
-      });
+    t1.from(revealRefs.current, {
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.1,
     });
     return () => t1.scrollTrigger?.kill();
   }, []);
@@ -115,7 +118,7 @@ const Facts = () => {
         {items.map(({ icon, title, subTitle }, idx) => (
           <Item key={idx} ref={addToRefs}>
             <Icon icon={["fas", icon]} />
-            <Title end={title} duration={5} />
+            <Title end={title} duration={5} enableScrollSpy scrollSpyOnce />
             <SubTitle>{subTitle}</SubTitle>
             <Hr />
           </Item>

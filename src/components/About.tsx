@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { gsap } from "gsap";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { ParagraphWithBorder, WrapperContainer, imgbaseUrl } from "./Carousel";
@@ -20,7 +20,7 @@ const ColWrapper = styled.div`
   margin: 0 -12px 24px;
   ${mdDown({
     flexDirection: "column",
-  })}
+  })};
 `;
 const Col = styled.div`
   padding: 0 12px;
@@ -41,6 +41,8 @@ const Col = styled.div`
   })};
 `;
 const Left = styled(Col)`
+  opacity: 0;
+  transform: translateY(100%);
   ${mdDown({
     height: 696,
   })};
@@ -53,6 +55,8 @@ const Left = styled(Col)`
 `;
 const Right = styled(Col)`
   height: auto;
+  opacity: 0;
+  transform: translateY(100%);
 `;
 export const ParagraphWithLightBorder = styled(ParagraphWithBorder)`
   border-color: ${({ theme }) => theme.palette.primary.light};
@@ -265,14 +269,14 @@ const About = () => {
   const leftEl = useRef<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(leftEl.current, {
-        opacity: 0,
-        y: "100%",
+      gsap.to(leftEl.current, {
+        opacity: 1,
+        y: 0,
         delay: 0.1,
         duration: 0.1,
         scrollTrigger: {
           trigger: leftEl.current,
-          start: "-190% center",
+          start: "top-=170% center",
         },
       });
     }, leftEl);
@@ -280,16 +284,16 @@ const About = () => {
   }, []);
   // Right on scroll animation
   const rightEl = useRef<HTMLDivElement | null>(null);
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(rightEl.current, {
-        opacity: 0,
-        y: "100%",
+      gsap.to(rightEl.current, {
+        opacity: 1,
+        y: 0,
         delay: 0.3,
         duration: 0.3,
         scrollTrigger: {
           trigger: rightEl.current,
-          start: "-170% center",
+          start: "top-=150% center",
         },
       });
     }, rightEl);
@@ -299,21 +303,22 @@ const About = () => {
   const aboutFooterEl = useRef<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
     const t1 = gsap.timeline({
-      scrollTrigger: aboutFooterEl.current,
-      start: "-450% center",
+      scrollTrigger: {
+        trigger: aboutFooterEl.current,
+        start: "top-=400% center",
+      },
     });
     t1.from(aboutFooterEl.current, {
       opacity: 0,
       y: "100%",
       delay: 0.1,
-      duration: 0.5,
+      duration: 0.2,
     });
-    revealRefs.current.forEach((el, idx) => {
-      t1.from(el, {
-        opacity: 0,
-        y: "100%",
-        delay: 0.1 + 0.1 * idx,
-      });
+    t1.from(revealRefs.current, {
+      opacity: 0,
+      y: "100%",
+      duration: 0.5,
+      stagger: 0.1,
     });
     return () => t1.scrollTrigger?.kill();
   }, []);

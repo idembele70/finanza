@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import { ButtonLink, WrapperContainer } from "./Carousel";
 import {
@@ -14,6 +14,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { mdDown, smDown } from "../utils/responsive";
 import { hrefBaseUrl } from "./Header";
+import { gsap } from "gsap";
 library.add(faArrowRight);
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -37,6 +38,7 @@ const Left = styled(Col)`
 const Right = styled(Col)`
   display: flex;
   gap: 24px;
+  max-height: 565px;
   ${mdDown({
     paddingLeft: 0,
   })}
@@ -45,11 +47,11 @@ const Right = styled(Col)`
   })}
 `;
 const RightCol = styled.div`
-  width: 50%;
-  margin-top: -24px;
+  margin: -24px -12px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-wrap: wrap;
   ${smDown({
     width: "100%",
   })}
@@ -57,7 +59,8 @@ const RightCol = styled.div`
 
 const RightItemContainer = styled.div`
   margin-top: 24px;
-  width: 100%;
+  padding: 0 12px;
+  width: 50%;
 `;
 const RightItem = styled.div`
   padding: 24px;
@@ -96,7 +99,11 @@ const Features = () => {
     title: string;
     desc: string;
   }
-  const rightItemLeftCol: IRightItem[] = [
+  const rightItemCol: IRightItem[] = [
+    {
+      title: "Fast Executions",
+      desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
+    },
     {
       title: "Fast Executions",
       desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
@@ -106,15 +113,51 @@ const Features = () => {
       desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
     },
   ];
-  const rightItemRightCol: IRightItem[] = [
-    {
-      title: "Fast Executions",
-      desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
-    },
-  ];
+  // Left scroll trigger animation
+  const leftEl = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(leftEl.current, {
+        opacity: 0,
+        y: "100%",
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: leftEl.current,
+          start: "top-=200% center",
+        },
+      });
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  }, []);
+  // rightItems scroll trigger animation
+  const rightEl = useRef<HTMLDivElement>(null);
+  const rightItemsEl = useRef<HTMLDivElement[]>([]);
+  const addToRightItemsEl = (el: HTMLDivElement) => {
+    if (el && !rightItemsEl.current.includes(el)) rightItemsEl.current.push(el);
+  };
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(rightItemsEl.current, {
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.2,
+        scrollTrigger: {
+          trigger: rightItemsEl.current,
+          markers: true,
+        },
+      });
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  }, []);
   return (
     <Container>
-      <Left>
+      <Left ref={leftEl}>
         <ParagraphWithLightBorder>Why Choosing Us!</ParagraphWithLightBorder>
         <Title>Few Reasons Why People Choosing Us!</Title>
         <Desc>
@@ -125,24 +168,9 @@ const Features = () => {
         <ButtonLink to="">Explore More</ButtonLink>
       </Left>
       <Right>
-        <RightCol>
-          {rightItemLeftCol.map(({ title, desc }, idx) => (
-            <RightItemContainer key={idx}>
-              <RightItem>
-                <Icon icon={["fas", "check"]} />
-                <RightItemTitle>{title}</RightItemTitle>
-                <StyledParagraph>{desc}</StyledParagraph>
-                <RightItemButton to="">
-                  Read More
-                  <RightItemBtnIcon icon={["fas", "arrow-right"]} />
-                </RightItemButton>
-              </RightItem>
-            </RightItemContainer>
-          ))}
-        </RightCol>
-        <RightCol>
-          {rightItemRightCol.map(({ title, desc }, idx) => (
-            <RightItemContainer key={idx}>
+        <RightCol ref={rightEl}>
+          {rightItemCol.map(({ title, desc }, idx) => (
+            <RightItemContainer ref={addToRightItemsEl} key={idx}>
               <RightItem>
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
