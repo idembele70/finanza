@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { Paragraph, ParagraphWithLightBorder, TitleH4 } from "./About";
@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+import { gsap } from "gsap";
 library.add(faQuoteRight);
 const Container = styled(WrapperContainer)`
   display: flex;
@@ -16,6 +17,11 @@ const Container = styled(WrapperContainer)`
   align-items: center;
   padding-top: 48px;
   padding-bottom: 48px;
+`;
+const ContainerTop = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const StyledSlider = styled(Slider)`
   margin: 0 -12px;
@@ -189,11 +195,34 @@ const Testimonial = () => {
       profession: "profession",
     },
   ];
+  // Top and bottom scroll trigger animation
+  const containerEl = useRef<HTMLDivElement>(null);
+  const topEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerEl.current,
+        start: "top center",
+      },
+    });
+    tl.from(topEl.current, {
+      opacity: 0,
+      y: "100%",
+    }).from(".testimonial-slick-list", {
+      opacity: 0,
+      y: "100%",
+    });
+    return () => {
+      tl.scrollTrigger?.kill();
+    };
+  }, []);
   return (
-    <Container>
-      <ParagraphWithLightBorder>Testimonial</ParagraphWithLightBorder>
-      <TitleWithBigMargin>What Our Clients Say!</TitleWithBigMargin>
-      <StyledSlider {...settings}>
+    <Container ref={containerEl}>
+      <ContainerTop ref={topEl}>
+        <ParagraphWithLightBorder>Testimonial</ParagraphWithLightBorder>
+        <TitleWithBigMargin>What Our Clients Say!</TitleWithBigMargin>
+      </ContainerTop>
+      <StyledSlider className="testimonial-slick-list" {...settings}>
         {slideItemArray.map(({ description, img, name, profession }, idx) => (
           <SlideItemContainer key={idx}>
             <SlideItem>

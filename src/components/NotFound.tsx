@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import { ButtonLink, WrapperContainer } from "./Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,7 @@ import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { lgDown } from "../utils/responsive";
 import { Paragraph } from "./About";
 import { hrefBaseUrl } from "./Header";
+import { gsap } from "gsap";
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
   display: flex;
@@ -38,8 +39,24 @@ const StyledParagraph = styled(Paragraph)`
   text-align: center;
 `;
 const NotFound = () => {
+  // Container scroll trigger animation
+  const containerEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const notFoundTween = gsap.from(containerEl.current, {
+      opacity: 0,
+      y: "100%",
+      scrollTrigger: {
+        trigger: containerEl.current,
+        start: "top-=100% center",
+      },
+    });
+
+    return () => {
+      if (notFoundTween) notFoundTween.kill();
+    };
+  }, []);
   return (
-    <Container>
+    <Container ref={containerEl}>
       <Icon icon={faTriangleExclamation} />
       <Title>404</Title>
       <SubTitle>Page Not Found</SubTitle>

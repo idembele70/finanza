@@ -1,17 +1,17 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useLayoutEffect, useRef } from "react";
-import styled from "styled-components";
-import { WrapperContainer } from "./Carousel";
-import { IconName, IconProp, library } from "@fortawesome/fontawesome-svg-core";
+import { IconName, library } from "@fortawesome/fontawesome-svg-core";
 import {
   faAward,
   faCheck,
   faUsersGear,
 } from "@fortawesome/free-solid-svg-icons";
-import { mdDown, xsDown } from "../utils/responsive";
-import { gsap } from "gsap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Power1, gsap } from "gsap";
+
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
-import VisibilitySensor from "react-visibility-sensor";
+import styled from "styled-components";
+import { mdDown, xsDown } from "../utils/responsive";
+import { WrapperContainer } from "./Carousel";
 library.add(faCheck, faUsersGear, faAward);
 const Container = styled.div`
   width: 100%;
@@ -51,6 +51,7 @@ const Title = styled(CountUp)`
   display: block;
   text-align: center;
 `;
+const Count = styled.span``;
 const SubTitle = styled.p`
   color: ${({ theme }) => theme.palette.common.white};
   font-size: 1.25rem;
@@ -67,21 +68,26 @@ const Hr = styled.hr`
 const Facts = () => {
   // FadeIn Animation on parent scroll
   const revealRefs = useRef<HTMLDivElement[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
   const addToRefs = (el: HTMLDivElement) => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
+  // Wrapper scroll trigger animation
   const wrapperEl = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const t1 = gsap.timeline({
       scrollTrigger: {
         trigger: wrapperEl.current,
-        start: "top-=310 center",
+        start: "top-=175% center",
       },
     });
     t1.from(revealRefs.current, {
       opacity: 0,
       duration: 0.5,
       stagger: 0.1,
+      onStart: () => {
+        setIsVisible(true);
+      },
     });
     return () => t1.scrollTrigger?.kill();
   }, []);
@@ -118,7 +124,7 @@ const Facts = () => {
         {items.map(({ icon, title, subTitle }, idx) => (
           <Item key={idx} ref={addToRefs}>
             <Icon icon={["fas", icon]} />
-            <Title end={title} duration={5} enableScrollSpy scrollSpyOnce />
+            {isVisible && <Title start={0} end={title} duration={5} />}
             <SubTitle>{subTitle}</SubTitle>
             <Hr />
           </Item>

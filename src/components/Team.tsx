@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useLayoutEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { ParagraphWithLightBorder, TitleH4 } from "./About";
@@ -10,12 +10,18 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { lgDown, mdDown, smDown, xlDown } from "../utils/responsive";
+import { gsap } from "gsap";
 const Container = styled(WrapperContainer)`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 48px;
   padding-bottom: 48px;
+`;
+const Top = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const CardContainer = styled.div`
   display: flex;
@@ -120,13 +126,43 @@ const Team = () => {
     ],
     []
   );
+  // Top and Cards scroll trigger animation
+  const containerEl = useRef<HTMLDivElement>(null);
+  const topEl = useRef<HTMLDivElement>(null);
+  const cardWrapperEls = useRef<HTMLDivElement[]>([]);
+  const addToCardwrapperRefs = (el: HTMLDivElement) => {
+    if (el && !cardWrapperEls.current.includes(el))
+      cardWrapperEls.current.push(el);
+  };
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerEl.current,
+        start: "top center",
+      },
+    });
+    tl.from(topEl.current, {
+      opacity: 0,
+      y: "100%",
+    }).from(cardWrapperEls.current, {
+      opacity: 0,
+      y: "100%",
+      stagger: 0.2,
+    });
+
+    return () => {
+      tl.scrollTrigger?.kill();
+    };
+  }, []);
   return (
-    <Container>
-      <ParagraphWithLightBorder>Our Team</ParagraphWithLightBorder>
-      <TitleWithBigMargin>Exclusive Team</TitleWithBigMargin>
+    <Container ref={containerEl}>
+      <Top ref={topEl}>
+        <ParagraphWithLightBorder>Our Team</ParagraphWithLightBorder>
+        <TitleWithBigMargin>Exclusive Team</TitleWithBigMargin>
+      </Top>
       <CardContainer>
         {cardItem.map(({ name, img }, idx) => (
-          <CardWrapper key={idx}>
+          <CardWrapper ref={addToCardwrapperRefs} key={idx}>
             <Card>
               <CardImg src={`${imgbaseUrl}team-${img}.jpg`} />
               <CardImgBg>

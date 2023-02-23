@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { ParagraphWithLightBorder, TitleH4 } from "./About";
@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { hrefBaseUrl } from "./Header";
+import { gsap } from "gsap";
 library.add(faLink);
 
 const Container = styled(WrapperContainer)`
@@ -20,6 +21,14 @@ const Container = styled(WrapperContainer)`
   align-items: center;
   padding-top: 48px;
   padding-bottom: 48px;
+`;
+const Top = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const Bottom = styled.div`
+  max-width: 100vw;
 `;
 const CardContainer = styled(Slider)`
   width: 100%;
@@ -160,11 +169,36 @@ const Projects = () => {
     if (direction === "left") slideEl.current?.slickPrev();
     else slideEl.current?.slickNext();
   };
+  // Top and slider scroll trigger animation
+  const containerEl = useRef<HTMLDivElement>(null);
+  const topEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerEl.current,
+        start: "top center",
+      },
+    });
+    tl.from(topEl.current, {
+      opacity: 0,
+      y: "100%",
+    }).from(".project-slick-list", {
+      opacity: 0,
+      y: "100%",
+    });
+    return () => {
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
+    };
+  }, []);
   return (
-    <Container>
-      <ParagraphWithLightBorder>Our Projects</ParagraphWithLightBorder>
-      <TitleWithBigMargin>We Have Completed Latest Projects</TitleWithBigMargin>
-      <CardContainer ref={slideEl} {...settings}>
+    <Container ref={containerEl}>
+      <Top ref={topEl}>
+        <ParagraphWithLightBorder>Our Projects</ParagraphWithLightBorder>
+        <TitleWithBigMargin>
+          We Have Completed Latest Projects
+        </TitleWithBigMargin>
+      </Top>
+      <CardContainer className="project-slick-list" ref={slideEl} {...settings}>
         {[1, 2, 3, 4].map((idx) => (
           <Card key={idx}>
             <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />

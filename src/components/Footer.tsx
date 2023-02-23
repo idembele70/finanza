@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useLayoutEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 import { WrapperContainer } from "./Carousel";
 import { Paragraph } from "./About";
@@ -19,6 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import { Button } from "./CallBack";
 import { mdDown, smDown, xsDown } from "../utils/responsive";
+import { gsap } from "gsap";
 library.add(faLocationDot, faPhone, faEnvelope);
 const Container = styled.div`
   background-color: ${({ theme }) => theme.palette.secondary.main};
@@ -178,8 +179,23 @@ const Footer = () => {
     ],
     []
   );
+  // container scroll trigger animation
+  const containerEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const footerTween = gsap.from(containerEl.current, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: containerEl.current,
+        start: "top-=50% center",
+      },
+    });
+
+    return () => {
+      footerTween?.kill();
+    };
+  }, []);
   return (
-    <Container>
+    <Container ref={containerEl}>
       <Wrapper>
         <ColWrapper>
           <Col>

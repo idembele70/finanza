@@ -5,6 +5,8 @@ import { Button, Input, InputContainer, TextArea } from "./CallBack";
 import { WrapperContainer } from "./Carousel";
 import { smDown } from "../utils/responsive";
 import { hrefBaseUrl } from "./Header";
+import { useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
@@ -43,8 +45,22 @@ const Iframe = styled.iframe`
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
 const Contact = () => {
+  // Container scroll trigger animation
+  const containerEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const contactTween = gsap.from(containerEl.current, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: containerEl.current,
+      },
+    });
+
+    return () => {
+      if (contactTween) contactTween.kill();
+    };
+  }, []);
   return (
-    <Container>
+    <Container ref={containerEl}>
       <Wrapper>
         <Col>
           <ParagraphWithLightBorder>Contact</ParagraphWithLightBorder>

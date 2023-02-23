@@ -1,14 +1,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { memo, useMemo, useState } from "react";
+import {
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { Paragraph, ParagraphWithLightBorder, Title, fadeout } from "./About";
 import { ButtonLink, WrapperContainer, imgbaseUrl } from "./Carousel";
 import { lgDown, mdDown, smDown } from "../utils/responsive";
 import { arrayBuffer } from "stream/consumers";
 import { hrefBaseUrl } from "./Header";
+import { gsap } from "gsap";
 
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const Top = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -207,14 +220,37 @@ const Services = () => {
       }),
     [pillIndex, memoizedAdvantages]
   );
-
+  // Scroll Trigger animation on
+  const containerEl = useRef<HTMLDivElement>(null);
+  const topEl = useRef<HTMLDivElement>(null);
+  const bottomEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const t1 = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerEl.current,
+        start: "top-=30% center",
+      },
+    });
+    t1.from(topEl.current, {
+      opacity: 0,
+      y: "100%",
+    }).from(bottomEl.current, {
+      opacity: 0,
+      y: "100%",
+    });
+    return () => {
+      t1.scrollTrigger?.kill();
+    };
+  }, []);
   return (
-    <Container>
-      <ParagraphWithLightBorder>Our Services</ParagraphWithLightBorder>
-      <TitleWithBigMargin>
-        Awesome Financial Services For Business
-      </TitleWithBigMargin>
-      <Bottom>
+    <Container ref={containerEl}>
+      <Top ref={topEl}>
+        <ParagraphWithLightBorder>Our Services</ParagraphWithLightBorder>
+        <TitleWithBigMargin>
+          Awesome Financial Services For Business
+        </TitleWithBigMargin>
+      </Top>
+      <Bottom ref={bottomEl}>
         <NavPillsContainer>
           {pills.map((pillName, idx) => {
             return (

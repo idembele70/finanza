@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { lgDown } from "../utils/responsive";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { Link } from "react-router-dom";
+import { gsap } from "gsap";
+import { useLayoutEffect, useRef } from "react";
 
 const Container = styled.div`
   padding: 192px 12px 96px;
@@ -52,8 +54,23 @@ interface PageHeaderProps {
   title: string;
 }
 const PageHeader = ({ title }: PageHeaderProps) => {
+  // container scroll trigger animation
+  const containerEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const pageHeaderTween = gsap.from(containerEl.current, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: containerEl.current,
+        start: "top center",
+      },
+    });
+
+    return () => {
+      if (pageHeaderTween) pageHeaderTween.kill();
+    };
+  }, []);
   return (
-    <Container>
+    <Container ref={containerEl}>
       <WrapperContainer>
         <Title>{title}</Title>
         <ListContainer>

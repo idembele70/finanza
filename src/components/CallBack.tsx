@@ -3,6 +3,8 @@ import { ParagraphWithLightBorder } from "./About";
 import { WrapperContainer, imgbaseUrl } from "./Carousel";
 import { TitleWithBigMargin } from "./Services";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
+import { gsap } from "gsap";
+import { useLayoutEffect, useRef } from "react";
 const Container = styled.div`
   width: 100%;
   margin-top: 48px;
@@ -120,10 +122,25 @@ const FormButton = styled(Button)`
   text-align: center;
 `;
 const CallBack = () => {
+  // Wrapper scroll trigger animation
+  const wrapperEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const callbackTween = gsap.from(wrapperEl.current, {
+      opacity: 0,
+      y: "100%",
+      scrollTrigger: {
+        trigger: wrapperEl.current,
+        start: "top-=120% center",
+      },
+    });
+    return () => {
+      if (callbackTween) callbackTween.kill();
+    };
+  }, []);
   return (
     <Container>
       <StyledWrapperContainer>
-        <Wrapper>
+        <Wrapper ref={wrapperEl}>
           <ParagraphWithLightBorder>Get In Touch</ParagraphWithLightBorder>
           <TitleWithBigMargin>Request A Call-Back</TitleWithBigMargin>
           <Bottom>
