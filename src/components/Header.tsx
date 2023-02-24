@@ -36,6 +36,7 @@ interface ContainerProps {
   isDesktop: boolean;
 }
 const Container = styled.div<ContainerProps>`
+  opacity: 0;
   padding: 0 48px;
   position: fixed;
   top: 0;
@@ -373,46 +374,25 @@ const Header = () => {
       behavior: "smooth",
     });
   };
-  // gsap fade-in on header
-  const headerEl = useRef<HTMLDivElement | null>(null);
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() =>
-      gsap.fromTo(
-        headerEl.current,
-        {
-          opacity: 0,
-          duration: 1,
-          delay: 0.2,
-        },
-        {
-          opacity: 1,
-        }
-      )
-    );
 
-    return () => ctx.revert();
-  }, []);
   // gsap fade-in on header bottom part
-  const bottomEl = useRef<HTMLDivElement | null>(null);
+  const containerEl = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(bottomEl.current, {
-        opacity: 0,
-        delay: 0.2,
-        duration: 1,
-      });
+    const headerTween = gsap.to(containerEl.current, {
+      opacity: 1,
+      duration: 1,
+      scrollTrigger: {
+        trigger: containerEl.current,
+      },
     });
 
-    return () => ctx.revert();
+    return () => {
+      headerTween.scrollTrigger?.kill();
+    };
   }, []);
   return (
     <>
-      <Container
-        className="header"
-        ref={headerEl}
-        isSticky={isSticky}
-        isDesktop={isDesktop}
-      >
+      <Container ref={containerEl} isSticky={isSticky} isDesktop={isDesktop}>
         <Top>
           <Column>
             <Small>
@@ -435,7 +415,7 @@ const Header = () => {
             </Small>
           </Column>
         </Top>
-        <Bottom ref={bottomEl}>
+        <Bottom>
           <LogoContainer to="">
             <Logo>Finanza</Logo>
           </LogoContainer>

@@ -1,20 +1,18 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import styled from "styled-components";
-import Slider, { Settings } from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { hrefBaseUrl } from "./Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { gsap } from "gsap";
-import { Paragraph } from "./About";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLayoutEffect, useMemo, useRef } from "react";
+import { Link } from "react-router-dom";
+import Slider, { Settings } from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import styled from "styled-components";
+import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 library.add(faChevronLeft, faChevronRight);
 const Container = styled.div`
   position: relative;
@@ -162,38 +160,35 @@ const Carousel = () => {
     else slideEl.current?.slickNext();
   };
   // Caroussel fadein animation
-  const carouselEl = useRef<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(carouselEl.current, {
-        opacity: 0,
-        delay: 0.2,
-        duration: 1,
-      });
-    }, carouselEl);
-    return () => ctx.revert();
+    const carouselTween = gsap.from(".carousel-slick-list", {
+      opacity: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: ".carousel-slick-list",
+        start: "top center",
+      },
+    });
+    return () => {
+      carouselTween.scrollTrigger?.kill();
+    };
   }, []);
   // Caroussel slideInDown animation
-  const sliderParagraphEl = useRef<HTMLParagraphElement | null>(null);
+  const sliderParagraphsEl = useRef<HTMLParagraphElement[]>([]);
+  const addToSliderParagraphs = (el: HTMLParagraphElement) => {
+    if (el && !sliderParagraphsEl.current.includes(el))
+      sliderParagraphsEl.current.push(el);
+  };
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(sliderParagraphEl.current, {
-        y: "-100%",
-        delay: 1,
-        duration: 1,
-        scrollTrigger: {
-          trigger: sliderParagraphEl.current,
-        },
-      });
-    }, sliderParagraphEl);
-    return () => ctx.revert();
-  }, []);
-  useEffect(() => {
-    const log = () => {
-      console.log("loaded");
-    };
-    window.addEventListener("load", log);
-    return () => window.removeEventListener("load", log);
+    const gsapTween = gsap.from(sliderParagraphsEl.current, {
+      y: "-100%",
+      delay: 1,
+      duration: 1,
+      scrollTrigger: {
+        trigger: sliderParagraphsEl.current,
+      },
+    });
+    return () => gsapTween.scrollTrigger?.kill();
   }, []);
   // slider item
   interface ISliderItem {
@@ -211,8 +206,8 @@ const Carousel = () => {
     []
   );
   return (
-    <Container ref={carouselEl}>
-      <Slider ref={slideEl} {...settings}>
+    <Container>
+      <Slider className="carousel-slick-list" ref={slideEl} {...settings}>
         {sliderItems.map(({ title }, idx) => (
           <SliderItem>
             <Image
@@ -222,7 +217,7 @@ const Carousel = () => {
               src={`${baseUrl}${idx + 1}${endUrl}`}
             />
             <SliderDesc>
-              <ParagraphWithBorder ref={sliderParagraphEl}>
+              <ParagraphWithBorder ref={addToSliderParagraphs}>
                 Welcome to Finanza
               </ParagraphWithBorder>
               <Title>{title}</Title>
