@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
-import { WrapperContainer, imgbaseUrl } from "./Carousel";
+import { WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { ParagraphWithLightBorder, TitleH4 } from "./About";
 import { TitleWithBigMargin } from "./Services";
 import { DefaultMediaIconContainer, MediaIcon, hrefBaseUrl } from "./Header";
@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { lgDown, mdDown, smDown, xlDown } from "../utils/responsive";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 const Container = styled(WrapperContainer)`
   display: flex;
   flex-direction: column;
@@ -154,6 +155,9 @@ const Team = () => {
       tl.scrollTrigger?.kill();
     };
   }, []);
+  const handleLoad = () => {
+    ScrollTrigger.refresh();
+  };
   return (
     <Container ref={containerEl}>
       <Top ref={topEl}>
@@ -164,7 +168,10 @@ const Team = () => {
         {cardItem.map(({ name, img }, idx) => (
           <CardWrapper ref={addToCardwrapperRefs} key={idx}>
             <Card>
-              <CardImg src={`${imgbaseUrl}team-${img}.jpg`} />
+              <CardImg
+                onLoad={handleLoad}
+                src={`${imgbaseUrl}team-${img}.jpg`}
+              />
               <CardImgBg>
                 <TitleH4 style={{ margin: 0 }}>{name}</TitleH4>
                 <MediaContainer>

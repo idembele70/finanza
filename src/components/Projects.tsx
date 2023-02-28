@@ -1,18 +1,17 @@
-import React, { useLayoutEffect, useRef } from "react";
-import styled from "styled-components";
-import { WrapperContainer, imgbaseUrl } from "./Carousel";
-import { ParagraphWithLightBorder, TitleH4 } from "./About";
-import { TitleWithBigMargin } from "./Services";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { gsap } from "gsap";
+import { useLayoutEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Slider, { Settings } from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
-import { hrefBaseUrl } from "./Header";
-import { gsap } from "gsap";
+import "slick-carousel/slick/slick.css";
+import styled from "styled-components";
+import { ParagraphWithLightBorder, TitleH4 } from "./About";
+import { TitleWithBigMargin } from "./Services";
+import { WrapperContainer, imgbaseUrl } from "./SliderItem";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 library.add(faLink);
 
 const Container = styled(WrapperContainer)`
@@ -190,6 +189,9 @@ const Projects = () => {
       if (tl.scrollTrigger) tl.scrollTrigger.kill();
     };
   }, []);
+  const handleLoad = () => {
+    ScrollTrigger.refresh();
+  };
   return (
     <Container ref={containerEl}>
       <Top ref={topEl}>
@@ -201,7 +203,10 @@ const Projects = () => {
       <CardContainer className="project-slick-list" ref={slideEl} {...settings}>
         {[1, 2, 3, 4].map((idx) => (
           <Card key={idx}>
-            <CardImage src={`${imgbaseUrl}service-${idx}.jpg`} />
+            <CardImage
+              onLoad={handleLoad}
+              src={`${imgbaseUrl}service-${idx}.jpg`}
+            />
             <CardLinkContainer>
               <CardLink to="" />
               <CardIcon icon={["fas", "link"]} />

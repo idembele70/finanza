@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Paragraph, ParagraphWithLightBorder, Title } from "./About";
 import { Button, Input, InputContainer, TextArea } from "./CallBack";
-import { WrapperContainer } from "./Carousel";
+import { WrapperContainer } from "./SliderItem";
 import { smDown } from "../utils/responsive";
 import { hrefBaseUrl } from "./Header";
 import { useLayoutEffect, useRef } from "react";

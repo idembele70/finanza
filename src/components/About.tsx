@@ -9,7 +9,11 @@ import { gsap } from "gsap";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
-import { ParagraphWithBorder, WrapperContainer, imgbaseUrl } from "./Carousel";
+import {
+  ParagraphWithBorder,
+  WrapperContainer,
+  imgbaseUrl,
+} from "./SliderItem";
 import { useLocation } from "react-router-dom";
 library.add(faCircleXmark, faUsers, faPhoneFlip);
 const Container = styled(WrapperContainer)`
@@ -90,8 +94,6 @@ const TabHeader = styled.div`
   margin-bottom: 16px;
   border-bottom: 1px solid ${({ theme }) => theme.palette.primary.light};
 `;
-// border-top-right-radius: ${({ theme }) => theme.borderRadius};
-// border-top-left-radius: ${({ theme }) => theme.borderRadius};
 interface TabTitleProps {
   isSelected: boolean;
 }
@@ -132,7 +134,6 @@ export const fadeout = keyframes`
     display:none;
     opacity:0;
   }
-
   100% {
     display:block;
     opacity:1;
@@ -266,41 +267,41 @@ const About = () => {
     },
   ];
   // Left on scroll animation
-  const leftEl = useRef<HTMLDivElement | null>(null);
+  const leftEl = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(leftEl.current, {
-        opacity: 1,
-        y: 0,
-        delay: 0.1,
-        duration: 0.1,
-        scrollTrigger: {
-          trigger: leftEl.current,
-          start: "top-=170% center",
-        },
-      });
-    }, leftEl);
-    return () => ctx.revert();
+    const tween = gsap.to(leftEl.current, {
+      opacity: 1,
+      y: 0,
+      delay: 0.1,
+      duration: 0.1,
+      scrollTrigger: {
+        trigger: leftEl.current,
+        start: "top-=170% center",
+      },
+    });
+    return () => {
+      tween.scrollTrigger?.kill();
+    };
   }, []);
   // Right on scroll animation
-  const rightEl = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.to(rightEl.current, {
-        opacity: 1,
-        y: 0,
-        delay: 0.3,
-        duration: 0.3,
-        scrollTrigger: {
-          trigger: rightEl.current,
-          start: "top-=150% center",
-        },
-      });
-    }, rightEl);
-    return () => ctx.revert();
+  const rightEl = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const tween = gsap.to(rightEl.current, {
+      opacity: 1,
+      y: 0,
+      delay: 0.3,
+      duration: 0.3,
+      scrollTrigger: {
+        trigger: rightEl.current,
+        start: "top-=150% center",
+      },
+    });
+    return () => {
+      tween.scrollTrigger?.kill();
+    };
   }, []);
   // aboutFooter container and child animation on scroll
-  const aboutFooterEl = useRef<HTMLDivElement | null>(null);
+  const aboutFooterEl = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const t1 = gsap.timeline({
       scrollTrigger: {

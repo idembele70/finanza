@@ -9,7 +9,7 @@ import {
 } from "react";
 import styled from "styled-components";
 import { Paragraph, ParagraphWithLightBorder, Title, fadeout } from "./About";
-import { ButtonLink, WrapperContainer, imgbaseUrl } from "./Carousel";
+import { ButtonLink, WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { lgDown, mdDown, smDown } from "../utils/responsive";
 import { arrayBuffer } from "stream/consumers";
 import { hrefBaseUrl } from "./Header";
@@ -220,7 +220,7 @@ const Services = () => {
       }),
     [pillIndex, memoizedAdvantages]
   );
-  // Scroll Trigger animation on
+  // Scroll Trigger animation
   const containerEl = useRef<HTMLDivElement>(null);
   const topEl = useRef<HTMLDivElement>(null);
   const bottomEl = useRef<HTMLDivElement>(null);

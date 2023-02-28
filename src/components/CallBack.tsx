@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ParagraphWithLightBorder } from "./About";
-import { WrapperContainer, imgbaseUrl } from "./Carousel";
+import { WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { TitleWithBigMargin } from "./Services";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { gsap } from "gsap";

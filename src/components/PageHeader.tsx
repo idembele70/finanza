@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { lgDown } from "../utils/responsive";
-import { WrapperContainer, imgbaseUrl } from "./Carousel";
+import { WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";

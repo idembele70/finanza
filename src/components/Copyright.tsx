@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { smDown } from "../utils/responsive";
-import { WrapperContainer } from "./Carousel";
+import { WrapperContainer } from "./SliderItem";
 const Container = styled.div`
   background-color: #000b1c;
 `;

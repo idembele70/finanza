@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
-import { ButtonLink, WrapperContainer } from "./Carousel";
+import { ButtonLink, WrapperContainer } from "./SliderItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { lgDown } from "../utils/responsive";

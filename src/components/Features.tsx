@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
-import { ButtonLink, WrapperContainer } from "./Carousel";
+import { ButtonLink, WrapperContainer } from "./SliderItem";
 import {
   Desc,
   Icon,
@@ -114,22 +114,20 @@ const Features = () => {
     },
   ];
   // Left scroll trigger animation
-  const leftEl = useRef<HTMLDivElement | null>(null);
+  const leftEl = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(leftEl.current, {
-        opacity: 0,
-        y: "100%",
-        duration: 0.5,
-        scrollTrigger: {
-          trigger: leftEl.current,
-          start: "top-=200% center",
-        },
-      });
+    const tween = gsap.from(leftEl.current, {
+      opacity: 0,
+      y: "100%",
+      duration: 0.5,
+      scrollTrigger: {
+        trigger: leftEl.current,
+        start: "top-=200% center",
+      },
     });
 
     return () => {
-      ctx.revert();
+      tween.scrollTrigger?.kill();
     };
   }, []);
   // rightItems scroll trigger animation
@@ -139,20 +137,18 @@ const Features = () => {
     if (el && !rightItemsEl.current.includes(el)) rightItemsEl.current.push(el);
   };
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(rightItemsEl.current, {
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: rightItemsEl.current,
-          start: "top-=70% center",
-        },
-      });
+    const tween = gsap.from(rightItemsEl.current, {
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: rightItemsEl.current,
+        start: "top-=70% center",
+      },
     });
 
     return () => {
-      ctx.revert();
+      tween.scrollTrigger?.kill();
     };
   }, []);
   return (

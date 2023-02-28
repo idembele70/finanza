@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
-import { WrapperContainer, imgbaseUrl } from "./Carousel";
+import { WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { Paragraph, ParagraphWithLightBorder, TitleH4 } from "./About";
 import { TitleWithBigMargin } from "./Services";
 import Slider, { Settings } from "react-slick";

@@ -11,7 +11,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
 import styled from "styled-components";
 import { mdDown, xsDown } from "../utils/responsive";
-import { WrapperContainer } from "./Carousel";
+import { WrapperContainer } from "./SliderItem";
 library.add(faCheck, faUsersGear, faAward);
 const Container = styled.div`
   width: 100%;
