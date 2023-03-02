@@ -36,9 +36,6 @@ const Left = styled(Col)`
   padding-left: 0;
 `;
 const Right = styled(Col)`
-  display: flex;
-  gap: 24px;
-  max-height: 565px;
   ${mdDown({
     paddingLeft: 0,
   })}
@@ -49,11 +46,9 @@ const Right = styled(Col)`
 const RightCol = styled.div`
   margin: -24px -12px 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
   ${smDown({
-    width: "100%",
+    flexDirection: "column",
   })}
 `;
 
@@ -61,8 +56,15 @@ const RightItemContainer = styled.div`
   margin-top: 24px;
   padding: 0 12px;
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  ${smDown({
+    width: "100%",
+  })}
 `;
 const RightItem = styled.div`
+  margin-top: 24px;
   padding: 24px;
   border: 1px solid ${({ theme }) => theme.palette.primary.light};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -99,7 +101,7 @@ const Features = () => {
     title: string;
     desc: string;
   }
-  const rightItemCol: IRightItem[] = [
+  const rightItemLeftCol: IRightItem[] = [
     {
       title: "Fast Executions",
       desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
@@ -108,6 +110,8 @@ const Features = () => {
       title: "Fast Executions",
       desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
     },
+  ];
+  const rightItemRightCol: IRightItem[] = [
     {
       title: "Fast Executions",
       desc: "Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet",
@@ -165,9 +169,9 @@ const Features = () => {
       </Left>
       <Right>
         <RightCol ref={rightEl}>
-          {rightItemCol.map(({ title, desc }, idx) => (
-            <RightItemContainer ref={addToRightItemsEl} key={idx}>
-              <RightItem>
+          <RightItemContainer ref={addToRightItemsEl}>
+            {rightItemLeftCol.map(({ title, desc }, idx) => (
+              <RightItem key={idx}>
                 <Icon icon={["fas", "check"]} />
                 <RightItemTitle>{title}</RightItemTitle>
                 <StyledParagraph>{desc}</StyledParagraph>
@@ -176,8 +180,21 @@ const Features = () => {
                   <RightItemBtnIcon icon={["fas", "arrow-right"]} />
                 </RightItemButton>
               </RightItem>
-            </RightItemContainer>
-          ))}
+            ))}
+          </RightItemContainer>
+          <RightItemContainer ref={addToRightItemsEl}>
+            {rightItemRightCol.map(({ title, desc }, idx) => (
+              <RightItem key={idx}>
+                <Icon icon={["fas", "check"]} />
+                <RightItemTitle>{title}</RightItemTitle>
+                <StyledParagraph>{desc}</StyledParagraph>
+                <RightItemButton to="">
+                  Read More
+                  <RightItemBtnIcon icon={["fas", "arrow-right"]} />
+                </RightItemButton>
+              </RightItem>
+            ))}
+          </RightItemContainer>
         </RightCol>
       </Right>
     </Container>
