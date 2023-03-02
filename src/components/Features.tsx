@@ -146,8 +146,9 @@ const Features = () => {
       duration: 0.6,
       stagger: 0.2,
       scrollTrigger: {
-        trigger: rightItemsEl.current,
-        start: "top-=70% center",
+        trigger: rightEl.current,
+        start: "top-=15% center",
+        markers: true,
       },
     });
 
