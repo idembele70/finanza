@@ -11,12 +11,12 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
 import styled from "styled-components";
 import { mdDown, xsDown } from "../utils/responsive";
-import { WrapperContainer } from "./SliderItem";
+import { WrapperContainer, imgbaseUrl } from "./SliderItem";
 library.add(faCheck, faUsersGear, faAward);
 const Container = styled.div`
   width: 100%;
   background: linear-gradient(rgba(53, 94, 252, 0.95), rgba(53, 94, 252, 0.95)),
-    url(${process.env.PUBLIC_URL}assets//bg.png);
+    url(${imgbaseUrl}bg.png);
   padding: 48px 0;
   margin: 48px 0;
 `;
