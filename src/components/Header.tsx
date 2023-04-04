@@ -116,7 +116,6 @@ const Right = styled.div<RightProps>`
       top: "100%",
       left: 0,
       right: 0,
-      marginTop: 10,
       overflow: "hidden",
       backgroundColor: theme.palette.common.white,
       borderTop: toggle ? "1px solid rgba(0,0,0,0.07)" : "none",
