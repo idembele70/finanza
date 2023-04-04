@@ -148,7 +148,6 @@ const Features = () => {
       scrollTrigger: {
         trigger: rightEl.current,
         start: "top-=15% center",
-        markers: true,
       },
     });
 

@@ -132,12 +132,14 @@ const Nav = styled.nav`
     })}
 `;
 interface INavItem {
-  isActive: boolean;
+  isactive: boolean;
 }
-const NavItem = styled(NavLink)<INavItem>`
+const NavItem = styled(NavLink)`
   text-decoration: none;
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.palette.primary.main : theme.palette.common.black};
+  &.active {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
+  color: ${({ theme }) => theme.palette.common.black};
   font-weight: 500;
   padding: 25px 15px;
   &:hover {
@@ -154,12 +156,14 @@ const NavItemIcon = styled(FontAwesomeIcon)`
   vertical-align: inherit;
 `;
 interface DropDownContainerProps {
-  isActive: boolean;
+  isactive: string;
   toggle: boolean;
 }
 const DropDownContainer = styled.span<DropDownContainerProps>`
-  color: ${({ theme, isActive }) =>
-    isActive ? theme.palette.primary.main : theme.palette.common.black};
+  color: ${({ theme, isactive }) =>
+    isactive === "true"
+      ? theme.palette.primary.main
+      : theme.palette.common.black};
   font-weight: 500;
   padding: 25px 15px;
   font-size: 1rem;
@@ -209,19 +213,23 @@ const NavDropDown = styled.div`
     opacity: 1,
   })}
 `;
-const NavDropDownItem = styled(Link)<INavItem>`
+const NavDropDownItem = styled(NavLink)`
   width: 100%;
   display: block;
-  color: ${({ isActive, theme }) =>
-    isActive ? theme.palette.common.white : "#212529"};
+  &.active {
+    color: ${({ theme }) => theme.palette.common.white};
+    background-color: ${({ theme }) => theme.palette.primary.main};
+  }
+  color: #212529;
   padding: 4px 16px;
   font-weight: 400;
   line-height: 1.5;
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.palette.primary.main : "transparent"};
+  background-color: transparent;
   &:hover {
-    background-color: ${({ isActive, theme }) =>
-      isActive ? theme.palette.primary.main : "#e9ecef"};
+    &.active {
+      background-color: ${({ theme }) => theme.palette.primary.main};
+    }
+    background-color: #e9ecef;
   }
 `;
 const MediaContainer = styled.div`
@@ -420,55 +428,27 @@ const Header = () => {
           </LogoContainer>
           <Right toggle={navToggle}>
             <Nav>
-              <NavItem isActive={pathname === "/"} to="">
-                Home
-              </NavItem>
-              <NavItem isActive={pathname === "/about"} to="about">
-                About
-              </NavItem>
-              <NavItem isActive={pathname === "/service"} to="service">
-                Services
-              </NavItem>
+              <NavItem to="">Home</NavItem>
+              <NavItem to="about">About</NavItem>
+              <NavItem to="service">Services</NavItem>
               <DropDownContainer
                 onClick={handleToggleDropDown}
                 toggle={dropDownToggle}
-                isActive={isPagesActive}
+                isactive={`{isPagesActive}`}
               >
                 Pages
                 <NavItemIcon icon={["fas", "chevron-down"]} />
                 <NavDropDown>
-                  <NavDropDownItem
-                    isActive={pathname === "/project"}
-                    to="project"
-                  >
-                    Projects
-                  </NavDropDownItem>
-                  <NavDropDownItem
-                    isActive={pathname === "/feature"}
-                    to="feature"
-                  >
-                    Features
-                  </NavDropDownItem>
-                  <NavDropDownItem isActive={pathname === "/team"} to="team">
-                    Team Member
-                  </NavDropDownItem>
-                  <NavDropDownItem
-                    isActive={pathname === "/testimonial"}
-                    to="testimonial"
-                  >
+                  <NavDropDownItem to="project">Projects</NavDropDownItem>
+                  <NavDropDownItem to="feature">Features</NavDropDownItem>
+                  <NavDropDownItem to="team">Team Member</NavDropDownItem>
+                  <NavDropDownItem to="testimonial">
                     Testimonial
                   </NavDropDownItem>
-                  <NavDropDownItem
-                    isActive={pathname === "/notFound"}
-                    to="notFound"
-                  >
-                    404 Page
-                  </NavDropDownItem>
+                  <NavDropDownItem to="notFound">404 Page</NavDropDownItem>
                 </NavDropDown>
               </DropDownContainer>
-              <NavItem isActive={pathname === "/contact"} to="contact">
-                Contact
-              </NavItem>
+              <NavItem to="contact">Contact</NavItem>
             </Nav>
             <MediaContainer>
               <MediaIconContainer to="">
@@ -487,10 +467,7 @@ const Header = () => {
           </BarsContainer>
         </Bottom>
       </Container>
-      <ScrollTopBtn
-        display={displayScrollTop.toString()}
-        onClick={handleScrollTop}
-      >
+      <ScrollTopBtn display={`${displayScrollTop}`} onClick={handleScrollTop}>
         <Icon icon={["fas", "arrow-up"]} />
       </ScrollTopBtn>
     </>

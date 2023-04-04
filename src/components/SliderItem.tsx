@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 const Container = styled.div`
   position: relative;
 `;
